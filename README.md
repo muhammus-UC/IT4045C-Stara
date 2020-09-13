@@ -59,7 +59,7 @@ As a user interested in TV Shows, I want to be able to maintain a list of my fav
 **When** the user/service requests a report of their favorites.  
 **Then** the user/service will be returned a detailed report of their favorite shows and actors.  
 
-**2.3**
+**2.3**  
 **Given** the user/service is authenticated and thus logged in.  
 **When** the user/service views their favorites and requests to share.  
 **Then** the user/service will be able to quickly share the favorite in question.  
@@ -69,12 +69,12 @@ As a user interested in TV Shows, I want to be able to quickly see what TV shows
 
 **Examples**  
 **3.1**  
-**Given** A feed of TV show data is available, and the user has granted location access  
+**Given** a feed of TV show data is available, and the user has granted location access  
 **When** the user opens the homepage  
 **Then** the user should see a list of TV shows for their country of residence that have episodes premiering today.  
 
 **3.2**  
-**Given** A feed of TV show data is available, but the user has denied location access  
+**Given** a feed of TV show data is available, but the user has denied location access  
 **When** the user opens the homepage  
 **Then** the user should see a list of TV shows for the USA that have episodes premiering today.  
 
