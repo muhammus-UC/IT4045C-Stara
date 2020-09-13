@@ -1,5 +1,4 @@
-# IT4045C-Stara
----
+# Stara for IT4045C
 
 ## Introduction  
 
