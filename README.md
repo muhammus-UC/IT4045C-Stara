@@ -15,7 +15,7 @@ Users can interact with Stara using either a set of RESTful service endpoints, o
 In addition, Android users can interact with Stara on the go with a native application.
 
 ## Storyboard  
-[Stara Storyboard](https://rwhf87.axshare.com)  
+[Stara Storyboard](https://rwhf87.axshare.com) Password: Stara 
 - Storyboard Interaction:  
   - Pages are scrollable
   - Pseudo-autocomplete search functionality
