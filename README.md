@@ -128,10 +128,10 @@ This is what we plan to export to another app.
 - UI Specialist: Aida Musaeva and Umer Muhammad
 
 ## Milestones
-- Milestone 0: Planning
-- Milestone 1: Define Service Endpoints, Basic UI, Write Unit Tests
-- Milestone 2: Persistence and Implement Interfaces
-- Milestone 3: Integrate
- 
+- [Milestone 0: Planning](https://github.com/muhammus-UC/IT4045C-Stara/milestone/1)
+- [Milestone 1: Define Service Endpoints, Basic UI, Write Unit Tests](https://github.com/muhammus-UC/IT4045C-Stara/milestone/2)
+- [Milestone 2: Persistence and Implement Interfaces](https://github.com/muhammus-UC/IT4045C-Stara/milestone/3)
+- [Milestone 3: Integrate](https://github.com/muhammus-UC/IT4045C-Stara/milestone/4)
+
 ## Weekly Stand Up Meeting
 Via WhatsApp on Sundays at 8 PM
