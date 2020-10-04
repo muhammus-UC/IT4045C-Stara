@@ -19,11 +19,29 @@ public class StaraController {
     IFavoriteService favoriteService;
 
     /**
-     * Handle the root (/) endpoint
-     * @return a basic start page
+     * RequestMapping for root (/) endpoint
+     * Create a Stara favorite object then display start
+     * @return Stara start page
      */
     @RequestMapping("/")
-    public String index() {
+    public String index(Model model) {
+        // Create and define favorite object
+        Favorite favorite = new Favorite();
+        favorite.setId(318);
+        favorite.setName("Community");
+        favorite.setSubtitle("English");
+        favorite.setDetail("Ended");
+
+        // Save newly created favorite to list of all favorites
+        try {
+            favoriteService.save(favorite);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Add newly created favorite to model so it can be displayed
+        model.addAttribute(favorite);
+
         return "start";
     }
 
