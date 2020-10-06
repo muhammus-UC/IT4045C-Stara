@@ -22,7 +22,7 @@ class ShowDataUnitTest {
     }
     
     @Test
-    void confirmNailedIt_outputsNailedIt() {
+    void confirmGoodPlace_outputsGoodPlace() {
         Show show = new Show();
         show.setId(35094);
         show.setName("The Good Place");
