@@ -1,7 +1,9 @@
 package com.stara.enterprise;
 
 import com.stara.enterprise.dto.Favorite;
+import com.stara.enterprise.dto.ShowFeed;
 import com.stara.enterprise.service.IFavoriteService;
+import com.stara.enterprise.service.IShowFeedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -11,12 +13,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
 public class StaraController {
     @Autowired
     IFavoriteService favoriteService;
+
+    @Autowired
+    IShowFeedService showFeedService;
 
     /**
      * RequestMapping for root (/) endpoint
@@ -128,6 +134,32 @@ public class StaraController {
             return new ResponseEntity(HttpStatus.OK);
         }
         catch (Exception e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * GetMapping for /shows endpoint
+     * Returns show results from TVMaze API
+     * Equivalent of running https://api.tvmaze.com/search/shows?q=showName
+     */
+
+    /**
+     * GetMapping for /shows endpoint
+     * Equivalent of running https://api.tvmaze.com/search/shows?q=showName
+     *
+     * @param searchTerm show name to search for REQUIRED
+     * @return search results from TVMaze API
+     */
+    @GetMapping("/shows")
+    public ResponseEntity searchShows(@RequestParam(value = "searchTerm", required = true) String searchTerm) {
+        try {
+            List<ShowFeed> shows = showFeedService.fetchShows(searchTerm);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity(shows, headers, HttpStatus.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
