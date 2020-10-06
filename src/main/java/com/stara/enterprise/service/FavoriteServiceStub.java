@@ -19,7 +19,7 @@ public class FavoriteServiceStub implements IFavoriteService {
     }
 
     @Override
-    public void delete(int id) throws Exception {
+    public void delete(int id) {
         favoriteDAO.delete(id);
     }
 
