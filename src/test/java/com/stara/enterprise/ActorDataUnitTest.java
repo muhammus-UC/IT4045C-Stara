@@ -21,5 +21,18 @@ class ActorDataUnitTest {
         assertEquals("United States", actor.getCountry());
         assertEquals("Male", actor.getGender());
     }
+    
+    @Test
+    void confirmBradPitt_outputsBradPitt() {
+        Actor actor = new Actor();
+        actor.setId(22013);
+        actor.setName("Brad Pitt");
+        actor.setCountry("United States");
+        actor.setGender("Male");
+        assertEquals(22013, actor.getId());
+        assertEquals("Brad Pitt", actor.getName());
+        assertEquals("United States", actor.getCountry());
+        assertEquals("Male", actor.getGender());
+    }
 
 }
