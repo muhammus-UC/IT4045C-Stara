@@ -11,7 +11,7 @@ import java.util.Map;
 @Repository
 public class FavoriteDAOStub implements IFavoriteDAO {
     Map<Integer, Favorite> allFavorites = new HashMap<>();
-    List<Favorite> returnFavorites = new ArrayList(allFavorites.values());
+    List<Favorite> returnFavorites;
 
     @Override
     public void delete(int id) {
@@ -20,11 +20,12 @@ public class FavoriteDAOStub implements IFavoriteDAO {
 
     @Override
     public Favorite fetch(int id) {
-        return allFavorites.get(id);
+        return returnFavorites.get(id);
     }
 
     @Override
     public List<Favorite> fetchAll() {
+        returnFavorites = new ArrayList(allFavorites.values());
         return returnFavorites;
     }
 
@@ -32,7 +33,6 @@ public class FavoriteDAOStub implements IFavoriteDAO {
     public Favorite save(Favorite favorite) throws Exception {
         Integer favoriteID = favorite.getId();
         allFavorites.put(favoriteID, favorite);
-        returnFavorites.add(favoriteID, favorite);
         return favorite;
     }
 }
