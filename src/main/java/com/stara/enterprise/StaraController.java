@@ -111,10 +111,16 @@ public class StaraController {
      */
     @GetMapping("/favorite/{id}")
     public ResponseEntity fetchFavoriteByID(@PathVariable("id") String id) {
-        Favorite foundFavorite = favoriteService.fetchById(Integer.parseInt(id));
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        return new ResponseEntity(foundFavorite, headers, HttpStatus.OK);
+        try{
+            Favorite foundFavorite = favoriteService.fetchById(Integer.parseInt(id));
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity(foundFavorite, headers, HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     /**
@@ -134,7 +140,7 @@ public class StaraController {
             return new ResponseEntity(HttpStatus.OK);
         }
         catch (Exception e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(HttpStatus.CONFLICT);
         }
     }
 
