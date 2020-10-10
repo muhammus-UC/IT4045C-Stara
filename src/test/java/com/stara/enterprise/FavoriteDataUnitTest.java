@@ -1,6 +1,6 @@
 package com.stara.enterprise;
 
-import com.stara.enterprise.dao.IFavoriteDAO;
+import com.stara.enterprise.dao.favorite.IFavoriteDAO;
 import com.stara.enterprise.dto.Favorite;
 import com.stara.enterprise.service.FavoriteServiceStub;
 import com.stara.enterprise.service.IFavoriteService;

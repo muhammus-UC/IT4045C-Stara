@@ -118,6 +118,7 @@ public class StaraController {
             return new ResponseEntity(foundFavorite, headers, HttpStatus.OK);
         }
         catch(Exception e){
+            e.printStackTrace();
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
@@ -140,6 +141,7 @@ public class StaraController {
             return new ResponseEntity(HttpStatus.OK);
         }
         catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
     }

@@ -1,6 +1,6 @@
 package com.stara.enterprise.service;
 
-import com.stara.enterprise.dao.IFavoriteDAO;
+import com.stara.enterprise.dao.favorite.IFavoriteDAO;
 import com.stara.enterprise.dto.Favorite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

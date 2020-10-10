@@ -1,4 +1,4 @@
-package com.stara.enterprise.dao;
+package com.stara.enterprise.dao.favorite;
 
 import com.stara.enterprise.dto.Favorite;
 
