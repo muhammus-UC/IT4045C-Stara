@@ -21,4 +21,16 @@ class ShowDataUnitTest {
         assertEquals("To Be Determined", show.getStatus());
     }
 
+    @Test
+    void confirmGoodPlace_outputsGoodPlace() {
+        Show show = new Show();
+        show.setId(2790);
+        show.setName("The Good Place");
+        show.setLanguage("English");
+        show.setStatus("Ended");
+        assertEquals(2790, show.getId());
+        assertEquals("English", show.getLanguage());
+        assertEquals("Ended", show.getStatus());
+    }
+
 }
