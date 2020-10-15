@@ -1,7 +1,7 @@
 package com.stara.enterprise;
 
-import com.stara.enterprise.dto.ShowFeed;
-import com.stara.enterprise.service.IShowFeedService;
+import com.stara.enterprise.dto.show.ShowFeed;
+import com.stara.enterprise.service.show.IShowFeedService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -84,7 +84,8 @@ class ShowDataIntegrationTest {
                 showFeedItem.getShow().getId() == 1641 &&
                 showFeedItem.getShow().getName().equals("Black Books") &&
                 showFeedItem.getShow().getLanguage().equals("English") &&
-                showFeedItem.getShow().getStatus().equals("Ended")
+                showFeedItem.getShow().getStatus().equals("Ended") &&
+                showFeedItem.getShow().getImage().getMedium().equals("http://static.tvmaze.com/uploads/images/medium_portrait/81/204617.jpg")
             ) {
                 blackBooksFound = true;
                 break;

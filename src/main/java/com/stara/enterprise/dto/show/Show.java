@@ -1,6 +1,7 @@
-package com.stara.enterprise.dto;
+package com.stara.enterprise.dto.show;
 
 import com.google.gson.annotations.SerializedName;
+import com.stara.enterprise.dto.ImageURLs;
 import lombok.Data;
 
 public @Data
@@ -13,4 +14,6 @@ class Show {
     private String language;
     @SerializedName("status")
     private String status;
+    @SerializedName("image")
+    private ImageURLs image;
 }

@@ -1,6 +1,6 @@
 package com.stara.enterprise.dao.show;
 
-import com.stara.enterprise.dto.ShowFeed;
+import com.stara.enterprise.dto.show.ShowFeed;
 
 import java.io.IOException;
 import java.util.List;
