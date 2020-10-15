@@ -2,8 +2,10 @@ package com.stara.enterprise;
 
 import com.stara.enterprise.dto.Favorite;
 import com.stara.enterprise.dto.ShowFeed;
+import com.stara.enterprise.dto.actor.ActorFeed;
 import com.stara.enterprise.service.IFavoriteService;
 import com.stara.enterprise.service.IShowFeedService;
+import com.stara.enterprise.service.actor.IActorFeedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,9 @@ public class StaraController {
 
     @Autowired
     IShowFeedService showFeedService;
+
+    @Autowired
+    IActorFeedService actorFeedService;
 
     /**
      * RequestMapping for root (/) endpoint
@@ -147,24 +152,38 @@ public class StaraController {
 
     /**
      * GetMapping for /shows endpoint
-     * Returns show results from TVMaze API
-     * Equivalent of running https://api.tvmaze.com/search/shows?q=showName
-     */
-
-    /**
-     * GetMapping for /shows endpoint
-     * Equivalent of running https://api.tvmaze.com/search/shows?q=showName
+     * Equivalent of running https://api.tvmaze.com/search/shows?q=searchShow
      *
-     * @param searchTerm show name to search for REQUIRED
+     * @param searchShow show name to search for REQUIRED
      * @return search results from TVMaze API
      */
     @GetMapping("/shows")
-    public ResponseEntity searchShows(@RequestParam(value = "searchTerm", required = true) String searchTerm) {
+    public ResponseEntity searchShows(@RequestParam(value = "searchShow", required = true) String searchShow) {
         try {
-            List<ShowFeed> shows = showFeedService.fetchShows(searchTerm);
+            List<ShowFeed> shows = showFeedService.fetchShows(searchShow);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             return new ResponseEntity(shows, headers, HttpStatus.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * GetMapping for /actors endpoint
+     * Equivalent of running https://api.tvmaze.com/search/people?q=searchActor
+     *
+     * @param searchActor actor name to search for REQUIRED
+     * @return search results from TVMaze API
+     */
+    @GetMapping("/actors")
+    public ResponseEntity searchActors(@RequestParam(value = "searchActor", required = true) String searchActor) {
+        try {
+            List<ActorFeed> actors = actorFeedService.fetchActors(searchActor);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity(actors, headers, HttpStatus.OK);
         } catch (IOException e) {
             e.printStackTrace();
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);

@@ -15,9 +15,9 @@ public class ShowFeedDAO implements IShowFeedDAO {
     @Override
     public List<ShowFeed> fetchShows(String showName) throws IOException {
         Retrofit retrofitInstance = RetrofitClientInstance.getRetrofitInstance();
-        IShowFeedRetrofitDAO showJSONRetrofitDAO = retrofitInstance.create(IShowFeedRetrofitDAO.class);
-        Call<List<ShowFeed>> searchResultsShowJSON = showJSONRetrofitDAO.getShows(showName);
-        Response<List<ShowFeed>> execute = searchResultsShowJSON.execute();
+        IShowFeedRetrofitDAO showFeedRetrofitDAO = retrofitInstance.create(IShowFeedRetrofitDAO.class);
+        Call<List<ShowFeed>> searchResultsShowFeed = showFeedRetrofitDAO.getShows(showName);
+        Response<List<ShowFeed>> execute = searchResultsShowFeed.execute();
         List<ShowFeed> shows = execute.body();
         return shows;
     }
