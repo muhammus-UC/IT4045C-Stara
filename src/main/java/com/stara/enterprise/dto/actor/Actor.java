@@ -1,6 +1,7 @@
 package com.stara.enterprise.dto.actor;
 
 import com.google.gson.annotations.SerializedName;
+import com.stara.enterprise.dto.ImageURLs;
 import lombok.Data;
 
 public @Data
@@ -13,4 +14,6 @@ class Actor {
     private ActorCountry country;
     @SerializedName("gender")
     private String gender;
+    @SerializedName("image")
+    private ImageURLs image;
 }

@@ -13,4 +13,6 @@ class Show {
     private String language;
     @SerializedName("status")
     private String status;
+    @SerializedName("image")
+    private ImageURLs image;
 }
