@@ -1,7 +1,7 @@
 package com.stara.enterprise;
 
-import com.stara.enterprise.dto.ShowFeed;
-import com.stara.enterprise.service.IShowFeedService;
+import com.stara.enterprise.dto.show.ShowFeed;
+import com.stara.enterprise.service.show.IShowFeedService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

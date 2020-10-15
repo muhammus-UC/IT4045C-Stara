@@ -1,7 +1,7 @@
 package com.stara.enterprise.dao.show;
 
 import com.stara.enterprise.dao.RetrofitClientInstance;
-import com.stara.enterprise.dto.ShowFeed;
+import com.stara.enterprise.dto.show.ShowFeed;
 import org.springframework.stereotype.Repository;
 import retrofit2.Call;
 import retrofit2.Response;

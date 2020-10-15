@@ -1,4 +1,4 @@
-package com.stara.enterprise.dto;
+package com.stara.enterprise.dto.show;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;

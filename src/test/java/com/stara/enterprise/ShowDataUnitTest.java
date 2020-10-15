@@ -1,6 +1,6 @@
 package com.stara.enterprise;
 
-import com.stara.enterprise.dto.Show;
+import com.stara.enterprise.dto.show.Show;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

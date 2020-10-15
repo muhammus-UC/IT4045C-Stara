@@ -1,10 +1,10 @@
 package com.stara.enterprise;
 
 import com.stara.enterprise.dto.Favorite;
-import com.stara.enterprise.dto.ShowFeed;
+import com.stara.enterprise.dto.show.ShowFeed;
 import com.stara.enterprise.dto.actor.ActorFeed;
 import com.stara.enterprise.service.IFavoriteService;
-import com.stara.enterprise.service.IShowFeedService;
+import com.stara.enterprise.service.show.IShowFeedService;
 import com.stara.enterprise.service.actor.IActorFeedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
