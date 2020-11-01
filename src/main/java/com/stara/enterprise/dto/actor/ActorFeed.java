@@ -9,4 +9,10 @@ class ActorFeed {
     private Double score;
     @SerializedName("person")
     private Actor actor;
+
+    public String toString() {
+        return "ActorFeed Item - " +
+                "Score: " + score +
+                ". " + actor.toString();
+    }
 }

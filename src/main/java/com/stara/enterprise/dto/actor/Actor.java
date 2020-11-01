@@ -8,6 +8,8 @@ public @Data
 class Actor {
     @SerializedName("id")
     private int id;
+    @SerializedName("url")
+    private String url;
     @SerializedName("name")
     private String name;
     @SerializedName("country")
@@ -16,4 +18,19 @@ class Actor {
     private String gender;
     @SerializedName("image")
     private ImageURLs image;
+
+    public String toString() {
+        // Handle possible null for ActorCountry
+        String countryName = null;
+        if (country != null) {
+            countryName = country.toString();
+        }
+
+        return "Actor Info - ID: " + id +
+                ". URL: " + url +
+                ". Name: " + name +
+                ". Country: " + countryName +
+                ". Gender: " + gender +
+                ". Image URL: " + image.getMedium();
+    }
 }

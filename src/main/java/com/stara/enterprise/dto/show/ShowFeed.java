@@ -9,4 +9,10 @@ class ShowFeed {
     private Double score;
     @SerializedName("show")
     private Show show;
+
+    public String toString() {
+        return "ShowFeed Item - " +
+                "Score: " + score +
+                ". " + show.toString();
+    }
 }

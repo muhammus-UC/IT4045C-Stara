@@ -8,6 +8,8 @@ public @Data
 class Show {
     @SerializedName("id")
     private int id;
+    @SerializedName("url")
+    private String url;
     @SerializedName("name")
     private String name;
     @SerializedName("language")
@@ -16,4 +18,13 @@ class Show {
     private String status;
     @SerializedName("image")
     private ImageURLs image;
+
+    public String toString() {
+        return "Show Info - ID: " + id +
+                ". URL: " + url +
+                ". Name: " + name +
+                ". Language: " + language +
+                ". Status: " + status +
+                ". Image URL: " + image.getMedium();
+    }
 }
