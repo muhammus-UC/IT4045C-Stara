@@ -20,17 +20,38 @@ class Actor {
     private ImageURLs image;
 
     public String toString() {
-        // Handle possible null for ActorCountry
-        String countryName = null;
-        if (country != null) {
-            countryName = country.toString();
-        }
-
         return "Actor Info - ID: " + id +
                 ". URL: " + url +
                 ". Name: " + name +
-                ". Country: " + countryName +
+                ". Country: " + country +
                 ". Gender: " + gender +
-                ". Image URL: " + image.getMedium();
+                ". Image URL: " + image;
+    }
+
+    // Property country can be null, manually define get method.
+    public ActorCountry getCountry() {
+        if (country == null) {
+            country = new ActorCountry();
+            country.setName("Country Unknown");
+        }
+        return country;
+    }
+
+    // Property gender can be null, manually define get method.
+    public String getGender() {
+        if (gender == null) {
+            gender = "Gender Unknown";
+        }
+        return gender;
+    }
+
+    // Property image can be null, manually define get method.
+    public ImageURLs getImage() {
+        if (image == null) {
+            image = new ImageURLs();
+            // Placeholder indicating no image found
+            image.setMedium("images/null.svg");
+        }
+        return image;
     }
 }
