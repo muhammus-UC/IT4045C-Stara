@@ -25,6 +25,32 @@ class Show {
                 ". Name: " + name +
                 ". Language: " + language +
                 ". Status: " + status +
-                ". Image URL: " + image.getMedium();
+                ". Image URL: " + image;
+    }
+
+    // Property language can be null, manually define get method.
+    public String getLanguage() {
+        if (language == null) {
+            language = "Language Unknown";
+        }
+        return language;
+    }
+
+    // Property status can be null, manually define get method.
+    public String getStatus() {
+        if (status == null) {
+            status = "Status Unknown";
+        }
+        return status;
+    }
+
+    // Property image can be null, manually define get method.
+    public ImageURLs getImage() {
+        if (image == null) {
+            image = new ImageURLs();
+            // Placeholder indicating no image found
+            image.setMedium("images/null.svg");
+        }
+        return image;
     }
 }
