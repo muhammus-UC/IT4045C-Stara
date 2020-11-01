@@ -189,4 +189,29 @@ public class StaraController {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    /**
+     * GetMapping for /search endpoint
+     * Equivalent of running https://www.tvmaze.com/search?q=searchTerm
+     * Also equivalent of getting /shows and /actors results, combining them, and then displaying them via HTML
+     * TVMaze API does not natively support searching for both shows and actors in one call so have to make two separate calls
+     *
+     * @param searchTerm show or actor to search for REQUIRED
+     * @param model used to pass list of shows and actors to UI layer
+     * @return HTML page that displays results in an organized manner
+     */
+    @GetMapping("/search")
+    public String searchShowsAndActors(@RequestParam(value = "searchTerm", required = true) String searchTerm, Model model) {
+        try {
+            List<ShowFeed> shows = showFeedService.fetchShows(searchTerm);
+            List<ActorFeed> actors = actorFeedService.fetchActors(searchTerm);
+            model.addAttribute("showFeedList", shows);
+            model.addAttribute("actorFeedList", actors);
+            return "search";
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "error";
+        }
+    }
 }

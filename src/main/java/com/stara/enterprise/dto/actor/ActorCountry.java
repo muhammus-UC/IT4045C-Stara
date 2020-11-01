@@ -7,4 +7,8 @@ public @Data
 class ActorCountry {
     @SerializedName("name")
     private String name;
+
+    public String toString() {
+        return name;
+    }
 }
