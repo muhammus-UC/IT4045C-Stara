@@ -20,7 +20,7 @@ class ShowDataIntegrationTest {
     List<ShowFeed> showFeed;
 
     @Test
-    void actorDTO_isPopulated() {
+    void showDTO_isPopulated() {
         givenViewModelIsInitialized();
         whenShowFeedDataAreReadAndParsed();
         thenShowFeedShouldNotBeEmpty();
@@ -82,6 +82,7 @@ class ShowDataIntegrationTest {
         for (ShowFeed showFeedItem : showFeed) {
             if (
                 showFeedItem.getShow().getId() == 1641 &&
+                showFeedItem.getShow().getUrl().equals("http://www.tvmaze.com/shows/1641/black-books") &&
                 showFeedItem.getShow().getName().equals("Black Books") &&
                 showFeedItem.getShow().getLanguage().equals("English") &&
                 showFeedItem.getShow().getStatus().equals("Ended") &&

@@ -82,6 +82,7 @@ class ActorDataIntegrationTest {
         for (ActorFeed actorFeedItem : actorFeed) {
             if (
                 actorFeedItem.getActor().getId() == 46432 &&
+                actorFeedItem.getActor().getUrl().equals("http://www.tvmaze.com/people/46432/tom-hanks") &&
                 actorFeedItem.getActor().getName().equals("Tom Hanks") &&
                 actorFeedItem.getActor().getCountry().getName().equals("United States") &&
                 actorFeedItem.getActor().getGender().equals("Male") &&
