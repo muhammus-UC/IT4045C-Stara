@@ -25,17 +25,39 @@
 <h2>Your search results:</h2>
 
 <h3>Show results:</h3>
-<div class="list-group" th:each="showFeed : ${showFeedList}">
-    <a th:href="${showFeed.show.url}" class="list-group-item list-group-item-action">
-        <p th:text="${showFeed.show}"></p>
-    </a>
+<div class="list-group" role="list">
+    <div class="list-group-item list-group-item-action" th:each="showFeed : ${showFeedList}" role="listitem">
+        <a th:href="${showFeed.show.url}" class="media remove-link-styling">
+            <img th:src="${showFeed.show.image.medium}" class="mr-3" th:alt="${showFeed.show.name}" width="128px"/>
+            <div class="media-body">
+                <h5 class="mt-0 mb-1" th:text="${showFeed.show.name}"></h5>
+                <p th:text="${showFeed.show.status}"></p>
+                <p th:text="${showFeed.show.language}"></p>
+                <!--Below line to be removed before final presentation.-->
+                <small th:text="${showFeed.show}"></small>
+            </div>
+        </a>
+    </div>
 </div>
 
+<br/>
+<hr/>
+<br/>
+
 <h3>Actor results:</h3>
-<div class="list-group" th:each="actorFeed : ${actorFeedList}">
-    <a th:href="${actorFeed.actor.url}" class="list-group-item list-group-item-action">
-        <p th:text="${actorFeed.actor}"></p>
-    </a>
+<div class="list-group" role="list">
+    <div class="list-group-item list-group-item-action" th:each="actorFeed : ${actorFeedList}" role="listitem">
+        <a th:href="${actorFeed.actor.url}" class="media remove-link-styling">
+            <img th:src="${actorFeed.actor.image.medium}" class="mr-3" th:alt="${actorFeed.actor.name}" width="128px"/>
+            <div class="media-body">
+                <h5 class="mt-0 mb-1" th:text="${actorFeed.actor.name}"></h5>
+                <p th:text="${actorFeed.actor.gender}"></p>
+                <p th:text="${actorFeed.actor.country}"></p>
+                <!--Below line to be removed before final presentation.-->
+                <small th:text="${actorFeed.actor}"></small>
+            </div>
+        </a>
+    </div>
 </div>
 
 </body>

@@ -1,3 +1,8 @@
 nav {
     background-color: #3C8541;
 }
+
+a.remove-link-styling {
+    text-decoration: none;
+    color: inherit;
+}
