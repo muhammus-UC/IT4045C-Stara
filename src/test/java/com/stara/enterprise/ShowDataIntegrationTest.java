@@ -1,6 +1,6 @@
 package com.stara.enterprise;
 
-import com.stara.enterprise.dto.show.ShowFeed;
+import com.stara.enterprise.dto.show.ShowFeedItem;
 import com.stara.enterprise.service.show.IShowFeedService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ class ShowDataIntegrationTest {
     @Autowired
     IShowFeedService showFeedService;
 
-    List<ShowFeed> showFeed;
+    List<ShowFeedItem> showFeed;
 
     @Test
     void showDTO_isPopulated() {
@@ -57,7 +57,7 @@ class ShowDataIntegrationTest {
 
     private void whenShowFeedDataAreReadAndParsed() {
         try {
-            showFeed = showFeedService.fetchShows("Community");
+            showFeed = showFeedService.fetchShowFeed("Community");
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -70,7 +70,7 @@ class ShowDataIntegrationTest {
 
     private void whenSearchForBlackBooks() {
         try {
-            showFeed = showFeedService.fetchShows("Black Books");
+            showFeed = showFeedService.fetchShowFeed("Black Books");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,7 +79,7 @@ class ShowDataIntegrationTest {
     private void thenShowFeedShouldContainBlackBooks() {
         boolean blackBooksFound = false;
 
-        for (ShowFeed showFeedItem : showFeed) {
+        for (ShowFeedItem showFeedItem : showFeed) {
             if (
                 showFeedItem.getShow().getId() == 1641 &&
                 showFeedItem.getShow().getUrl().equals("http://www.tvmaze.com/shows/1641/black-books") &&
@@ -98,7 +98,7 @@ class ShowDataIntegrationTest {
 
     private void whenSearchForGarbage() {
         try {
-            showFeed = showFeedService.fetchShows("sklujapouetllkjsdau");
+            showFeed = showFeedService.fetchShowFeed("sklujapouetllkjsdau");
         } catch (IOException e) {
             e.printStackTrace();
         }

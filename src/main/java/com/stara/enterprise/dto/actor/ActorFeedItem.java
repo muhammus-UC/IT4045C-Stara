@@ -4,14 +4,14 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 public @Data
-class ActorFeed {
+class ActorFeedItem {
     @SerializedName("score")
     private Double score;
     @SerializedName("person")
     private Actor actor;
 
     public String toString() {
-        return "ActorFeed Item - " +
+        return "ActorFeedItem - " +
                 "Score: " + score +
                 ". " + actor.toString();
     }

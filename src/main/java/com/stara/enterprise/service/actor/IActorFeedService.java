@@ -1,10 +1,10 @@
 package com.stara.enterprise.service.actor;
 
-import com.stara.enterprise.dto.actor.ActorFeed;
+import com.stara.enterprise.dto.actor.ActorFeedItem;
 
 import java.io.IOException;
 import java.util.List;
 
 public interface IActorFeedService {
-    List<ActorFeed> fetchActors(String actorName) throws IOException;
+    List<ActorFeedItem> fetchActorFeed(String actorName) throws IOException;
 }

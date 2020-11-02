@@ -26,15 +26,15 @@
 
 <h3>Show results:</h3>
 <div class="list-group" role="list">
-    <div class="list-group-item list-group-item-action" th:each="showFeed : ${showFeedList}" role="listitem">
-        <a th:href="${showFeed.show.url}" class="media remove-link-styling">
-            <img th:src="${showFeed.show.image.medium}" class="mr-3" th:alt="${showFeed.show.name}" width="128px"/>
+    <div class="list-group-item list-group-item-action" th:each="showFeedItem : ${showFeed}" role="listitem">
+        <a th:href="${showFeedItem.show.url}" class="media remove-link-styling">
+            <img th:src="${showFeedItem.show.image.medium}" class="mr-3" th:alt="${showFeedItem.show.name}" width="128px"/>
             <div class="media-body">
-                <h5 class="mt-0 mb-1" th:text="${showFeed.show.name}"></h5>
-                <p th:text="${showFeed.show.status}"></p>
-                <p th:text="${showFeed.show.language}"></p>
+                <h5 class="mt-0 mb-1" th:text="${showFeedItem.show.name}"></h5>
+                <p th:text="${showFeedItem.show.status}"></p>
+                <p th:text="${showFeedItem.show.language}"></p>
                 <!--Below line to be removed before final presentation.-->
-                <small th:text="${showFeed.show}"></small>
+                <small th:text="${showFeedItem.show}"></small>
             </div>
         </a>
     </div>
@@ -46,15 +46,15 @@
 
 <h3>Actor results:</h3>
 <div class="list-group" role="list">
-    <div class="list-group-item list-group-item-action" th:each="actorFeed : ${actorFeedList}" role="listitem">
-        <a th:href="${actorFeed.actor.url}" class="media remove-link-styling">
-            <img th:src="${actorFeed.actor.image.medium}" class="mr-3" th:alt="${actorFeed.actor.name}" width="128px"/>
+    <div class="list-group-item list-group-item-action" th:each="actorFeedItem : ${actorFeed}" role="listitem">
+        <a th:href="${actorFeedItem.actor.url}" class="media remove-link-styling">
+            <img th:src="${actorFeedItem.actor.image.medium}" class="mr-3" th:alt="${actorFeedItem.actor.name}" width="128px"/>
             <div class="media-body">
-                <h5 class="mt-0 mb-1" th:text="${actorFeed.actor.name}"></h5>
-                <p th:text="${actorFeed.actor.gender}"></p>
-                <p th:text="${actorFeed.actor.country}"></p>
+                <h5 class="mt-0 mb-1" th:text="${actorFeedItem.actor.name}"></h5>
+                <p th:text="${actorFeedItem.actor.gender}"></p>
+                <p th:text="${actorFeedItem.actor.country}"></p>
                 <!--Below line to be removed before final presentation.-->
-                <small th:text="${actorFeed.actor}"></small>
+                <small th:text="${actorFeedItem.actor}"></small>
             </div>
         </a>
     </div>

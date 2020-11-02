@@ -1,8 +1,8 @@
 package com.stara.enterprise;
 
 import com.stara.enterprise.dto.Favorite;
-import com.stara.enterprise.dto.show.ShowFeed;
-import com.stara.enterprise.dto.actor.ActorFeed;
+import com.stara.enterprise.dto.actor.ActorFeedItem;
+import com.stara.enterprise.dto.show.ShowFeedItem;
 import com.stara.enterprise.service.IFavoriteService;
 import com.stara.enterprise.service.show.IShowFeedService;
 import com.stara.enterprise.service.actor.IActorFeedService;
@@ -160,10 +160,10 @@ public class StaraController {
     @GetMapping("/shows")
     public ResponseEntity searchShows(@RequestParam(value = "searchShow", required = true) String searchShow) {
         try {
-            List<ShowFeed> shows = showFeedService.fetchShows(searchShow);
+            List<ShowFeedItem> showFeed = showFeedService.fetchShowFeed(searchShow);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            return new ResponseEntity(shows, headers, HttpStatus.OK);
+            return new ResponseEntity(showFeed, headers, HttpStatus.OK);
         } catch (IOException e) {
             e.printStackTrace();
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -180,10 +180,10 @@ public class StaraController {
     @GetMapping("/actors")
     public ResponseEntity searchActors(@RequestParam(value = "searchActor", required = true) String searchActor) {
         try {
-            List<ActorFeed> actors = actorFeedService.fetchActors(searchActor);
+            List<ActorFeedItem> actorFeed = actorFeedService.fetchActorFeed(searchActor);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            return new ResponseEntity(actors, headers, HttpStatus.OK);
+            return new ResponseEntity(actorFeed, headers, HttpStatus.OK);
         } catch (IOException e) {
             e.printStackTrace();
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -203,10 +203,10 @@ public class StaraController {
     @GetMapping("/search")
     public String searchShowsAndActors(@RequestParam(value = "searchTerm", required = true) String searchTerm, Model model) {
         try {
-            List<ShowFeed> shows = showFeedService.fetchShows(searchTerm);
-            List<ActorFeed> actors = actorFeedService.fetchActors(searchTerm);
-            model.addAttribute("showFeedList", shows);
-            model.addAttribute("actorFeedList", actors);
+            List<ShowFeedItem> shows = showFeedService.fetchShowFeed(searchTerm);
+            List<ActorFeedItem> actors = actorFeedService.fetchActorFeed(searchTerm);
+            model.addAttribute("showFeed", shows);
+            model.addAttribute("actorFeed", actors);
             return "search";
 
         } catch (IOException e) {

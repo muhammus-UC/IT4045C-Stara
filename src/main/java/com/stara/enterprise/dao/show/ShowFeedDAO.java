@@ -1,7 +1,7 @@
 package com.stara.enterprise.dao.show;
 
 import com.stara.enterprise.dao.RetrofitClientInstance;
-import com.stara.enterprise.dto.show.ShowFeed;
+import com.stara.enterprise.dto.show.ShowFeedItem;
 import org.springframework.stereotype.Repository;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -13,12 +13,12 @@ import java.util.List;
 @Repository
 public class ShowFeedDAO implements IShowFeedDAO {
     @Override
-    public List<ShowFeed> fetchShows(String showName) throws IOException {
+    public List<ShowFeedItem> fetchShowFeed(String showName) throws IOException {
         Retrofit retrofitInstance = RetrofitClientInstance.getRetrofitInstance();
         IShowFeedRetrofitDAO showFeedRetrofitDAO = retrofitInstance.create(IShowFeedRetrofitDAO.class);
-        Call<List<ShowFeed>> searchResultsShowFeed = showFeedRetrofitDAO.getShows(showName);
-        Response<List<ShowFeed>> execute = searchResultsShowFeed.execute();
-        List<ShowFeed> shows = execute.body();
-        return shows;
+        Call<List<ShowFeedItem>> showFeedCall = showFeedRetrofitDAO.getShowFeed(showName);
+        Response<List<ShowFeedItem>> execute = showFeedCall.execute();
+        List<ShowFeedItem> showFeed = execute.body();
+        return showFeed;
     }
 }

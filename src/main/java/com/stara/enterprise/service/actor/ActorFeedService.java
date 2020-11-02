@@ -1,7 +1,7 @@
 package com.stara.enterprise.service.actor;
 
 import com.stara.enterprise.dao.actor.IActorFeedDAO;
-import com.stara.enterprise.dto.actor.ActorFeed;
+import com.stara.enterprise.dto.actor.ActorFeedItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ public class ActorFeedService implements IActorFeedService {
     private IActorFeedDAO actorFeedDAO;
 
     @Override
-    public List<ActorFeed> fetchActors(String actorName) throws IOException {
-        return actorFeedDAO.fetchActors(actorName);
+    public List<ActorFeedItem> fetchActorFeed(String actorName) throws IOException {
+        return actorFeedDAO.fetchActorFeed(actorName);
     }
 }

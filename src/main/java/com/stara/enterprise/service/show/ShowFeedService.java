@@ -1,7 +1,7 @@
 package com.stara.enterprise.service.show;
 
 import com.stara.enterprise.dao.show.IShowFeedDAO;
-import com.stara.enterprise.dto.show.ShowFeed;
+import com.stara.enterprise.dto.show.ShowFeedItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ public class ShowFeedService implements IShowFeedService {
     private IShowFeedDAO showFeedDAO;
 
     @Override
-    public List<ShowFeed> fetchShows(String showName) throws IOException {
-        return showFeedDAO.fetchShows(showName);
+    public List<ShowFeedItem> fetchShowFeed(String showName) throws IOException {
+        return showFeedDAO.fetchShowFeed(showName);
     }
 }

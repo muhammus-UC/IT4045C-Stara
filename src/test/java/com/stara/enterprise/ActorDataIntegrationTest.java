@@ -1,6 +1,6 @@
 package com.stara.enterprise;
 
-import com.stara.enterprise.dto.actor.ActorFeed;
+import com.stara.enterprise.dto.actor.ActorFeedItem;
 import com.stara.enterprise.service.actor.IActorFeedService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ class ActorDataIntegrationTest {
     @Autowired
     IActorFeedService actorFeedService;
 
-    List<ActorFeed> actorFeed;
+    List<ActorFeedItem> actorFeed;
 
     @Test
     void actorDTO_isPopulated() {
@@ -57,7 +57,7 @@ class ActorDataIntegrationTest {
 
     private void whenActorFeedDataAreReadAndParsed() {
         try {
-            actorFeed = actorFeedService.fetchActors("Joel McHale");
+            actorFeed = actorFeedService.fetchActorFeed("Joel McHale");
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -70,7 +70,7 @@ class ActorDataIntegrationTest {
 
     private void whenSearchForTomHanks() {
         try {
-            actorFeed = actorFeedService.fetchActors("Tom Hanks");
+            actorFeed = actorFeedService.fetchActorFeed("Tom Hanks");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,7 +79,7 @@ class ActorDataIntegrationTest {
     private void thenActorFeedShouldContainTomHanks() {
         boolean tomHanksFound = false;
 
-        for (ActorFeed actorFeedItem : actorFeed) {
+        for (ActorFeedItem actorFeedItem : actorFeed) {
             if (
                 actorFeedItem.getActor().getId() == 46432 &&
                 actorFeedItem.getActor().getUrl().equals("http://www.tvmaze.com/people/46432/tom-hanks") &&
@@ -98,7 +98,7 @@ class ActorDataIntegrationTest {
 
     private void whenSearchForGarbage() {
         try {
-            actorFeed = actorFeedService.fetchActors("sklujapouetllkjsdau");
+            actorFeed = actorFeedService.fetchActorFeed("sklujapouetllkjsdau");
         } catch (IOException e) {
             e.printStackTrace();
         }
