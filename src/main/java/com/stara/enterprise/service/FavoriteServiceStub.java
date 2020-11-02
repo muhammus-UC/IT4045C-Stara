@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+    Functions to save the favorites of the user
+**/
+
 @Service
 public class FavoriteServiceStub implements IFavoriteService {
     @Autowired
