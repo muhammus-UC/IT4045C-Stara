@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+    This class stores information on the user's favorite actor or show
+**/
+
 @Service
 public class FavoriteServiceStub implements IFavoriteService {
     @Autowired
