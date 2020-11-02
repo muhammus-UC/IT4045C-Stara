@@ -12,6 +12,7 @@ class ScheduleFeedItem {
     private String url;
     @SerializedName("airtime")
     private String airtime;
+    // Show object used to parse nested JSON
     @SerializedName("show")
     private Show show;
 

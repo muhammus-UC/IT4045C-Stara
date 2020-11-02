@@ -16,6 +16,7 @@ class Show {
     private String language;
     @SerializedName("status")
     private String status;
+    // ImageURLs object used to parse nested JSON
     @SerializedName("image")
     private ImageURLs image;
 

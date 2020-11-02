@@ -7,6 +7,7 @@ public @Data
 class ActorFeedItem {
     @SerializedName("score")
     private Double score;
+    // Actor object used to parse nested JSON
     @SerializedName("person")
     private Actor actor;
 

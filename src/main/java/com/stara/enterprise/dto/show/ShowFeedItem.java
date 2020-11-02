@@ -7,6 +7,7 @@ public @Data
 class ShowFeedItem {
     @SerializedName("score")
     private Double score;
+    // Show object used to parse nested JSON
     @SerializedName("show")
     private Show show;
 

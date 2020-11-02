@@ -12,10 +12,12 @@ class Actor {
     private String url;
     @SerializedName("name")
     private String name;
+    // ActorCountry object used to parse nested JSON
     @SerializedName("country")
     private ActorCountry country;
     @SerializedName("gender")
     private String gender;
+    // ImageURLs object used to parse nested JSON
     @SerializedName("image")
     private ImageURLs image;
 
