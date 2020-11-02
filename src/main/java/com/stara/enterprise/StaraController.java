@@ -1,9 +1,11 @@
 package com.stara.enterprise;
 
 import com.stara.enterprise.dto.Favorite;
+import com.stara.enterprise.dto.ScheduleFeedItem;
 import com.stara.enterprise.dto.actor.ActorFeedItem;
 import com.stara.enterprise.dto.show.ShowFeedItem;
 import com.stara.enterprise.service.IFavoriteService;
+import com.stara.enterprise.service.schedule.IScheduleFeedService;
 import com.stara.enterprise.service.show.IShowFeedService;
 import com.stara.enterprise.service.actor.IActorFeedService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,31 +31,28 @@ public class StaraController {
     @Autowired
     IActorFeedService actorFeedService;
 
+    @Autowired
+    IScheduleFeedService scheduleFeedService;
+
     /**
-     * RequestMapping for root (/) endpoint
-     * Create a Stara favorite object then display start
-     * @return Stara start page
+     * GetMapping for / (root) endpoint
+     * Equivalent of running https://www.tvmaze.com/schedule
+     *
+     * @param countryCode country to display schedule for
+     * @param model used to pass schedule to UI layer
+     * @return HTML page that displays schedule in an organized manner
      */
-    @RequestMapping("/")
-    public String index(Model model) {
-        // Create and define favorite object
-        Favorite favorite = new Favorite();
-        favorite.setId(318);
-        favorite.setName("Community");
-        favorite.setSubtitle("English");
-        favorite.setDetail("Ended");
-
-        // Save newly created favorite to list of all favorites
+    @GetMapping("/")
+    public String displaySchedule(@RequestParam(value = "countryCode", required = false) String countryCode, Model model) {
         try {
-            favoriteService.save(favorite);
-        } catch (Exception e) {
+            if (countryCode == null) { countryCode = "US"; }
+            List<ScheduleFeedItem> scheduleFeed = scheduleFeedService.fetchScheduleFeed(countryCode);
+            model.addAttribute("scheduleFeed", scheduleFeed);
+            return "schedule";
+        } catch (IOException e) {
             e.printStackTrace();
+            return "error";
         }
-
-        // Add newly created favorite to model so it can be displayed
-        model.addAttribute(favorite);
-
-        return "start";
     }
 
     /**
@@ -212,6 +211,26 @@ public class StaraController {
         } catch (IOException e) {
             e.printStackTrace();
             return "error";
+        }
+    }
+
+    /**
+     * GetMapping for /schedule endpoint
+     * Equivalent of running https://api.tvmaze.com/schedule?country=countryCode
+     *
+     * @param countryCode country to get schedule for REQUIRED
+     * @return schedule from TVMaze API
+     */
+    @GetMapping("/schedule")
+    public ResponseEntity getSchedule(@RequestParam(value = "countryCode", required = true) String countryCode) {
+        try {
+            List<ScheduleFeedItem> scheduleFeed = scheduleFeedService.fetchScheduleFeed(countryCode);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity(scheduleFeed, headers, HttpStatus.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
