@@ -28,7 +28,11 @@ class Show {
                 ". Image URL: " + image;
     }
 
-    // Property language can be null, manually define get method.
+    /**
+     * Property language may be null, manually defining get method
+     *
+     * @return language if not null, otherwise "Language Unknown"
+     */
     public String getLanguage() {
         if (language == null) {
             language = "Language Unknown";
@@ -36,7 +40,11 @@ class Show {
         return language;
     }
 
-    // Property status can be null, manually define get method.
+    /**
+     * Property status may be null, manually defining get method
+     *
+     * @return status if not null, otherwise "Status Unknown"
+     */
     public String getStatus() {
         if (status == null) {
             status = "Status Unknown";
@@ -44,11 +52,14 @@ class Show {
         return status;
     }
 
-    // Property image can be null, manually define get method.
+    /**
+     * Property image may be null, manually define get method
+     *
+     * @return image if not null, otherwise image with a medium property of "images/null.svg" (a placeholder image to indicate null)
+     */
     public ImageURLs getImage() {
         if (image == null) {
             image = new ImageURLs();
-            // Placeholder indicating no image found
             image.setMedium("images/null.svg");
         }
         return image;

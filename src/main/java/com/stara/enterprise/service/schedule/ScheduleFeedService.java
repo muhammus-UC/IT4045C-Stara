@@ -15,6 +15,13 @@ public class ScheduleFeedService implements IScheduleFeedService {
     @Autowired
     private IScheduleFeedDAO scheduleFeedDAO;
 
+    /**
+     * Fetch "ScheduleFeed" via DAO for country code given
+     *
+     * @param countryCode - Country code for country that user wants TV premiere schedule for (Ex: "US")
+     * @return "ScheduleFeed" - List of ScheduleFeedItems detailing the episodes premiering today for countryCode
+     * @throws IOException needs to be handled in case API call fails
+     */
     @Override
     public List<ScheduleFeedItem> fetchScheduleFeed(String countryCode) throws IOException {
         return scheduleFeedDAO.fetchScheduleFeed(countryCode);

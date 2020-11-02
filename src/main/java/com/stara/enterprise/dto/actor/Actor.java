@@ -28,7 +28,11 @@ class Actor {
                 ". Image URL: " + image;
     }
 
-    // Property country can be null, manually define get method.
+    /**
+     * Property country may be null, manually defining get method
+     *
+     * @return country name if not null, otherwise "Country Unknown"
+     */
     public ActorCountry getCountry() {
         if (country == null) {
             country = new ActorCountry();
@@ -37,7 +41,11 @@ class Actor {
         return country;
     }
 
-    // Property gender can be null, manually define get method.
+    /**
+     * Property gender may be null, manually defining get method
+     *
+     * @return gender if not null, otherwise "Gender Unknown"
+     */
     public String getGender() {
         if (gender == null) {
             gender = "Gender Unknown";
@@ -45,7 +53,11 @@ class Actor {
         return gender;
     }
 
-    // Property image can be null, manually define get method.
+    /**
+     * Property image may be null, manually define get method
+     *
+     * @return image if not null, otherwise image with a medium property of "images/null.svg" (a placeholder image to indicate null)
+     */
     public ImageURLs getImage() {
         if (image == null) {
             image = new ImageURLs();

@@ -12,6 +12,13 @@ import java.util.List;
 
 @Repository
 public class ActorFeedDAO implements IActorFeedDAO {
+    /**
+     * Fetch "ActorFeed" from the API for actor name given
+     *
+     * @param actorName - Actor name that user is looking for information on (Ex: "Brad Pitt")
+     * @return "ActorFeed" - List of ActorFeedItems with the name of or similar to actorName
+     * @throws IOException needs to be handled in case API call fails
+     */
     @Override
     public List<ActorFeedItem> fetchActorFeed(String actorName) throws IOException {
         Retrofit retrofitInstance = RetrofitClientInstance.getRetrofitInstance();

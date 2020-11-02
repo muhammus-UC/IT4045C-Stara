@@ -13,6 +13,13 @@ public class ShowFeedService implements IShowFeedService {
     @Autowired
     private IShowFeedDAO showFeedDAO;
 
+    /**
+     * Fetch "ShowFeed" via DAO for show name given
+     *
+     * @param showName - Show name that user is looking for information on (Ex: "Community")
+     * @return "ShowFeed" - List of ShowFeedItems with the name of or similar to showName
+     * @throws IOException needs to be handled in case API call fails
+     */
     @Override
     public List<ShowFeedItem> fetchShowFeed(String showName) throws IOException {
         return showFeedDAO.fetchShowFeed(showName);
