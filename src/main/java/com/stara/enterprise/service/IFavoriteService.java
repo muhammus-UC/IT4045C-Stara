@@ -4,6 +4,10 @@ import com.stara.enterprise.dto.Favorite;
 
 import java.util.List;
 
+/**
+    Functions for the FavoriteServiceStub page to implement
+**/
+
 public interface IFavoriteService {
     void delete(int id) throws Exception;
 
