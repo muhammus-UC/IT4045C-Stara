@@ -1,9 +1,7 @@
 package com.stara.enterprise.service.schedule;
 
 import com.stara.enterprise.dao.schedule.IScheduleFeedDAO;
-import com.stara.enterprise.dao.show.IShowFeedDAO;
 import com.stara.enterprise.dto.ScheduleFeedItem;
-import com.stara.enterprise.dto.show.ShowFeedItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
