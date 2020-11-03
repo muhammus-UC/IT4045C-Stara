@@ -64,7 +64,7 @@ class Actor {
         if (image == null) {
             image = new ImageURLs();
             // Placeholder indicating no image found
-            image.setMedium("images/null.svg");
+            image.setImageUrl("images/null.svg");
         }
         return image;
     }

@@ -9,5 +9,6 @@ import lombok.Data;
 public @Data
 class ImageURLs {
     @SerializedName("medium")
-    private String medium;
+    private String imageUrl;
+
 }

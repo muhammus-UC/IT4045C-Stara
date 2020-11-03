@@ -27,7 +27,7 @@
 <div class="list-group" role="list">
     <div class="list-group-item list-group-item-action" th:each="scheduleFeedItem : ${scheduleFeed}" role="listitem">
         <a th:href="${scheduleFeedItem.url}" class="media remove-link-styling">
-            <img th:src="${scheduleFeedItem.show.image.medium}" class="mr-3" th:alt="${scheduleFeedItem.show.name}" width="128px"/>
+            <img th:src="${scheduleFeedItem.show.image.imageUrl}" class="mr-3" th:alt="${scheduleFeedItem.show.name}" width="128px"/>
             <div class="media-body">
                 <h5 class="mt-0 mb-1" th:text="${scheduleFeedItem.show.name}"></h5>
                 <p th:text="${scheduleFeedItem.episodeName}"></p>

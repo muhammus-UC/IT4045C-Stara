@@ -86,7 +86,7 @@ class ActorDataIntegrationTest {
                 actorFeedItem.getActor().getName().equals("Tom Hanks") &&
                 actorFeedItem.getActor().getCountry().getName().equals("United States") &&
                 actorFeedItem.getActor().getGender().equals("Male") &&
-                actorFeedItem.getActor().getImage().getMedium().equals("http://static.tvmaze.com/uploads/images/medium_portrait/28/72307.jpg")
+                actorFeedItem.getActor().getImage().getImageUrl().equals("http://static.tvmaze.com/uploads/images/medium_portrait/28/72307.jpg")
             ) {
                 tomHanksFound = true;
                 break;

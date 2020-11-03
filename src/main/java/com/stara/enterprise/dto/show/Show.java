@@ -61,7 +61,7 @@ class Show {
     public ImageURLs getImage() {
         if (image == null) {
             image = new ImageURLs();
-            image.setMedium("images/null.svg");
+            image.setImageUrl("images/null.svg");
         }
         return image;
     }

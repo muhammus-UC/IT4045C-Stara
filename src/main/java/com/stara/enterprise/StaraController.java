@@ -62,13 +62,15 @@ public class StaraController {
      * @return Stara start page displaying newly saved favorite
      */
     @RequestMapping("/saveFavorite")
-    public String saveFavorite(Favorite favorite) {
+    public String saveFavorite(Favorite favorite, Model model) {
         try {
             favoriteService.save(favorite);
+            model.addAttribute("favorite", favorite);
+            return "start";
         } catch (Exception e) {
             e.printStackTrace();
+            return "error";
         }
-        return "start";
     }
 
     /**
