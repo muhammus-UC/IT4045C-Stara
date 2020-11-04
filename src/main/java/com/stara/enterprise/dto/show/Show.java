@@ -21,9 +21,9 @@ class Show {
     private ImageURLs image;
 
     public String toString() {
-        return "Show Info - ID: " + id +
+        return "Show Info - Name: " + name +
+                 ". ID: " + id +
                 ". URL: " + url +
-                ". Name: " + name +
                 ". Language: " + language +
                 ". Status: " + status +
                 ". Image URL: " + image;
