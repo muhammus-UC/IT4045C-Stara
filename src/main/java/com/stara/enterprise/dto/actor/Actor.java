@@ -22,9 +22,9 @@ class Actor {
     private ImageURLs image;
 
     public String toString() {
-        return "Actor Info - ID: " + id +
+        return "Actor Info - Name: " + name +
+                ". ID: " + id +
                 ". URL: " + url +
-                ". Name: " + name +
                 ". Country: " + country +
                 ". Gender: " + gender +
                 ". Image URL: " + image;
