@@ -94,14 +94,17 @@ public class StaraController {
      */
     @PostMapping(value = "/favorite", consumes = "application/json", produces = "application/json")
     @ResponseBody
-    public Favorite createFavorite(@RequestBody Favorite favorite) {
+    public ResponseEntity createFavorite(@RequestBody Favorite favorite) {
         Favorite newFavorite = null;
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
         try {
             newFavorite = favoriteService.save(favorite);
         } catch (Exception e) {
             e.printStackTrace();
+            return new ResponseEntity(headers, HttpStatus.CONFLICT);
         }
-        return newFavorite;
+        return new ResponseEntity(newFavorite, headers, HttpStatus.OK);
     }
 
     /**
