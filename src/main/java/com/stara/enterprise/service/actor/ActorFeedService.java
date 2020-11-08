@@ -22,7 +22,6 @@ public class ActorFeedService implements IActorFeedService {
      * @throws IOException needs to be handled in case API call fails
      */
     @Override
-    @Cacheable(value="ActorFeedItem", key="#actorName")
     public List<ActorFeedItem> fetchActorFeed(String actorName) throws IOException {
         return actorFeedDAO.fetchActorFeed(actorName);
     }

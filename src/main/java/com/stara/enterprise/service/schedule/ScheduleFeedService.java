@@ -23,7 +23,6 @@ public class ScheduleFeedService implements IScheduleFeedService {
      * @return "ScheduleFeed" - List of ScheduleFeedItems detailing the episodes premiering today for countryCode
      * @throws IOException needs to be handled in case API call fails
      */
-    @Cacheable(value="ScheduleFeedItem", key="#countryCode")
     @Override
     public List<ScheduleFeedItem> fetchScheduleFeed(String countryCode) throws IOException {
         return scheduleFeedDAO.fetchScheduleFeed(countryCode);
