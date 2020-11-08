@@ -3,6 +3,8 @@ package com.stara.enterprise.service;
 import com.stara.enterprise.dao.IFavoriteDAO;
 import com.stara.enterprise.dto.Favorite;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,17 +21,20 @@ public class FavoriteServiceStub implements IFavoriteService {
     }
 
     @Override
-    public void delete(int id) throws Exception {
+    @CacheEvict(value="favorite", key="#id")
+    public void delete(int id){
         favoriteDAO.delete(id);
     }
 
     @Override
+    @Cacheable(value="favorite", key="#id")
     public Favorite fetchById(int id) {
         Favorite foundFavorite = favoriteDAO.fetch(id);
         return foundFavorite;
     }
 
     @Override
+    @Cacheable("favorites")
     public List<Favorite> fetchAll() {
         return favoriteDAO.fetchAll();
     }
