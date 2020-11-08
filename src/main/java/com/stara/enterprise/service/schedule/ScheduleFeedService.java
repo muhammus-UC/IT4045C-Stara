@@ -5,6 +5,7 @@ import com.stara.enterprise.dao.show.IShowFeedDAO;
 import com.stara.enterprise.dto.ScheduleFeedItem;
 import com.stara.enterprise.dto.show.ShowFeedItem;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -23,6 +24,7 @@ public class ScheduleFeedService implements IScheduleFeedService {
      * @throws IOException needs to be handled in case API call fails
      */
     @Override
+    @Cacheable(value="scheduleFeed")
     public List<ScheduleFeedItem> fetchScheduleFeed(String countryCode) throws IOException {
         return scheduleFeedDAO.fetchScheduleFeed(countryCode);
     }

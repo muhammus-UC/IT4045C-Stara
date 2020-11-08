@@ -3,6 +3,7 @@ package com.stara.enterprise.service.actor;
 import com.stara.enterprise.dao.actor.IActorFeedDAO;
 import com.stara.enterprise.dto.actor.ActorFeedItem;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -21,6 +22,7 @@ public class ActorFeedService implements IActorFeedService {
      * @throws IOException needs to be handled in case API call fails
      */
     @Override
+    @Cacheable(value="actorFeed")
     public List<ActorFeedItem> fetchActorFeed(String actorName) throws IOException {
         return actorFeedDAO.fetchActorFeed(actorName);
     }
