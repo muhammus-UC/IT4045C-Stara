@@ -36,6 +36,10 @@
                 <small th:text="${favorite}"></small>
             </div>
         </a>
+        <form method="post" action="/favorites/delete">
+            <input type="hidden" name="favoriteId" th:value="${favorite.id}"/>
+            <button type="submit">Remove Favorite</button>
+        </form>
     </div>
 </div>
 
