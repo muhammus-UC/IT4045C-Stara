@@ -29,7 +29,7 @@ public class ScheduleDataUnitTest {
         assertEquals("http://www.tvmaze.com/shows/15779/cbs-news-sunday-morning", scheduleFeedItem.getShow().getUrl());
         assertEquals("CBS News Sunday Morning", scheduleFeedItem.getShow().getName());
         assertEquals("English", scheduleFeedItem.getShow().getLanguage());
-        assertEquals("Running", scheduleFeedItem.getShow().getStatus());
+        assertEquals("Status: Running", scheduleFeedItem.getShow().getStatus());
     }
 
     @Test
@@ -51,6 +51,6 @@ public class ScheduleDataUnitTest {
         assertEquals("http://www.tvmaze.com/shows/36765/girl-meets-farm", scheduleFeedItem.getShow().getUrl());
         assertEquals("Girl Meets Farm", scheduleFeedItem.getShow().getName());
         assertEquals("English", scheduleFeedItem.getShow().getLanguage());
-        assertEquals("Running", scheduleFeedItem.getShow().getStatus());
+        assertEquals("Status: Running", scheduleFeedItem.getShow().getStatus());
     }
 }

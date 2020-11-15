@@ -20,7 +20,7 @@ class ShowDataUnitTest {
         assertEquals(35093, show.getId());
         assertEquals("http://www.tvmaze.com/shows/35093/nailed-it", show.getUrl());
         assertEquals("English", show.getLanguage());
-        assertEquals("To Be Determined", show.getStatus());
+        assertEquals("Status: To Be Determined", show.getStatus());
     }
 
     @Test
@@ -34,7 +34,7 @@ class ShowDataUnitTest {
         assertEquals(2790, show.getId());
         assertEquals("http://www.tvmaze.com/shows/2790/the-good-place", show.getUrl());
         assertEquals("English", show.getLanguage());
-        assertEquals("Ended", show.getStatus());
+        assertEquals("Status: Ended", show.getStatus());
     }
 
 }
