@@ -3,7 +3,7 @@ package com.stara.enterprise;
 import com.stara.enterprise.dto.ScheduleFeedItem;
 import com.stara.enterprise.dto.actor.ActorFeedItem;
 import com.stara.enterprise.dto.show.ShowFeedItem;
-import com.stara.enterprise.service.IFavoriteService;
+import com.stara.enterprise.service.favorite.IFavoriteService;
 import com.stara.enterprise.service.schedule.IScheduleFeedService;
 import com.stara.enterprise.service.show.IShowFeedService;
 import com.stara.enterprise.service.actor.IActorFeedService;
