@@ -232,4 +232,16 @@ public class StaraController {
 
         return "redirect:/favorites";
     }
+
+    // Need to use POST mapping instead of DELETE mapping since a form calls this and forms do not support DELETE mappings by default.
+    @PostMapping("/favorites/delete")
+    public String deleteFavorite(@RequestParam(value = "favoriteId") String favoriteId, @CookieValue(value = "uid") String uid) {
+        try {
+            favoriteService.delete(firebaseService.getUser(uid).getEmail(), favoriteId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "redirect:/favorites";
+    }
 }
