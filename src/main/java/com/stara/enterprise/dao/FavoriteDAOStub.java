@@ -30,8 +30,6 @@ public class FavoriteDAOStub implements IFavoriteDAO {
 
     @Override
     public Favorite save(Favorite favorite) throws Exception {
-        Integer favoriteID = favorite.getId();
-        allFavorites.put(favoriteID, favorite);
         return favorite;
     }
 }
