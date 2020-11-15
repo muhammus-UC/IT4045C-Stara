@@ -158,6 +158,17 @@ public class StaraController {
         return "redirect:/favorites";
     }
 
+    // Reference: https://attacomsian.com/blog/cookies-spring-boot#deleting-cookie
+    @GetMapping("/unset-uid")
+    public String unsetCookie(HttpServletResponse response) {
+        Cookie cookie = new Cookie("uid", null);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+
+        return "redirect:/";
+    }
+
     @GetMapping("/favorites")
     public String fetchAllFavorites(@CookieValue(value = "uid", required = false) String uid, Model model) {
         try {
