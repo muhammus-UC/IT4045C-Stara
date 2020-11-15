@@ -37,6 +37,15 @@
                 <small th:text="${showFeedItem.show}"></small>
             </div>
         </a>
+        <form method="post" action="/favorites/save/show">
+            <input type="hidden" name="id" th:value="${showFeedItem.show.id}"/>
+            <input type="hidden" name="url" th:value="${showFeedItem.show.url}"/>
+            <input type="hidden" name="name" th:value="${showFeedItem.show.name}"/>
+            <input type="hidden" name="language" th:value="${showFeedItem.show.language}"/>
+            <input type="hidden" name="status" th:value="${showFeedItem.show.status}"/>
+            <input type="hidden" name="image" th:value="${showFeedItem.show.image.medium}"/>
+            <button type="submit">Add Show to Favorites</button>
+        </form>
     </div>
 </div>
 
@@ -57,6 +66,15 @@
                 <small th:text="${actorFeedItem.actor}"></small>
             </div>
         </a>
+        <form method="post" action="/favorites/save/actor">
+            <input type="hidden" name="id" th:value="${actorFeedItem.actor.id}"/>
+            <input type="hidden" name="url" th:value="${actorFeedItem.actor.url}"/>
+            <input type="hidden" name="name" th:value="${actorFeedItem.actor.name}"/>
+            <input type="hidden" name="country" th:value="${actorFeedItem.actor.country}"/>
+            <input type="hidden" name="gender" th:value="${actorFeedItem.actor.gender}"/>
+            <input type="hidden" name="image" th:value="${actorFeedItem.actor.image.medium}"/>
+            <button type="submit">Add Actor to Favorites</button>
+        </form>
     </div>
 </div>
 
