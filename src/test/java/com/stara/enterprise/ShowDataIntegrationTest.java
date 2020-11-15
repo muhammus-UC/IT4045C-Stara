@@ -85,7 +85,7 @@ class ShowDataIntegrationTest {
                 showFeedItem.getShow().getUrl().equals("http://www.tvmaze.com/shows/1641/black-books") &&
                 showFeedItem.getShow().getName().equals("Black Books") &&
                 showFeedItem.getShow().getLanguage().equals("English") &&
-                showFeedItem.getShow().getStatus().equals("Ended") &&
+                showFeedItem.getShow().getStatus().equals("Status: Ended") &&
                 showFeedItem.getShow().getImage().getMedium().equals("http://static.tvmaze.com/uploads/images/medium_portrait/81/204617.jpg")
             ) {
                 blackBooksFound = true;

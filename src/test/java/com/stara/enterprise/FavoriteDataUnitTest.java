@@ -1,88 +1,49 @@
 package com.stara.enterprise;
 
-import com.stara.enterprise.dao.IFavoriteDAO;
 import com.stara.enterprise.dto.Favorite;
-import com.stara.enterprise.service.FavoriteServiceStub;
-import com.stara.enterprise.service.IFavoriteService;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 class FavoriteDataUnitTest {
 
-    private IFavoriteService favoriteService;
-    private Favorite favorite = new Favorite();
-
-    @MockBean
-    private IFavoriteDAO favoriteDAO;
-
     @Test
-    void confirmFavorite_outputsFavorite() {
-        Favorite favorite = new Favorite();
-        favorite.setId(42076);
-        favorite.setName("Transformers: Rescue Bots Academy");
-        favorite.setSubtitle("English");
-        favorite.setDetail("Running");
-        assertEquals(42076, favorite.getId());
-        assertEquals("Transformers: Rescue Bots Academy", favorite.getName());
-        assertEquals("English", favorite.getSubtitle());
-        assertEquals("Running", favorite.getDetail());
-    }
+    void confirmFavoriteShow_outputsFavoriteShow() {
+        Favorite favoriteShow = new Favorite();
+        favoriteShow.setId("Show_42076");
+        favoriteShow.setName("Transformers: Rescue Bots Academy");
+        favoriteShow.setSubtitle("English");
+        favoriteShow.setDetail("Running");
+        favoriteShow.setImage("http://static.tvmaze.com/uploads/images/medium_portrait/194/487423.jpg");
+        favoriteShow.setUrl("http://www.tvmaze.com/shows/42076/transformers-rescue-bots-academy");
 
-    @Test void fetchFavoriteByID_returnsFavoriteForID() throws Exception {
-        givenFavoriteDataAreAvailable();
-        whenFavorite318AddedIsCommunity();
-        whenSearchFavoriteWithID318();
-        thenReturnCommunityForID318();
-    }
-
-    private void givenFavoriteDataAreAvailable() throws Exception {
-        Mockito.when(favoriteDAO.save(favorite)).thenReturn(favorite);
-        favoriteService = new FavoriteServiceStub(favoriteDAO);
-    }
-
-    private void whenFavorite318AddedIsCommunity() {
-        Favorite community = new Favorite();
-        community.setId(318);
-        community.setName("Community");
-        community.setSubtitle("English");
-        community.setDetail("Ended");
-        Mockito.when(favoriteDAO.fetch(318)).thenReturn(community);
-    }
-
-    private void whenSearchFavoriteWithID318() {
-        favorite = favoriteService.fetchById(318);
-    }
-
-    private void thenReturnCommunityForID318() {
-        String name = favorite.getName();
-        assertEquals("Community", name);
+        assertEquals("Show_42076", favoriteShow.getId());
+        assertEquals("Transformers: Rescue Bots Academy", favoriteShow.getName());
+        assertEquals("English", favoriteShow.getSubtitle());
+        assertEquals("Running", favoriteShow.getDetail());
+        assertEquals("http://static.tvmaze.com/uploads/images/medium_portrait/194/487423.jpg", favoriteShow.getImage());
+        assertEquals("http://www.tvmaze.com/shows/42076/transformers-rescue-bots-academy", favoriteShow.getUrl());
     }
 
     @Test
-    void saveFavorite_validateReturnFavorite() throws Exception {
-        givenFavoriteDataAreAvailable();
-        whenUserCreatesANewFavoriteAndSaves();
-        thenCreateNewFavoriteRecordAndReturnIt();
-    }
+    void confirmFavoriteActor_outputsFavoriteActor() {
+        Favorite favoriteActor = new Favorite();
+        favoriteActor.setId("Actor_56368");
+        favoriteActor.setName("Dylan Moran");
+        favoriteActor.setUrl("http://www.tvmaze.com/people/56368/dylan-moran");
+        favoriteActor.setSubtitle("Male");
+        favoriteActor.setDetail("Ireland");
+        favoriteActor.setImage("http://static.tvmaze.com/uploads/images/medium_portrait/9/23040.jpg");
+        favoriteActor.setUrl("http://www.tvmaze.com/people/56368/dylan-moran");
 
-    private void whenUserCreatesANewFavoriteAndSaves() {
-        favorite.setId(318);
-        favorite.setName("Community");
-        favorite.setSubtitle("English");
-        favorite.setDetail("Ended");
+        assertEquals("Actor_56368", favoriteActor.getId());
+        assertEquals("Dylan Moran", favoriteActor.getName());
+        assertEquals("http://www.tvmaze.com/people/56368/dylan-moran", favoriteActor.getUrl());
+        assertEquals("Male", favoriteActor.getSubtitle());
+        assertEquals("Ireland", favoriteActor.getDetail());
+        assertEquals("http://static.tvmaze.com/uploads/images/medium_portrait/9/23040.jpg", favoriteActor.getImage());
+        assertEquals("http://www.tvmaze.com/people/56368/dylan-moran", favoriteActor.getUrl());
     }
-
-    private void thenCreateNewFavoriteRecordAndReturnIt() throws Exception {
-        Favorite createdFavorite = favoriteService.save(favorite);
-        assertEquals(favorite, createdFavorite);
-        verify(favoriteDAO, atLeastOnce()).save(favorite);
-    }
-
 }

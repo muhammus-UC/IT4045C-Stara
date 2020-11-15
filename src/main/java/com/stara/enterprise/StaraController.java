@@ -4,7 +4,8 @@ import com.stara.enterprise.dto.Favorite;
 import com.stara.enterprise.dto.ScheduleFeedItem;
 import com.stara.enterprise.dto.actor.ActorFeedItem;
 import com.stara.enterprise.dto.show.ShowFeedItem;
-import com.stara.enterprise.service.IFavoriteService;
+import com.stara.enterprise.service.favorite.IFavoriteService;
+import com.stara.enterprise.service.firebase.FirebaseService;
 import com.stara.enterprise.service.schedule.IScheduleFeedService;
 import com.stara.enterprise.service.show.IShowFeedService;
 import com.stara.enterprise.service.actor.IActorFeedService;
@@ -17,8 +18,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class StaraController {
@@ -34,6 +40,9 @@ public class StaraController {
     @Autowired
     IScheduleFeedService scheduleFeedService;
 
+    @Autowired
+    FirebaseService firebaseService;
+
     /**
      * GetMapping for / (root) endpoint
      * Equivalent of running https://www.tvmaze.com/schedule
@@ -43,109 +52,16 @@ public class StaraController {
      * @return HTML page that displays schedule in an organized manner
      */
     @GetMapping("/")
-    public String displaySchedule(@RequestParam(value = "countryCode", required = false) String countryCode, Model model) {
+    public String displaySchedule(@RequestParam(value = "countryCode", required = false) String countryCode, Model model, @CookieValue(value = "uid", required = false) String uid) {
         try {
             if (countryCode == null) { countryCode = "US"; }
             List<ScheduleFeedItem> scheduleFeed = scheduleFeedService.fetchScheduleFeed(countryCode);
             model.addAttribute("scheduleFeed", scheduleFeed);
+            model.addAttribute("uid", uid);
             return "schedule";
         } catch (IOException e) {
             e.printStackTrace();
             return "error";
-        }
-    }
-
-    /**
-     * RequestMapping for /saveFavorite endpoint
-     * Save a new favorite with details provided via HTTP query string
-     * @param favorite provided through HTTP query
-     * @return Stara start page displaying newly saved favorite
-     */
-    @RequestMapping("/saveFavorite")
-    public String saveFavorite(Favorite favorite) {
-        try {
-            favoriteService.save(favorite);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "start";
-    }
-
-    /**
-     * GetMapping for /favorite endpoint
-     * @return all favorites
-     */
-    @GetMapping("/favorite")
-    @ResponseBody
-    public List<Favorite> fetchAllFavorites() {
-        return favoriteService.fetchAll();
-    }
-
-    /**
-     * PostMapping for /favorite endpoint
-     * Create a new favorite with details provided via JSON
-     *
-     * Returns one of the following status codes:
-     * 201: Favorite creation successful
-     * 409: Favorite creation failed
-     *
-     * @param favorite a JSON representation of a Favorite object to create
-     * @return the newly created favorite
-     */
-    @PostMapping(value = "/favorite", consumes = "application/json", produces = "application/json")
-    @ResponseBody
-    public Favorite createFavorite(@RequestBody Favorite favorite) {
-        Favorite newFavorite = null;
-        try {
-            newFavorite = favoriteService.save(favorite);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return newFavorite;
-    }
-
-    /**
-     * GetMapping for /favorite/{id} endpoint
-     *
-     * Returns one of the following status codes:
-     * 200: Favorite Found
-     * 400: Favorite NOT found
-     *
-     * @param id a unique identifier for favorite to fetch
-     */
-    @GetMapping("/favorite/{id}")
-    public ResponseEntity fetchFavoriteByID(@PathVariable("id") String id) {
-        try {
-            Favorite foundFavorite = favoriteService.fetchById(Integer.parseInt(id));
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            return new ResponseEntity(foundFavorite, headers, HttpStatus.OK);
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    /**
-     * DeleteMapping for /favorite/{id} endpoint
-     * Delete favorite with provided ID.
-     *
-     * @param id a unique identifier for favorite to delete
-     *
-     * @return one of the following status codes:
-     *      200: Favorite deletion success, even if favorite didn't exist
-     *      409: Favorite deletion error, likely provided malformed id
-     */
-    @DeleteMapping("/favorite/{id}")
-    public ResponseEntity deleteFavorite(@PathVariable("id") String id) {
-        try {
-            favoriteService.delete(Integer.parseInt(id));
-            return new ResponseEntity(HttpStatus.OK);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity(HttpStatus.CONFLICT);
         }
     }
 
@@ -157,7 +73,7 @@ public class StaraController {
      * @return search results from TVMaze API
      */
     @GetMapping("/shows")
-    public ResponseEntity searchShows(@RequestParam(value = "searchShow", required = true) String searchShow) {
+    public ResponseEntity searchShows(@RequestParam(value = "searchShow", required = true) String searchShow, @CookieValue(value = "uid", required = false) String uid) {
         try {
             List<ShowFeedItem> showFeed = showFeedService.fetchShowFeed(searchShow);
             HttpHeaders headers = new HttpHeaders();
@@ -200,14 +116,14 @@ public class StaraController {
      * @return HTML page that displays results in an organized manner
      */
     @GetMapping("/search")
-    public String searchShowsAndActors(@RequestParam(value = "searchTerm", required = true) String searchTerm, Model model) {
+    public String searchShowsAndActors(@RequestParam(value = "searchTerm", required = true) String searchTerm, Model model, @CookieValue(value = "uid", required = false) String uid) {
         try {
             List<ShowFeedItem> shows = showFeedService.fetchShowFeed(searchTerm);
             List<ActorFeedItem> actors = actorFeedService.fetchActorFeed(searchTerm);
             model.addAttribute("showFeed", shows);
             model.addAttribute("actorFeed", actors);
+            model.addAttribute("uid", uid);
             return "search";
-
         } catch (IOException e) {
             e.printStackTrace();
             return "error";
@@ -232,5 +148,114 @@ public class StaraController {
             e.printStackTrace();
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    // Reference: https://dzone.com/articles/how-to-use-cookies-in-spring-boot
+    @GetMapping("/set-uid")
+    public String setCookie(HttpServletResponse response, @RequestParam(value = "uid") String uid) {
+        Cookie cookie = new Cookie("uid", uid);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
+        return "redirect:/favorites";
+    }
+
+    // Reference: https://attacomsian.com/blog/cookies-spring-boot#deleting-cookie
+    @GetMapping("/unset-uid")
+    public String unsetCookie(HttpServletResponse response) {
+        Cookie cookie = new Cookie("uid", null);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/favorites")
+    public String fetchAllFavorites(@CookieValue(value = "uid", required = false) String uid, Model model) {
+        try {
+            if (uid == null) {
+                System.out.println("No UID cookie found. User is not logged in.");
+                return "login";
+            }
+
+            System.out.println("User is logged in. Fetching favorites.");
+            List<Favorite> favorites = favoriteService.fetchAll(firebaseService.getUser(uid).getEmail());
+            model.addAttribute("favorites", favorites);
+            model.addAttribute("uid", uid);
+            return "favorites";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
+    }
+
+    // Reference: https://stackoverflow.com/questions/2494774/how-to-explicitly-obtain-post-data-in-spring-mvc
+    @PostMapping("/favorites/save/show")
+    public String saveFavoriteShow(HttpServletRequest request, @CookieValue(value = "uid", required = false) String uid) {
+        // User is not logged in, need to log in before show can be saved to favorites
+        if (uid == null) {
+            return "login";
+        }
+
+        // Need to manually differentiate ID between Actor & Show since TVMaze API doesn't do it for us
+        String favoriteShowId = "Show_" + request.getParameter("id");
+
+        Map<String, String> showData = new HashMap<>();
+        showData.put("detail", request.getParameter("language"));
+        showData.put("id", favoriteShowId);
+        showData.put("image", request.getParameter("image"));
+        showData.put("name", request.getParameter("name"));
+        showData.put("subtitle", request.getParameter("status"));
+        showData.put("url", request.getParameter("url"));
+
+        try {
+            favoriteService.save(showData, firebaseService.getUser(uid).getEmail(), favoriteShowId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
+
+        return "redirect:/favorites";
+    }
+
+    // Reference: https://stackoverflow.com/questions/2494774/how-to-explicitly-obtain-post-data-in-spring-mvc
+    @PostMapping("/favorites/save/actor")
+    public String saveFavoriteActor(HttpServletRequest request, @CookieValue(value = "uid", required = false) String uid) {
+        // User is not logged in, need to log in before actor can be saved to favorites
+        if (uid == null) {
+            return "login";
+        }
+
+        // Need to differentiate ID between Actor & Show since TVMaze API doesnt do it for us
+        String favoriteActorId = "Actor_" + request.getParameter("id");
+
+        Map<String, String> actorData = new HashMap<>();
+        actorData.put("detail", request.getParameter("country"));
+        actorData.put("id", favoriteActorId);
+        actorData.put("image", request.getParameter("image"));
+        actorData.put("name", request.getParameter("name"));
+        actorData.put("subtitle", request.getParameter("gender"));
+        actorData.put("url", request.getParameter("url"));
+
+        try {
+            favoriteService.save(actorData, firebaseService.getUser(uid).getEmail(), favoriteActorId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "redirect:/favorites";
+    }
+
+    // Need to use POST mapping instead of DELETE mapping since a form calls this and forms do not support DELETE mappings by default.
+    @PostMapping("/favorites/delete")
+    public String deleteFavorite(@RequestParam(value = "favoriteId") String favoriteId, @CookieValue(value = "uid") String uid) {
+        try {
+            favoriteService.delete(firebaseService.getUser(uid).getEmail(), favoriteId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "redirect:/favorites";
     }
 }
