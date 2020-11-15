@@ -48,7 +48,9 @@ class Show {
      */
     public String getStatus() {
         if (status == null) {
-            status = "Status Unknown";
+            status = "Status: Unknown";
+        } else {
+            status = "Status: " + status;
         }
         return status;
     }
