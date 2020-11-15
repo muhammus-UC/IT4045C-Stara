@@ -1,6 +1,5 @@
 package com.stara.enterprise;
 
-import com.google.firebase.auth.FirebaseAuthException;
 import com.stara.enterprise.dto.Favorite;
 import com.stara.enterprise.dto.ScheduleFeedItem;
 import com.stara.enterprise.dto.actor.ActorFeedItem;
@@ -20,10 +19,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.Map;
 
 @Controller
 public class StaraController {
@@ -173,5 +174,62 @@ public class StaraController {
             e.printStackTrace();
             return "error";
         }
+    }
+
+    // Reference: https://stackoverflow.com/questions/2494774/how-to-explicitly-obtain-post-data-in-spring-mvc
+    @PostMapping("/favorites/save/show")
+    public String saveFavoriteShow(HttpServletRequest request, @CookieValue(value = "uid", required = false) String uid) {
+        // User is not logged in, need to log in before show can be saved to favorites
+        if (uid == null) {
+            return "login";
+        }
+
+        // Need to manually differentiate ID between Actor & Show since TVMaze API doesn't do it for us
+        String favoriteShowId = "Show_" + request.getParameter("id");
+
+        Map<String, String> showData = new HashMap<>();
+        showData.put("detail", request.getParameter("language"));
+        showData.put("id", favoriteShowId);
+        showData.put("image", request.getParameter("image"));
+        showData.put("name", request.getParameter("name"));
+        showData.put("subtitle", request.getParameter("status"));
+        showData.put("url", request.getParameter("url"));
+
+        try {
+            favoriteService.save(showData, firebaseService.getUser(uid).getEmail(), favoriteShowId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
+
+        return "redirect:/favorites";
+    }
+
+    // Reference: https://stackoverflow.com/questions/2494774/how-to-explicitly-obtain-post-data-in-spring-mvc
+    @PostMapping("/favorites/save/actor")
+    public String saveFavoriteActor(HttpServletRequest request, @CookieValue(value = "uid", required = false) String uid) {
+        // User is not logged in, need to log in before actor can be saved to favorites
+        if (uid == null) {
+            return "login";
+        }
+
+        // Need to differentiate ID between Actor & Show since TVMaze API doesnt do it for us
+        String favoriteActorId = "Actor_" + request.getParameter("id");
+
+        Map<String, String> actorData = new HashMap<>();
+        actorData.put("detail", request.getParameter("country"));
+        actorData.put("id", favoriteActorId);
+        actorData.put("image", request.getParameter("image"));
+        actorData.put("name", request.getParameter("name"));
+        actorData.put("subtitle", request.getParameter("gender"));
+        actorData.put("url", request.getParameter("url"));
+
+        try {
+            favoriteService.save(actorData, firebaseService.getUser(uid).getEmail(), favoriteActorId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "redirect:/favorites";
     }
 }
