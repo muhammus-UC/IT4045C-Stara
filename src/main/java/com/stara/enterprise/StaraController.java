@@ -52,11 +52,12 @@ public class StaraController {
      * @return HTML page that displays schedule in an organized manner
      */
     @GetMapping("/")
-    public String displaySchedule(@RequestParam(value = "countryCode", required = false) String countryCode, Model model) {
+    public String displaySchedule(@RequestParam(value = "countryCode", required = false) String countryCode, Model model, @CookieValue(value = "uid", required = false) String uid) {
         try {
             if (countryCode == null) { countryCode = "US"; }
             List<ScheduleFeedItem> scheduleFeed = scheduleFeedService.fetchScheduleFeed(countryCode);
             model.addAttribute("scheduleFeed", scheduleFeed);
+            model.addAttribute("uid", uid);
             return "schedule";
         } catch (IOException e) {
             e.printStackTrace();
@@ -72,7 +73,7 @@ public class StaraController {
      * @return search results from TVMaze API
      */
     @GetMapping("/shows")
-    public ResponseEntity searchShows(@RequestParam(value = "searchShow", required = true) String searchShow) {
+    public ResponseEntity searchShows(@RequestParam(value = "searchShow", required = true) String searchShow, @CookieValue(value = "uid", required = false) String uid) {
         try {
             List<ShowFeedItem> showFeed = showFeedService.fetchShowFeed(searchShow);
             HttpHeaders headers = new HttpHeaders();
@@ -115,12 +116,13 @@ public class StaraController {
      * @return HTML page that displays results in an organized manner
      */
     @GetMapping("/search")
-    public String searchShowsAndActors(@RequestParam(value = "searchTerm", required = true) String searchTerm, Model model) {
+    public String searchShowsAndActors(@RequestParam(value = "searchTerm", required = true) String searchTerm, Model model, @CookieValue(value = "uid", required = false) String uid) {
         try {
             List<ShowFeedItem> shows = showFeedService.fetchShowFeed(searchTerm);
             List<ActorFeedItem> actors = actorFeedService.fetchActorFeed(searchTerm);
             model.addAttribute("showFeed", shows);
             model.addAttribute("actorFeed", actors);
+            model.addAttribute("uid", uid);
             return "search";
         } catch (IOException e) {
             e.printStackTrace();
@@ -180,6 +182,7 @@ public class StaraController {
             System.out.println("User is logged in. Fetching favorites.");
             List<Favorite> favorites = favoriteService.fetchAll(firebaseService.getUser(uid).getEmail());
             model.addAttribute("favorites", favorites);
+            model.addAttribute("uid", uid);
             return "favorites";
         } catch (Exception e) {
             e.printStackTrace();
