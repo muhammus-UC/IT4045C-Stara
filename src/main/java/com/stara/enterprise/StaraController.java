@@ -1,9 +1,12 @@
 package com.stara.enterprise;
 
+import com.google.firebase.auth.FirebaseAuthException;
+import com.stara.enterprise.dto.Favorite;
 import com.stara.enterprise.dto.ScheduleFeedItem;
 import com.stara.enterprise.dto.actor.ActorFeedItem;
 import com.stara.enterprise.dto.show.ShowFeedItem;
 import com.stara.enterprise.service.favorite.IFavoriteService;
+import com.stara.enterprise.service.firebase.FirebaseService;
 import com.stara.enterprise.service.schedule.IScheduleFeedService;
 import com.stara.enterprise.service.show.IShowFeedService;
 import com.stara.enterprise.service.actor.IActorFeedService;
@@ -16,8 +19,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @Controller
 public class StaraController {
@@ -32,6 +38,9 @@ public class StaraController {
 
     @Autowired
     IScheduleFeedService scheduleFeedService;
+
+    @Autowired
+    FirebaseService firebaseService;
 
     /**
      * GetMapping for / (root) endpoint
@@ -135,6 +144,34 @@ public class StaraController {
         } catch (IOException e) {
             e.printStackTrace();
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // Reference: https://dzone.com/articles/how-to-use-cookies-in-spring-boot
+    @GetMapping("/set-uid")
+    public String setCookie(HttpServletResponse response, @RequestParam(value = "uid") String uid) {
+        Cookie cookie = new Cookie("uid", uid);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
+        return "redirect:/favorites";
+    }
+
+    @GetMapping("/favorites")
+    public String fetchAllFavorites(@CookieValue(value = "uid", required = false) String uid, Model model) {
+        try {
+            if (uid == null) {
+                System.out.println("No UID cookie found. User is not logged in.");
+                return "login";
+            }
+
+            System.out.println("User is logged in. Fetching favorites.");
+            List<Favorite> favorites = favoriteService.fetchAll(firebaseService.getUser(uid).getEmail());
+            model.addAttribute("favorites", favorites);
+            return "favorites";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
         }
     }
 }

@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
         messagingSenderId: "230202569952",
         appId: "1:230202569952:web:67f58ed630334ffc39cc85"
     };
+
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
 
@@ -21,9 +22,11 @@ document.addEventListener("DOMContentLoaded", function() {
         callbacks: {
             signInSuccessWithAuthResult: function(authResult, redirectUrl) {
                 // User successfully signed in.
+                // Redirect to page with user's favorites by setting UID cookie first
+                window.location.replace("/set-uid/?uid=" + authResult.user.uid);
                 // Return type determines whether we continue the redirect automatically
                 // or whether we leave that to developer to handle.
-                return true;
+                return false;
             },
             uiShown: function() {
                 // The widget is rendered.
@@ -31,22 +34,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 document.getElementById('loader').style.display = 'none';
             }
         },
+        // Prevent redirection to https://www.accountchooser.com
+        credentialHelper: 'none',
         // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
         signInFlow: 'popup',
-        signInSuccessUrl: '<url-to-redirect-to-on-success>',
         signInOptions: [
-            // Leave the lines as is for the providers you want to offer your users.
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-            firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-            firebase.auth.GithubAuthProvider.PROVIDER_ID,
-            firebase.auth.EmailAuthProvider.PROVIDER_ID,
-            firebase.auth.PhoneAuthProvider.PROVIDER_ID
-        ],
-        // Terms of service url.
-        tosUrl: '<your-tos-url>',
-        // Privacy policy url.
-        privacyPolicyUrl: '<your-privacy-policy-url>'
+            firebase.auth.EmailAuthProvider.PROVIDER_ID
+        ]
     };
 
     // The start method will wait until the DOM is loaded.
