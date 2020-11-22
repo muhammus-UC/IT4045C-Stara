@@ -26,12 +26,20 @@ import java.io.IOException;
 
 @Service
 public class FirebaseService {
+    // Boolean to keep track of whether Firebase has been initialized. Needed to make tests pass on CircleCI
+    private boolean initialized = false;
+
     // Path to Firebase service account private key json
     private final String serviceAccountPath = "src/main/java/com/stara/enterprise/service/firebase/stara-firebase-adminsdk.json";
 
     // @PostConstruct - Initialize this class automatically once SpringBoot has finished starting
-    //@PostConstruct
+    @PostConstruct
     public void initialize() {
+        // If already initialized, return
+        if (initialized) {
+            return;
+        }
+
         try {
             // Store service account credentials
             FileInputStream serviceAccountFile = new FileInputStream(serviceAccountPath);
@@ -45,6 +53,8 @@ public class FirebaseService {
 
             // Initialize Firebase for Stara
             FirebaseApp.initializeApp(options);
+
+            initialized = true;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
