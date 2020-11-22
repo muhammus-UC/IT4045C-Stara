@@ -6,6 +6,7 @@ import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
 import com.stara.enterprise.dto.Favorite;
 import com.stara.enterprise.service.firebase.FirebaseService;
+import com.stara.enterprise.service.firebase.IFirebaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ import java.util.concurrent.ExecutionException;
 @Profile("!test")
 public class FavoriteService implements IFavoriteService {
     @Autowired
-    FirebaseService firebaseService;
+    IFirebaseService firebaseService;
 
     private final String fireStoreCollectionUsers = "users";
     private final String fireStoreCollectionFavorites = "favorites";

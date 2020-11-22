@@ -25,7 +25,8 @@ import java.io.IOException;
  */
 
 @Service
-public class FirebaseService {
+@Profile("!test")
+public class FirebaseService implements IFirebaseService{
     // Boolean to keep track of whether Firebase has been initialized. Needed to make tests pass on CircleCI
     private boolean initialized = false;
 
@@ -34,13 +35,10 @@ public class FirebaseService {
 
     // @PostConstruct - Initialize this class automatically once SpringBoot has finished starting
     @PostConstruct
+    @Override
     public void initialize() {
         // If already initialized, return
         if (initialized) {
-            return;
-        }
-
-        if(FirebaseApp.getInstance(FirebaseApp.DEFAULT_APP_NAME) != null) {
             return;
         }
 
@@ -71,10 +69,12 @@ public class FirebaseService {
         }
     }
 
+    @Override
     public Firestore getFirestore() {
         return FirestoreClient.getFirestore();
     }
 
+    @Override
     public UserRecord getUser(String uid) throws FirebaseAuthException {
         UserRecord userRecord = FirebaseAuth.getInstance().getUser(uid);
 

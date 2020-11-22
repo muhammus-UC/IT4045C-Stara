@@ -7,6 +7,7 @@ import com.stara.enterprise.dto.review.Review;
 import com.stara.enterprise.dto.show.ShowFeedItem;
 import com.stara.enterprise.service.favorite.IFavoriteService;
 import com.stara.enterprise.service.firebase.FirebaseService;
+import com.stara.enterprise.service.firebase.IFirebaseService;
 import com.stara.enterprise.service.review.IReviewService;
 import com.stara.enterprise.service.schedule.IScheduleFeedService;
 import com.stara.enterprise.service.show.IShowFeedService;
@@ -45,7 +46,7 @@ public class StaraController {
     IScheduleFeedService scheduleFeedService;
 
     @Autowired
-    FirebaseService firebaseService;
+    IFirebaseService firebaseService;
 
     @Autowired
     IReviewService reviewService;
