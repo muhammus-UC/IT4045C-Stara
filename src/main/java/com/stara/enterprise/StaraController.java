@@ -277,6 +277,13 @@ public class StaraController {
             @RequestParam(value = "newRating") Integer newRating,
             @RequestParam(value = "favoriteName") String favoriteName
     ) {
+        // Adding check for newRating to ensure value is between 1-5 in case user manually posts a higher number
+        if (newRating > 5) {
+            newRating = 5;
+        } else if (newRating < 1) {
+            newRating = 1;
+        }
+
         try {
             reviewService.save(new Review(uid, favoriteId, newRating, favoriteName));
         } catch (Exception e) {
