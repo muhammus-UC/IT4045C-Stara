@@ -17,7 +17,6 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @Service
-@Profile("!test")
 public class FavoriteService implements IFavoriteService {
     @Autowired
     IFirebaseService firebaseService;
