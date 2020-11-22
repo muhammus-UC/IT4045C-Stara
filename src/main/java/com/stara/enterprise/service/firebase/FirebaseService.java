@@ -54,6 +54,11 @@ public class FirebaseService {
             // Initialize Firebase for Stara
             FirebaseApp.initializeApp(options);
 
+            // Reference: https://stackoverflow.com/a/61568428
+            if(FirebaseApp.getApps().isEmpty()) {
+                FirebaseApp.initializeApp(options);
+            }
+
             initialized = true;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
