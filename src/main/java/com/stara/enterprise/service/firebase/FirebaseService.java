@@ -40,6 +40,10 @@ public class FirebaseService {
             return;
         }
 
+        if(FirebaseApp.getInstance(FirebaseApp.DEFAULT_APP_NAME) != null) {
+            return;
+        }
+
         try {
             // Store service account credentials
             FileInputStream serviceAccountFile = new FileInputStream(serviceAccountPath);
