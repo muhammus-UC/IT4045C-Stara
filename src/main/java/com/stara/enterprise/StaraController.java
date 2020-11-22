@@ -3,9 +3,13 @@ package com.stara.enterprise;
 import com.stara.enterprise.dto.Favorite;
 import com.stara.enterprise.dto.ScheduleFeedItem;
 import com.stara.enterprise.dto.actor.ActorFeedItem;
+import com.stara.enterprise.dto.review.Review;
+import com.stara.enterprise.dto.review.ReviewId;
 import com.stara.enterprise.dto.show.ShowFeedItem;
 import com.stara.enterprise.service.favorite.IFavoriteService;
 import com.stara.enterprise.service.firebase.FirebaseService;
+import com.stara.enterprise.service.firebase.IFirebaseService;
+import com.stara.enterprise.service.review.IReviewService;
 import com.stara.enterprise.service.schedule.IScheduleFeedService;
 import com.stara.enterprise.service.show.IShowFeedService;
 import com.stara.enterprise.service.actor.IActorFeedService;
@@ -25,6 +29,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Controller
 public class StaraController {
@@ -41,7 +47,10 @@ public class StaraController {
     IScheduleFeedService scheduleFeedService;
 
     @Autowired
-    FirebaseService firebaseService;
+    IFirebaseService firebaseService;
+
+    @Autowired
+    IReviewService reviewService;
 
     /**
      * GetMapping for / (root) endpoint
@@ -179,10 +188,13 @@ public class StaraController {
                 return "login";
             }
 
-            System.out.println("User is logged in. Fetching favorites.");
+            System.out.println("User is logged in. Fetching favorites and reviews.");
             List<Favorite> favorites = favoriteService.fetchAll(firebaseService.getUser(uid).getEmail());
+            Map<String, Review> allReviewsForUid = reviewService.fetchReviewsByUid(uid);
+
             model.addAttribute("favorites", favorites);
             model.addAttribute("uid", uid);
+            model.addAttribute("reviews", allReviewsForUid);
             return "favorites";
         } catch (Exception e) {
             e.printStackTrace();
@@ -252,6 +264,41 @@ public class StaraController {
     public String deleteFavorite(@RequestParam(value = "favoriteId") String favoriteId, @CookieValue(value = "uid") String uid) {
         try {
             favoriteService.delete(firebaseService.getUser(uid).getEmail(), favoriteId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "redirect:/favorites";
+    }
+
+    @PostMapping("/reviews/update")
+    public String updateReview(
+            @CookieValue(value = "uid") String uid,
+            @RequestParam(value = "favoriteId") String favoriteId,
+            @RequestParam(value = "newRating") Integer newRating,
+            @RequestParam(value = "favoriteName") String favoriteName
+    ) {
+        // Adding check for newRating to ensure value is between 1-5 in case user manually posts a higher number
+        if (newRating > 5) {
+            newRating = 5;
+        } else if (newRating < 1) {
+            newRating = 1;
+        }
+
+        try {
+            reviewService.save(new Review(uid, favoriteId, newRating, favoriteName));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "redirect:/favorites";
+    }
+
+    // Need to use POST mapping instead of DELETE mapping since a form calls this and forms do not support DELETE mappings by default.
+    @PostMapping("/reviews/delete")
+    public String deleteReview(@CookieValue(value = "uid") String uid, @RequestParam(value = "favoriteId") String favoriteId) {
+        try {
+            reviewService.delete(new ReviewId(uid, favoriteId));
         } catch (Exception e) {
             e.printStackTrace();
         }
