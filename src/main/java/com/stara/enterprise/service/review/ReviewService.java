@@ -4,9 +4,11 @@ import com.stara.enterprise.dao.review.IReviewDAO;
 import com.stara.enterprise.dto.review.Review;
 import com.stara.enterprise.dto.review.ReviewId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ReviewService implements IReviewService {
     @Autowired
     IReviewDAO reviewDAO;
