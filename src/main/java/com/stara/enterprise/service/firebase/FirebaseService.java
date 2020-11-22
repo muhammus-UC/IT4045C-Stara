@@ -25,7 +25,6 @@ import java.io.IOException;
  */
 
 @Service
-@Profile("dev")
 public class FirebaseService {
     // Path to Firebase service account private key json
     private final String serviceAccountPath = "src/main/java/com/stara/enterprise/service/firebase/stara-firebase-adminsdk.json";
