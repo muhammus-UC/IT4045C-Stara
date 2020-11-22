@@ -30,7 +30,7 @@ public class FirebaseService {
     private final String serviceAccountPath = "src/main/java/com/stara/enterprise/service/firebase/stara-firebase-adminsdk.json";
 
     // @PostConstruct - Initialize this class automatically once SpringBoot has finished starting
-    @PostConstruct
+    //@PostConstruct
     public void initialize() {
         try {
             // Store service account credentials
