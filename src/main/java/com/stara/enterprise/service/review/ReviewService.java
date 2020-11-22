@@ -6,7 +6,7 @@ import com.stara.enterprise.dto.review.ReviewId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Map;
 
 @Service
 public class ReviewService implements IReviewService {
@@ -30,7 +30,7 @@ public class ReviewService implements IReviewService {
     }
 
     @Override
-    public List<Review> fetchReviewsByUid(String uid) {
+    public Map<String, Review> fetchReviewsByUid(String uid) {
         return reviewDAO.fetchReviewsByUid(uid);
     }
 

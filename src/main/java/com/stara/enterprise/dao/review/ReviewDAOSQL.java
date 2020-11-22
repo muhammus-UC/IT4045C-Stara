@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Repository
 @Profile("dev")
@@ -25,8 +28,16 @@ public class ReviewDAOSQL implements IReviewDAO {
     }
 
     @Override
-    public List<Review> fetchReviewsByUid(String uid) {
-        return reviewRepository.findByReviewIdUid(uid);
+    public Map<String, Review> fetchReviewsByUid(String uid) {
+        List<Review> reviewList = reviewRepository.findByReviewIdUid(uid);
+
+        // Reference: https://www.baeldung.com/java-list-to-map#after-java8
+        // Reference: https://stackoverflow.com/a/20887747
+        Map<String, Review> reviewMap = reviewList
+                .stream()
+                .collect(Collectors.toMap(Review::getReviewIdFavoriteId, Function.identity()));
+
+        return reviewMap;
     }
 
     @Override

@@ -188,18 +188,11 @@ public class StaraController {
 
             System.out.println("User is logged in. Fetching favorites and reviews.");
             List<Favorite> favorites = favoriteService.fetchAll(firebaseService.getUser(uid).getEmail());
-            List<Review> reviews = reviewService.fetchReviewsByUid(uid);
-
-            // Reference: https://www.baeldung.com/java-list-to-map#after-java8
-            // Reference: https://stackoverflow.com/a/20887747
-            Map<String, Review> allReviews = reviews
-                    .stream()
-                    .collect(Collectors.toMap(Review::getReviewIdFavoriteId, Function.identity()));
-
+            Map<String, Review> allReviewsForUid = reviewService.fetchReviewsByUid(uid);
 
             model.addAttribute("favorites", favorites);
             model.addAttribute("uid", uid);
-            model.addAttribute("reviews", allReviews);
+            model.addAttribute("reviews", allReviewsForUid);
             return "favorites";
         } catch (Exception e) {
             e.printStackTrace();

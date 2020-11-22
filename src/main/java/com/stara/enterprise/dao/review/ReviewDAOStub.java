@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -26,8 +25,8 @@ public class ReviewDAOStub implements IReviewDAO {
     }
 
     @Override
-    public List<Review> fetchReviewsByUid(String uid) {
-        return new ArrayList<Review>();
+    public Map<String, Review> fetchReviewsByUid(String uid) {
+        return new HashMap<String, Review>();
     }
 
     @Override
