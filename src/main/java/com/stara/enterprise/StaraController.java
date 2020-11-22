@@ -4,6 +4,7 @@ import com.stara.enterprise.dto.Favorite;
 import com.stara.enterprise.dto.ScheduleFeedItem;
 import com.stara.enterprise.dto.actor.ActorFeedItem;
 import com.stara.enterprise.dto.review.Review;
+import com.stara.enterprise.dto.review.ReviewId;
 import com.stara.enterprise.dto.show.ShowFeedItem;
 import com.stara.enterprise.service.favorite.IFavoriteService;
 import com.stara.enterprise.service.firebase.FirebaseService;
@@ -286,6 +287,18 @@ public class StaraController {
 
         try {
             reviewService.save(new Review(uid, favoriteId, newRating, favoriteName));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "redirect:/favorites";
+    }
+
+    // Need to use POST mapping instead of DELETE mapping since a form calls this and forms do not support DELETE mappings by default.
+    @PostMapping("/reviews/delete")
+    public String deleteReview(@CookieValue(value = "uid") String uid, @RequestParam(value = "favoriteId") String favoriteId) {
+        try {
+            reviewService.delete(new ReviewId(uid, favoriteId));
         } catch (Exception e) {
             e.printStackTrace();
         }

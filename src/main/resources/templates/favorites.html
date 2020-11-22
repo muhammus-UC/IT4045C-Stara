@@ -43,7 +43,7 @@
 
         <div class="review">
             <!-- Only show if there is a review to show -->
-            <p th:unless="${reviews.get(favorite.id) == null}">
+            <div th:unless="${reviews.get(favorite.id) == null}">
                 Current Rating:
                 <!-- Only show if the rating is not 0 -->
                 <span th:unless="${reviews.get(favorite.id).rating == 0}">
@@ -55,16 +55,22 @@
                     </svg>
                 </span>
                 <br/>
+
+                <form method="post" action="/reviews/delete">
+                    <input type="hidden" name="favoriteId" th:value="${favorite.id}"/>
+                    <button type="submit">Delete Rating</button>
+                </form>
+
                 <small th:text="${reviews.get(favorite.id)}"></small>
-            </p>
+            </div>
 
             <form method="post" action="/reviews/update">
                 <label>
                     New Rating:
+                </label>
                     <input type="number" name="newRating" min="1" max="5"/>
                     <input type="hidden" name="favoriteId" th:value="${favorite.id}"/>
                     <input type="hidden" name="favoriteName" th:value="${favorite.name}"/>
-                </label>
                 <button type="submit">Submit New Rating</button>
             </form>
 
