@@ -3,9 +3,11 @@ package com.stara.enterprise;
 import com.stara.enterprise.dto.Favorite;
 import com.stara.enterprise.dto.ScheduleFeedItem;
 import com.stara.enterprise.dto.actor.ActorFeedItem;
+import com.stara.enterprise.dto.review.Review;
 import com.stara.enterprise.dto.show.ShowFeedItem;
 import com.stara.enterprise.service.favorite.IFavoriteService;
 import com.stara.enterprise.service.firebase.FirebaseService;
+import com.stara.enterprise.service.review.IReviewService;
 import com.stara.enterprise.service.schedule.IScheduleFeedService;
 import com.stara.enterprise.service.show.IShowFeedService;
 import com.stara.enterprise.service.actor.IActorFeedService;
@@ -25,6 +27,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Controller
 public class StaraController {
@@ -42,6 +46,9 @@ public class StaraController {
 
     @Autowired
     FirebaseService firebaseService;
+
+    @Autowired
+    IReviewService reviewService;
 
     /**
      * GetMapping for / (root) endpoint
@@ -179,10 +186,20 @@ public class StaraController {
                 return "login";
             }
 
-            System.out.println("User is logged in. Fetching favorites.");
+            System.out.println("User is logged in. Fetching favorites and reviews.");
             List<Favorite> favorites = favoriteService.fetchAll(firebaseService.getUser(uid).getEmail());
+            List<Review> reviews = reviewService.fetchReviewsByUid(uid);
+
+            // Reference: https://www.baeldung.com/java-list-to-map#after-java8
+            // Reference: https://stackoverflow.com/a/20887747
+            Map<String, Review> allReviews = reviews
+                    .stream()
+                    .collect(Collectors.toMap(Review::getReviewIdFavoriteId, Function.identity()));
+
+
             model.addAttribute("favorites", favorites);
             model.addAttribute("uid", uid);
+            model.addAttribute("reviews", allReviews);
             return "favorites";
         } catch (Exception e) {
             e.printStackTrace();
@@ -252,6 +269,22 @@ public class StaraController {
     public String deleteFavorite(@RequestParam(value = "favoriteId") String favoriteId, @CookieValue(value = "uid") String uid) {
         try {
             favoriteService.delete(firebaseService.getUser(uid).getEmail(), favoriteId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "redirect:/favorites";
+    }
+
+    @PostMapping("/reviews/update")
+    public String updateReview(
+            @CookieValue(value = "uid") String uid,
+            @RequestParam(value = "favoriteId") String favoriteId,
+            @RequestParam(value = "newRating") Integer newRating,
+            @RequestParam(value = "favoriteName") String favoriteName
+    ) {
+        try {
+            reviewService.save(new Review(uid, favoriteId, newRating, favoriteName));
         } catch (Exception e) {
             e.printStackTrace();
         }

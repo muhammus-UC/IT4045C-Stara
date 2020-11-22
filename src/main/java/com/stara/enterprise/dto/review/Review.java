@@ -29,4 +29,8 @@ class Review {
     public void setReviewId(String uid, String favoriteId) {
         this.reviewId = new ReviewId(uid, favoriteId);
     }
+
+    public String getReviewIdFavoriteId() {
+        return this.reviewId.getFavoriteId();
+    }
 }
