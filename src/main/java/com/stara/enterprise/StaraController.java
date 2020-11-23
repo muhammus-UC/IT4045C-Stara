@@ -1,5 +1,8 @@
 package com.stara.enterprise;
 
+import com.maxmind.geoip2.DatabaseReader;
+import com.maxmind.geoip2.exception.GeoIp2Exception;
+import com.maxmind.geoip2.model.CountryResponse;
 import com.stara.enterprise.dto.Favorite;
 import com.stara.enterprise.dto.ScheduleFeedItem;
 import com.stara.enterprise.dto.actor.ActorFeedItem;
@@ -25,9 +28,15 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -61,14 +70,55 @@ public class StaraController {
      * @return HTML page that displays schedule in an organized manner
      */
     @GetMapping("/")
-    public String displaySchedule(@RequestParam(value = "countryCode", required = false) String countryCode, Model model, @CookieValue(value = "uid", required = false) String uid) {
+    public String displaySchedule(
+            @RequestParam(value = "countryCode", required = false) String countryCode,
+            Model model,
+            @CookieValue(value = "uid", required = false) String uid,
+            HttpServletRequest request
+    ) {
         try {
-            if (countryCode == null) { countryCode = "US"; }
+            String countryName = null;
+            String ipAddress = request.getRemoteAddr();
+
+            // User did not specify a country code, need to determine it via IP Address.
+            if (countryCode == null) {
+                String dbLocation = "assets/GeoLite2-Country.mmdb";
+
+                // User is on localhost. Need to get IP Address via third party URL
+                if (ipAddress.equals("127.0.0.1") || ipAddress.equals("0:0:0:0:0:0:0:1")) {
+                    URL urlIpLookup = new URL("https://ip.derp.uk/");
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlIpLookup.openStream()));
+                    ipAddress = bufferedReader.readLine().trim();
+                }
+
+                // Read MaxMind Database
+                File ipDbFile = new File(dbLocation);
+                DatabaseReader ipDbReader = new DatabaseReader.Builder(ipDbFile).build();
+
+                // Parse IP address into something MaxMind can use
+                InetAddress inetAddress = InetAddress.getByName(ipAddress);
+                // For IP address provided, store country related data from MaxMind database
+                CountryResponse response = ipDbReader.country(inetAddress);
+
+                countryCode = response.getCountry().getIsoCode();
+                countryName = response.getCountry().getName();
+            }
+            // User specified country code, use it to determine country name
+            else {
+                Locale locale = new Locale("", countryCode);
+                countryName = locale.getDisplayCountry();
+            }
+            System.out.println(ipAddress);
+
             List<ScheduleFeedItem> scheduleFeed = scheduleFeedService.fetchScheduleFeed(countryCode);
             model.addAttribute("scheduleFeed", scheduleFeed);
+            model.addAttribute("countryName", countryName);
             model.addAttribute("uid", uid);
             return "schedule";
         } catch (IOException e) {
+            e.printStackTrace();
+            return "error";
+        } catch (GeoIp2Exception e) {
             e.printStackTrace();
             return "error";
         }
@@ -125,7 +175,11 @@ public class StaraController {
      * @return HTML page that displays results in an organized manner
      */
     @GetMapping("/search")
-    public String searchShowsAndActors(@RequestParam(value = "searchTerm", required = true) String searchTerm, Model model, @CookieValue(value = "uid", required = false) String uid) {
+    public String searchShowsAndActors(
+            @RequestParam(value = "searchTerm", required = true) String searchTerm,
+            Model model,
+            @CookieValue(value = "uid", required = false) String uid
+    ) {
         try {
             List<ShowFeedItem> shows = showFeedService.fetchShowFeed(searchTerm);
             List<ActorFeedItem> actors = actorFeedService.fetchActorFeed(searchTerm);
