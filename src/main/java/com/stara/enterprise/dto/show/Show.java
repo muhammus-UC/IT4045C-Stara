@@ -49,7 +49,9 @@ class Show {
     public String getStatus() {
         if (status == null) {
             status = "Status: Unknown";
-        } else {
+        } else if (!status.contains("Status: ")) {
+            // Inefficient way avoid printing Status multiple times. This is being done because Android app adds "Status:" when saving a favorite.
+            // Should be able to fix this on Android app to not have to do this.
             status = "Status: " + status;
         }
         return status;
