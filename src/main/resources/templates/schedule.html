@@ -38,26 +38,34 @@
 <h1>Stara Enterprise</h1>
 <h2>Today's TV Premieres for <span th:text="${countryName}"></span></h2>
 
-<div class="list-group" role="list">
-    <div class="list-group-item list-group-item-action" th:each="scheduleFeedItem : ${scheduleFeed}" role="listitem">
-        <a th:href="${scheduleFeedItem.url}" class="media remove-link-styling">
-            <img th:src="${scheduleFeedItem.show.image.medium}" class="mr-3" th:alt="${scheduleFeedItem.show.name}" width="128px"/>
-            <div class="media-body">
-                <h5 class="mt-0 mb-1" th:text="${scheduleFeedItem.show.name}"></h5>
-                <p th:text="${scheduleFeedItem.episodeName}"></p>
-                <p th:text="${scheduleFeedItem.airtime}"></p>
-                <!--Below line to be removed before final presentation.-->
-                <small th:text="${scheduleFeedItem}"></small>
+<div class="container-fluid">
+    <div class="row">
+        <main class="col-8">
+            <div class="list-group" role="list">
+                <div class="list-group-item list-group-item-action" th:each="scheduleFeedItem : ${scheduleFeed}" role="listitem">
+                    <a th:href="${scheduleFeedItem.url}" class="media remove-link-styling">
+                        <img th:src="${scheduleFeedItem.show.image.medium}" class="mr-3" th:alt="${scheduleFeedItem.show.name}" width="128px"/>
+                        <div class="media-body">
+                            <h5 class="mt-0 mb-1" th:text="${scheduleFeedItem.show.name}"></h5>
+                            <p th:text="${scheduleFeedItem.episodeName}"></p>
+                            <p th:text="${scheduleFeedItem.airtime}"></p>
+                            <!--Below line to be removed before final presentation.-->
+                            <small th:text="${scheduleFeedItem}"></small>
+                        </div>
+                    </a>
+                </div>
             </div>
-        </a>
-    </div>
+        </main>
 
-    <div id="banner-ad" style="width: 300px; height: 250px;">
-        <script>
-            googletag.cmd.push(function() {
-                googletag.display('banner-ad');
-            });
-        </script>
+        <aside class="col-4">
+            <div id="banner-ad" style="width: 300px; height: 250px;">
+                <script>
+                    googletag.cmd.push(function() {
+                        googletag.display('banner-ad');
+                    });
+                </script>
+            </div>
+        </aside>
     </div>
 </div>
 
