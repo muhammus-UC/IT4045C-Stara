@@ -48,11 +48,7 @@
         </main>
 
         <aside class="col-4">
-            <div id="banner-ad"></div>
-
-            <iframe id="coffee-ad" th:src="@{/ads/test-vertical.html}">
-                Your browser does not support iframes.
-            </iframe>
+            <div id="ads" th:replace="fragments/ads :: ads"></div>
         </aside>
     </div>
 </div>
