@@ -1,0 +1,110 @@
+/*
+Dark theme for IntroJs customized for Stara
+
+Originally By: Khashayar Pourdeilami (http://kpourdeilami.github.io) for: IntroJs (https://github.com/usablica/intro.js)
+*/
+
+.introjs-helperLayer {
+    position: absolute;
+    z-index: 9999998;
+    background:#656D78;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+
+.introjs-helperNumberLayer {
+    position: absolute;
+    z-index: 9999999999 !important;
+    padding: 10px;
+    font-family: Arial, verdana, tahoma, serif;
+    font-size: 13px;
+    top:40px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    background:#434A54;
+    width: 20px;
+    height:20px;
+    line-height: 20px;
+}
+
+.introjs-arrow {
+    border: 5px solid #434A54;
+    content:'';
+    position: absolute;
+}
+.introjs-arrow.top {
+    top: -10px;
+    border-top-color:transparent;
+    border-right-color:transparent;
+    border-bottom-color:#434A54;
+    border-left-color:transparent;
+}
+.introjs-arrow.top-right {
+    top: -10px;
+    right: 10px;
+    border-top-color:transparent;
+    border-right-color:transparent;
+    border-bottom-color:#434A54;
+    border-left-color:transparent;
+}
+.introjs-arrow.top-middle {
+    top: -10px;
+    left: 50%;
+    margin-left: -5px;
+    border-top-color:transparent;
+    border-right-color:transparent;
+    border-bottom-color:#434A54;
+    border-left-color:transparent;
+}
+.introjs-arrow.right {
+    right: -10px;
+    top: 10px;
+    border-top-color:transparent;
+    border-right-color:transparent;
+    border-bottom-color:transparent;
+    border-left-color:#434A54;
+}
+.introjs-arrow.bottom {
+    bottom: -10px;
+    border-top-color:#434A54;
+    border-right-color:transparent;
+    border-bottom-color:transparent;
+    border-left-color:transparent;
+}
+.introjs-arrow.left {
+    left: -10px;
+    top: 10px;
+    border-top-color:transparent;
+    border-right-color:#434A54;
+    border-bottom-color:transparent;
+    border-left-color:transparent;
+}
+
+.introjs-tooltip {
+    position: absolute;
+    padding: 10px;
+    background-color: #434A54;
+    min-width: 200px;
+    padding-top:30px;
+    max-width: 300px;
+    color:#fff;
+    -webkit-transition: opacity 0.1s ease-out;
+    -moz-transition: opacity 0.1s ease-out;
+    -ms-transition: opacity 0.1s ease-out;
+    -o-transition: opacity 0.1s ease-out;
+    transition: opacity 0.1s ease-out;
+}
+
+.introjs-tooltipbuttons {
+    text-align: right;
+    position:relative;
+    bottom:-44px;
+    margin-left:-10px;
+    margin-right:-10px;
+    padding:5px;
+    background:#656D78;
+}
