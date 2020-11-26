@@ -17,6 +17,10 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
+    <!-- JavaScript for Ads -->
+    <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+    <script th:src="@{/ads/test.js}"></script>
+
     <title>Stara Enterprise</title>
 </head>
 <body>
@@ -25,56 +29,66 @@
 <h2>Your search results:</h2>
 
 <h3>Show results:</h3>
-<div class="list-group" role="list">
-    <div class="list-group-item list-group-item-action" th:each="showFeedItem : ${showFeed}" role="listitem">
-        <a th:href="${showFeedItem.show.url}" class="media remove-link-styling">
-            <img th:src="${showFeedItem.show.image.medium}" class="mr-3" th:alt="${showFeedItem.show.name}" width="128px"/>
-            <div class="media-body">
-                <h5 class="mt-0 mb-1" th:text="${showFeedItem.show.name}"></h5>
-                <p th:text="${showFeedItem.show.status}"></p>
-                <p th:text="${showFeedItem.show.language}"></p>
-                <!--Below line to be removed before final presentation.-->
-                <small th:text="${showFeedItem.show}"></small>
+<div class="container-fluid">
+    <div class="row">
+        <main class="col-8">
+            <div class="list-group" role="list">
+                <div class="list-group-item list-group-item-action" th:each="showFeedItem : ${showFeed}" role="listitem">
+                    <a th:href="${showFeedItem.show.url}" class="media remove-link-styling">
+                        <img th:src="${showFeedItem.show.image.medium}" class="mr-3" th:alt="${showFeedItem.show.name}" width="128px"/>
+                        <div class="media-body">
+                            <h5 class="mt-0 mb-1" th:text="${showFeedItem.show.name}"></h5>
+                            <p th:text="${showFeedItem.show.status}"></p>
+                            <p th:text="${showFeedItem.show.language}"></p>
+                            <!--Below line to be removed before final presentation.-->
+                            <small th:text="${showFeedItem.show}"></small>
+                        </div>
+                    </a>
+                    <form method="post" action="/favorites/save/show">
+                        <input type="hidden" name="id" th:value="${showFeedItem.show.id}"/>
+                        <input type="hidden" name="url" th:value="${showFeedItem.show.url}"/>
+                        <input type="hidden" name="name" th:value="${showFeedItem.show.name}"/>
+                        <input type="hidden" name="language" th:value="${showFeedItem.show.language}"/>
+                        <input type="hidden" name="status" th:value="${showFeedItem.show.status}"/>
+                        <input type="hidden" name="image" th:value="${showFeedItem.show.image.medium}"/>
+                        <button type="submit">Add Show to Favorites</button>
+                    </form>
+                </div>
             </div>
-        </a>
-        <form method="post" action="/favorites/save/show">
-            <input type="hidden" name="id" th:value="${showFeedItem.show.id}"/>
-            <input type="hidden" name="url" th:value="${showFeedItem.show.url}"/>
-            <input type="hidden" name="name" th:value="${showFeedItem.show.name}"/>
-            <input type="hidden" name="language" th:value="${showFeedItem.show.language}"/>
-            <input type="hidden" name="status" th:value="${showFeedItem.show.status}"/>
-            <input type="hidden" name="image" th:value="${showFeedItem.show.image.medium}"/>
-            <button type="submit">Add Show to Favorites</button>
-        </form>
-    </div>
-</div>
 
-<br/>
-<hr/>
-<br/>
+            <br/>
+            <hr/>
+            <br/>
 
-<h3>Actor results:</h3>
-<div class="list-group" role="list">
-    <div class="list-group-item list-group-item-action" th:each="actorFeedItem : ${actorFeed}" role="listitem">
-        <a th:href="${actorFeedItem.actor.url}" class="media remove-link-styling">
-            <img th:src="${actorFeedItem.actor.image.medium}" class="mr-3" th:alt="${actorFeedItem.actor.name}" width="128px"/>
-            <div class="media-body">
-                <h5 class="mt-0 mb-1" th:text="${actorFeedItem.actor.name}"></h5>
-                <p th:text="${actorFeedItem.actor.gender}"></p>
-                <p th:text="${actorFeedItem.actor.country}"></p>
-                <!--Below line to be removed before final presentation.-->
-                <small th:text="${actorFeedItem.actor}"></small>
+            <h3>Actor results:</h3>
+            <div class="list-group" role="list">
+                <div class="list-group-item list-group-item-action" th:each="actorFeedItem : ${actorFeed}" role="listitem">
+                    <a th:href="${actorFeedItem.actor.url}" class="media remove-link-styling">
+                        <img th:src="${actorFeedItem.actor.image.medium}" class="mr-3" th:alt="${actorFeedItem.actor.name}" width="128px"/>
+                        <div class="media-body">
+                            <h5 class="mt-0 mb-1" th:text="${actorFeedItem.actor.name}"></h5>
+                            <p th:text="${actorFeedItem.actor.gender}"></p>
+                            <p th:text="${actorFeedItem.actor.country}"></p>
+                            <!--Below line to be removed before final presentation.-->
+                            <small th:text="${actorFeedItem.actor}"></small>
+                        </div>
+                    </a>
+                    <form method="post" action="/favorites/save/actor">
+                        <input type="hidden" name="id" th:value="${actorFeedItem.actor.id}"/>
+                        <input type="hidden" name="url" th:value="${actorFeedItem.actor.url}"/>
+                        <input type="hidden" name="name" th:value="${actorFeedItem.actor.name}"/>
+                        <input type="hidden" name="country" th:value="${actorFeedItem.actor.country}"/>
+                        <input type="hidden" name="gender" th:value="${actorFeedItem.actor.gender}"/>
+                        <input type="hidden" name="image" th:value="${actorFeedItem.actor.image.medium}"/>
+                        <button type="submit">Add Actor to Favorites</button>
+                    </form>
+                </div>
             </div>
-        </a>
-        <form method="post" action="/favorites/save/actor">
-            <input type="hidden" name="id" th:value="${actorFeedItem.actor.id}"/>
-            <input type="hidden" name="url" th:value="${actorFeedItem.actor.url}"/>
-            <input type="hidden" name="name" th:value="${actorFeedItem.actor.name}"/>
-            <input type="hidden" name="country" th:value="${actorFeedItem.actor.country}"/>
-            <input type="hidden" name="gender" th:value="${actorFeedItem.actor.gender}"/>
-            <input type="hidden" name="image" th:value="${actorFeedItem.actor.image.medium}"/>
-            <button type="submit">Add Actor to Favorites</button>
-        </form>
+        </main>
+
+        <aside class="col-4">
+            <div th:replace="fragments/ads :: ads"></div>
+        </aside>
     </div>
 </div>
 
