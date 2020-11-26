@@ -18,18 +18,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
     <!-- JavaScript for Ads -->
-    <!-- Source: https://developers.google.com/publisher-tag/samples/display-test-ad -->
     <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
-    <script>
-        window.googletag = window.googletag || {cmd: []};
-        googletag.cmd.push(function() {
-            googletag
-                .defineSlot(
-                    '/6355419/Travel/Europe/France/Paris', [300, 250], 'banner-ad')
-                .addService(googletag.pubads());
-            googletag.enableServices();
-        });
-    </script>
+    <script th:src="@{/ads/test.js}"></script>
 
     <title>Stara Enterprise</title>
 </head>
@@ -58,13 +48,7 @@
         </main>
 
         <aside class="col-4">
-            <div id="banner-ad" style="width: 300px; height: 250px;">
-                <script>
-                    googletag.cmd.push(function() {
-                        googletag.display('banner-ad');
-                    });
-                </script>
-            </div>
+            <div id="banner-ad"></div>
         </aside>
     </div>
 </div>

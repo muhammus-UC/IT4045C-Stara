@@ -6,3 +6,8 @@ a.remove-link-styling {
     text-decoration: none;
     color: inherit;
 }
+
+#banner-ad {
+    width: 300px;
+    height: 250px;
+}
