@@ -308,6 +308,7 @@ public class StaraController {
             favoriteService.save(actorData, firebaseService.getUser(uid).getEmail(), favoriteActorId);
         } catch (Exception e) {
             e.printStackTrace();
+            return "error";
         }
 
         return "redirect:/favorites";
@@ -320,6 +321,7 @@ public class StaraController {
             favoriteService.delete(firebaseService.getUser(uid).getEmail(), favoriteId);
         } catch (Exception e) {
             e.printStackTrace();
+            return "error";
         }
 
         return "redirect:/favorites";
@@ -343,6 +345,7 @@ public class StaraController {
             reviewService.save(new Review(uid, favoriteId, newRating, favoriteName));
         } catch (Exception e) {
             e.printStackTrace();
+            return "error";
         }
 
         return "redirect:/favorites";
@@ -355,6 +358,7 @@ public class StaraController {
             reviewService.delete(new ReviewId(uid, favoriteId));
         } catch (Exception e) {
             e.printStackTrace();
+            return "error";
         }
 
         return "redirect:/favorites";
