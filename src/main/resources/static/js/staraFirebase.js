@@ -15,6 +15,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
 
+    // Initialize Firebase Analytics
+    firebase.analytics();
+
     // Initialize the FirebaseUI Widget using Firebase.
     var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
