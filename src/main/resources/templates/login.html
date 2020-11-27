@@ -41,6 +41,10 @@
 <!-- Load Firebase initialization & analytics scripts -->
 <div th:replace="fragments/firebase :: firebase"></div>
 
+<!-- Load Firebase Auth & Firestore scripts -->
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
+
 <!-- Firebase UI configuration -->
 <script th:src="@{/js/staraFirebaseUI.js}"></script>
 
