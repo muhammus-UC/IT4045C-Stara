@@ -8,6 +8,8 @@ import com.stara.enterprise.dto.Favorite;
 import com.stara.enterprise.service.firebase.FirebaseService;
 import com.stara.enterprise.service.firebase.IFirebaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,7 @@ public class FavoriteService implements IFavoriteService {
 
     // Firebase Reference: https://firebase.google.com/docs/firestore/manage-data/delete-data
     @Override
+    @CacheEvict(value = "favorites", allEntries = true)
     public void delete(String email, String id) throws ExecutionException, InterruptedException {
         ApiFuture<WriteResult> writeResult = firebaseService.getFirestore()
                 .collection(fireStoreCollectionUsers)
@@ -39,6 +42,7 @@ public class FavoriteService implements IFavoriteService {
 
     // Firebase Reference: https://firebase.google.com/docs/firestore/query-data/get-data
     @Override
+    @Cacheable(value = "favorites")
     public List<Favorite> fetchAll(String email) throws ExecutionException, InterruptedException {
         List<Favorite> allFavorites = new ArrayList<>();
 
@@ -55,11 +59,14 @@ public class FavoriteService implements IFavoriteService {
             allFavorites.add(document.toObject(Favorite.class));
         }
 
+        System.out.println("Favorites fetched");
+
         return allFavorites;
     }
 
     // Firebase Reference: https://firebase.google.com/docs/firestore/manage-data/add-data
     @Override
+    @CacheEvict(value = "favorites", allEntries = true)
     public void save(Map<String, String> favoriteData, String email, String id) throws ExecutionException, InterruptedException {
         ApiFuture<WriteResult> writeResult = firebaseService.getFirestore()
                 .collection(fireStoreCollectionUsers)
