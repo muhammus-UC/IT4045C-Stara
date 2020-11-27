@@ -4,10 +4,11 @@
         <a class="navbar-brand" data-intro="⭐ Welcome to Stara. Skip this tour by clicking the skip button, otherwise click next to continue!" data-step="1">Stara</a>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
-                <li class="nav-item active" data-intro="View your country's tv premieres for today here." data-step="2">
+                <!-- Using th:classappend to set active link - https://stackoverflow.com/a/32033141 -->
+                <li class="nav-item" th:classappend="${#request.requestURI == '/' ? 'active':''}" data-intro="View your country's tv premieres for today here." data-step="2">
                     <a class="nav-link" href="/">Schedule <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item" data-intro="View your favorites here. If you are not logged in, you will be prompted to." data-step="3">
+                <li class="nav-item"  th:classappend="${#request.requestURI == '/favorites' ? 'active':''}"  data-intro="View your favorites here. If you are not logged in, you will be prompted to." data-step="3">
                     <a class="nav-link" href="/favorites">Favorites</a>
                 </li>
             </ul>
