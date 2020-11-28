@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>Login - Stara</title>
+
     <!-- Required meta tags -->
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -17,36 +19,34 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
-    <!-- Firebase UI - CSS & JS - https://firebase.google.com/docs/auth/web/firebaseui -->
-    <script src="https://www.gstatic.com/firebasejs/ui/4.7.1/firebase-ui-auth.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.7.1/firebase-ui-auth.css" />
-
     <!-- JavaScript & CSS for Feature Tour -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/3.0.1/intro.min.js" integrity="sha512-Y3bwrs/uUQhiNsD26Mpr5YvfG18EY0J+aNxYI7ZQPJlM9H+lElGpuh/JURVJR/NBE+p1JZ+sVE773Un4zQcagg==" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/3.0.1/introjs.min.css" integrity="sha512-fsq7ym+bMq7ecs277R2a3QDPxF+JIwNNnkPfj9rIKDUyqrbXDnICZj/cCLcP3bKh3+jsCBnBR7BZJShOmELL0Q==" crossorigin="anonymous" />
     <script th:src="@{/js/staraTour.js}"></script>
     <link rel="stylesheet" th:href="@{/css/introjs-stara.css}"/>
 
-    <title>Stara Enterprise</title>
+    <!-- Firebase UI - CSS & JS - https://firebase.google.com/docs/auth/web/firebaseui -->
+    <script src="https://www.gstatic.com/firebasejs/ui/4.7.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.7.1/firebase-ui-auth.css" />
 </head>
 <body>
 <div th:replace="fragments/topnav :: navbar"></div>
 <h1>Stara Enterprise</h1>
 <h2 class="mb-2">Sign In</h2>
 
-<!-- Handled by staraFirebase.js -->
+<!-- Handled by staraFirebaseUI.js -->
 <div id="firebaseui-auth-container"></div>
 <div id="loader">Loading...</div>
 
-<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
+<!-- Load Firebase initialization & analytics scripts -->
+<div th:replace="fragments/firebase :: firebase"></div>
 
-<!-- Add Firebase products that you want to use -->
-<script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-firestore.js"></script>
+<!-- Load Firebase Auth & Firestore scripts -->
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
 
-<!-- Firebase configuration for Stara in external JS -->
-<script th:src="@{/js/staraFirebase.js}"></script>
+<!-- Firebase UI configuration -->
+<script th:src="@{/js/staraFirebaseUI.js}"></script>
 
 </body>
 </html>

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>Favorites - Stara</title>
+
     <!-- Required meta tags -->
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -17,74 +19,74 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
-    <!-- JavaScript for Ads -->
-    <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
-    <script th:src="@{/ads/test.js}"></script>
-
     <!-- JavaScript & CSS for Feature Tour -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/3.0.1/intro.min.js" integrity="sha512-Y3bwrs/uUQhiNsD26Mpr5YvfG18EY0J+aNxYI7ZQPJlM9H+lElGpuh/JURVJR/NBE+p1JZ+sVE773Un4zQcagg==" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/3.0.1/introjs.min.css" integrity="sha512-fsq7ym+bMq7ecs277R2a3QDPxF+JIwNNnkPfj9rIKDUyqrbXDnICZj/cCLcP3bKh3+jsCBnBR7BZJShOmELL0Q==" crossorigin="anonymous" />
     <script th:src="@{/js/staraTour.js}"></script>
     <link rel="stylesheet" th:href="@{/css/introjs-stara.css}"/>
 
-    <title>Stara Enterprise</title>
+    <!-- JavaScript for Ads -->
+    <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+    <script th:src="@{/ads/test.js}"></script>
 </head>
 <body>
 <div th:replace="fragments/topnav :: navbar"></div>
 <h1>Stara Enterprise</h1>
 <h2 class="mb-2">Your favorites</h2>
 
-<div class="list-group" role="list">
+<div class="container-fluid">
     <div class="row">
         <main class="col-8">
-            <div class="list-group-item list-group-item-action" th:each="favorite : ${favorites}" role="listitem">
-                <a th:href="${favorite.url}" class="media remove-link-styling">
-                    <img th:src="${favorite.image}" class="mr-3" th:alt="${favorite.name}" width="128px"/>
-                    <div class="media-body">
-                        <h5 class="mt-0 mb-1" th:text="${favorite.name}"></h5>
-                        <p th:text="${favorite.subtitle}"></p>
-                        <p th:text="${favorite.detail}"></p>
-                        <!--Below line to be removed before final presentation.-->
-                        <small th:text="${favorite}"></small>
-                    </div>
-                </a>
-                <form method="post" action="/favorites/delete">
-                    <input type="hidden" name="favoriteId" th:value="${favorite.id}"/>
-                    <button type="submit">Remove Favorite</button>
-                </form>
-
-                <div class="review">
-                    <!-- Only show if there is a review to show -->
-                    <div th:unless="${reviews.get(favorite.id) == null}">
-                        Current Rating:
-                        <!-- Only show if the rating is not 0 -->
-                        <span th:unless="${reviews.get(favorite.id).rating == 0}">
-                            <!-- Number of smiles equals rating number -->
-                            <svg th:each="i : ${#numbers.sequence(1, reviews.get(favorite.id).rating)}" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-emoji-smile" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                <path fill-rule="evenodd" d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683z"/>
-                                <path d="M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
-                            </svg>
-                        </span>
-                        <br/>
-
-                        <form method="post" action="/reviews/delete">
-                            <input type="hidden" name="favoriteId" th:value="${favorite.id}"/>
-                            <button type="submit">Delete Rating</button>
-                        </form>
-
-                        <small th:text="${reviews.get(favorite.id)}"></small>
-                    </div>
-
-                    <form method="post" action="/reviews/update">
-                        <label>
-                            New Rating:
-                        </label>
-                            <input type="number" name="newRating" min="1" max="5"/>
-                            <input type="hidden" name="favoriteId" th:value="${favorite.id}"/>
-                            <input type="hidden" name="favoriteName" th:value="${favorite.name}"/>
-                        <button type="submit">Submit New Rating</button>
+            <div class="list-group" role="list">
+                <div class="list-group-item list-group-item-action" th:each="favorite : ${favorites}" role="listitem">
+                    <a th:href="${favorite.url}" class="media remove-link-styling">
+                        <img th:src="${favorite.image}" class="mr-3" th:alt="${favorite.name}" width="128px"/>
+                        <div class="media-body">
+                            <h5 class="mt-0 mb-1" th:text="${favorite.name}"></h5>
+                            <p th:text="${favorite.subtitle}"></p>
+                            <p th:text="${favorite.detail}"></p>
+                            <!--Below line to be removed before final presentation.-->
+                            <small th:text="${favorite}"></small>
+                        </div>
+                    </a>
+                    <form method="post" action="/favorites/delete">
+                        <input type="hidden" name="favoriteId" th:value="${favorite.id}"/>
+                        <button type="submit">Remove Favorite</button>
                     </form>
+
+                    <div class="review">
+                        <!-- Only show if there is a review to show -->
+                        <div th:unless="${reviews.get(favorite.id) == null}">
+                            Current Rating:
+                            <!-- Only show if the rating is not 0 -->
+                            <span th:unless="${reviews.get(favorite.id).rating == 0}">
+                                <!-- Number of smiles equals rating number -->
+                                <svg th:each="i : ${#numbers.sequence(1, reviews.get(favorite.id).rating)}" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-emoji-smile" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                    <path fill-rule="evenodd" d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683z"/>
+                                    <path d="M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
+                                </svg>
+                            </span>
+                            <br/>
+
+                            <form method="post" action="/reviews/delete">
+                                <input type="hidden" name="favoriteId" th:value="${favorite.id}"/>
+                                <button type="submit">Delete Rating</button>
+                            </form>
+
+                            <small th:text="${reviews.get(favorite.id)}"></small>
+                        </div>
+
+                        <form method="post" action="/reviews/update">
+                            <label>
+                                New Rating:
+                                <input type="number" name="newRating" min="1" max="5"/>
+                            </label>
+                                <input type="hidden" name="favoriteId" th:value="${favorite.id}"/>
+                                <input type="hidden" name="favoriteName" th:value="${favorite.name}"/>
+                            <button type="submit">Submit New Rating</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </main>
@@ -94,6 +96,9 @@
         </aside>
     </div>
 </div>
+
+<!-- Load Firebase initialization & analytics scripts -->
+<div th:replace="fragments/firebase :: firebase"></div>
 
 </body>
 </html>
