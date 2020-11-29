@@ -24,6 +24,18 @@ a.remove-link-styling {
     height: 250px;
 }
 
+#btnSearch {
+    background-color: #CE6038;
+    border-color: #CE6038;
+    color: #E6E6E6;
+}
+
+#btnSearch:focus {
+    background-color: #B4512D;
+    border-color: #A74B2A;
+    box-shadow: 0 0 0 0.2rem rgba(213, 121, 88, .5);
+}
+
 #coffee-ad {
     border: 0;
     height: 600px;
