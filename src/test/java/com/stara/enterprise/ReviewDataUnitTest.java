@@ -7,6 +7,7 @@ import com.stara.enterprise.service.review.IReviewService;
 import com.stara.enterprise.service.review.ReviewService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -16,11 +17,10 @@ import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 class ReviewDataUnitTest {
+    @Autowired
     private IReviewService reviewService;
-    private Review review = new Review();
-
-    @MockBean
-    private IReviewDAO reviewDAO;
+    private Review review;
+    private ReviewId reviewId;
 
     @Test
     void confirmShowReview_outputsShowReview() {
@@ -51,9 +51,7 @@ class ReviewDataUnitTest {
     private void givenReviewDataAreAvailable() throws Exception {
         // Reinitialize variable to ensure data across tests doesn't cause false passes
         review = new Review();
-
-        Mockito.when(reviewDAO.save(review)).thenReturn(review);
-        reviewService = new ReviewService(reviewDAO);
+        reviewId = new ReviewId();
     }
 
     @Test
@@ -64,20 +62,21 @@ class ReviewDataUnitTest {
         thenReturnCommunityReviewForIdShow318();
     }
 
-    private void whenReviewShow318AddedIsCommunity() {
+    private void whenReviewShow318AddedIsCommunity() throws Exception {
         Review reviewShow = new Review();
         ReviewId reviewIdShow = new ReviewId("d41d8cd98f00b204e9800998ecf8", "Show_318");
 
         reviewShow.setReviewId(reviewIdShow);
         reviewShow.setRating(5);
         reviewShow.setFavoriteName("Community");
-        Mockito.when(reviewDAO.fetch(reviewIdShow)).thenReturn(reviewShow);
+
+        reviewService.save(reviewShow);
     }
 
     private void whenSearchReviewWithIdShow318() {
         ReviewId reviewIdShow = new ReviewId("d41d8cd98f00b204e9800998ecf8", "Show_318");
 
-        review = reviewDAO.fetch(reviewIdShow);
+        review = reviewService.fetch(reviewIdShow);
     }
 
     private void thenReturnCommunityReviewForIdShow318() throws Exception {
@@ -88,20 +87,24 @@ class ReviewDataUnitTest {
     @Test
     void saveReview_validatedReturnedReview() throws Exception {
         givenReviewDataAreAvailable();
-        whenUserCreatesANewReviewAndLaterSavesIt();
+        whenUserCreatesANewReviewAndSavesIt();
         thenCreateNewReviewRecordAndReturnIt();
     }
 
-    private void whenUserCreatesANewReviewAndLaterSavesIt() {
-        review.setReviewId("d41d8cd98f00b204e9800998ecf8", "Actor_40831");
+    private void whenUserCreatesANewReviewAndSavesIt() throws Exception {
+        reviewId = new ReviewId("d41d8cd98f00b204e9800998ecf8", "Actor_40831");
+
+        review.setReviewId(reviewId);
         review.setRating(5);
         review.setFavoriteName("Ricky Gervais");
+
+        reviewService.save(review);
     }
 
     private void thenCreateNewReviewRecordAndReturnIt() throws Exception {
-        Review createdReview = reviewService.save(review);
+        Review createdReview = reviewService.fetch(reviewId);
+
         assertEquals("Actor_40831", review.getReviewId().getFavoriteId());
         assertEquals(review, createdReview);
-        verify(reviewDAO, atLeastOnce()).save(review);
     }
 }
