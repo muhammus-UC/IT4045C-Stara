@@ -1,5 +1,17 @@
+body {
+    background-color: #2B4154;
+    color: #F2F2F2;
+}
+
 nav {
     background-color: #3C8541;
+    color: #F2F2F2;
+}
+
+.list-group-item {
+    background-color: #CEC1B1;
+    color: #1F1F1F;
+    margin-bottom: 10px;
 }
 
 a.remove-link-styling {
