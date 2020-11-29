@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-public class ScheduleDataUnitTest {
+class ScheduleDataUnitTest {
     private IScheduleFeedService scheduleFeedService;
     private List<ScheduleFeedItem> scheduleFeedItemListTested;
 
