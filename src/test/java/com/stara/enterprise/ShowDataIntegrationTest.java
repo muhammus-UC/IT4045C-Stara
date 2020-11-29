@@ -86,7 +86,8 @@ class ShowDataIntegrationTest {
                 showFeedItem.getShow().getName().equals("Black Books") &&
                 showFeedItem.getShow().getLanguage().equals("English") &&
                 showFeedItem.getShow().getStatus().equals("Status: Ended") &&
-                showFeedItem.getShow().getImage().getMedium().equals("http://static.tvmaze.com/uploads/images/medium_portrait/81/204617.jpg")
+                showFeedItem.getShow().getImage().getMedium().equals("http://static.tvmaze.com/uploads/images/medium_portrait/81/204617.jpg") &&
+                !showFeedItem.getScore().isNaN()
             ) {
                 blackBooksFound = true;
                 break;
