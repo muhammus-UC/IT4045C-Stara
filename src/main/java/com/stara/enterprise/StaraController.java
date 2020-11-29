@@ -125,46 +125,6 @@ public class StaraController {
     }
 
     /**
-     * GetMapping for /shows endpoint
-     * Equivalent of running https://api.tvmaze.com/search/shows?q=searchShow
-     *
-     * @param searchShow show name to search for REQUIRED
-     * @return search results from TVMaze API
-     */
-    @GetMapping("/shows")
-    public ResponseEntity searchShows(@RequestParam(value = "searchShow", required = true) String searchShow, @CookieValue(value = "uid", required = false) String uid) {
-        try {
-            List<ShowFeedItem> showFeed = showFeedService.fetchShowFeed(searchShow);
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            return new ResponseEntity(showFeed, headers, HttpStatus.OK);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    /**
-     * GetMapping for /actors endpoint
-     * Equivalent of running https://api.tvmaze.com/search/people?q=searchActor
-     *
-     * @param searchActor actor name to search for REQUIRED
-     * @return search results from TVMaze API
-     */
-    @GetMapping("/actors")
-    public ResponseEntity searchActors(@RequestParam(value = "searchActor", required = true) String searchActor) {
-        try {
-            List<ActorFeedItem> actorFeed = actorFeedService.fetchActorFeed(searchActor);
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            return new ResponseEntity(actorFeed, headers, HttpStatus.OK);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    /**
      * GetMapping for /search endpoint
      * Equivalent of running https://www.tvmaze.com/search?q=searchTerm
      * Also equivalent of getting /shows and /actors results, combining them, and then displaying them via HTML
@@ -192,27 +152,6 @@ public class StaraController {
             return "error";
         }
     }
-
-    /**
-     * GetMapping for /schedule endpoint
-     * Equivalent of running https://api.tvmaze.com/schedule?country=countryCode
-     *
-     * @param countryCode country to get schedule for REQUIRED
-     * @return schedule from TVMaze API
-     */
-    @GetMapping("/schedule")
-    public ResponseEntity getSchedule(@RequestParam(value = "countryCode", required = true) String countryCode) {
-        try {
-            List<ScheduleFeedItem> scheduleFeed = scheduleFeedService.fetchScheduleFeed(countryCode);
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            return new ResponseEntity(scheduleFeed, headers, HttpStatus.OK);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
     // Reference: https://dzone.com/articles/how-to-use-cookies-in-spring-boot
     @GetMapping("/set-uid")
     public String setCookie(HttpServletResponse response, @RequestParam(value = "uid") String uid) {
