@@ -40,7 +40,7 @@
             <div class="list-group" role="list">
                 <div class="list-group-item list-group-item-action" th:each="showFeedItem : ${showFeed}" role="listitem">
                     <a th:href="${showFeedItem.show.url}" class="media remove-link-styling">
-                        <img th:src="${showFeedItem.show.image.medium}" class="mr-3" th:alt="${showFeedItem.show.name}" width="128px"/>
+                        <img class="staraThumbnail" th:src="${showFeedItem.show.image.medium}" class="mr-3" th:alt="${showFeedItem.show.name}"/>
                         <div class="media-body">
                             <h5 class="mt-0 mb-1" th:text="${showFeedItem.show.name}"></h5>
                             <p th:text="${showFeedItem.show.status}"></p>
@@ -67,7 +67,7 @@
             <div class="list-group" role="list">
                 <div class="list-group-item list-group-item-action" th:each="actorFeedItem : ${actorFeed}" role="listitem">
                     <a th:href="${actorFeedItem.actor.url}" class="media remove-link-styling">
-                        <img th:src="${actorFeedItem.actor.image.medium}" class="mr-3" th:alt="${actorFeedItem.actor.name}" width="128px"/>
+                        <img class="staraThumbnail" th:src="${actorFeedItem.actor.image.medium}" class="mr-3" th:alt="${actorFeedItem.actor.name}"/>
                         <div class="media-body">
                             <h5 class="mt-0 mb-1" th:text="${actorFeedItem.actor.name}"></h5>
                             <p th:text="${actorFeedItem.actor.gender}"></p>

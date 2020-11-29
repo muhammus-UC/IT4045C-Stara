@@ -29,6 +29,11 @@ nav {
     color: #F2F2F2;
 }
 
+.staraThumbnail {
+    height: 180px;
+    width: 128px;
+}
+
 a.remove-link-styling {
     text-decoration: none;
     color: inherit;
