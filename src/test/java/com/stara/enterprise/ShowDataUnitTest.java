@@ -130,7 +130,7 @@ class ShowDataUnitTest {
         showFeedItem3.setScore(12.5);
         showFeedItem3.setShow(show3);
 
-        List <ShowFeedItem> showFeedItemListInitData = new ArrayList<ShowFeedItem>();
+        List<ShowFeedItem> showFeedItemListInitData = new ArrayList<ShowFeedItem>();
         showFeedItemListInitData.add(showFeedItem1);
         showFeedItemListInitData.add(showFeedItem2);
         showFeedItemListInitData.add(showFeedItem3);

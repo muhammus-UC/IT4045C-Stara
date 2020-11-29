@@ -150,7 +150,7 @@ class ActorDataUnitTest {
         actorFeedItem3.setScore(12.5);
         actorFeedItem3.setActor(actor3);
 
-        List <ActorFeedItem> actorFeedItemListInitData = new ArrayList<ActorFeedItem>();
+        List<ActorFeedItem> actorFeedItemListInitData = new ArrayList<ActorFeedItem>();
         actorFeedItemListInitData.add(actorFeedItem1);
         actorFeedItemListInitData.add(actorFeedItem2);
         actorFeedItemListInitData.add(actorFeedItem3);

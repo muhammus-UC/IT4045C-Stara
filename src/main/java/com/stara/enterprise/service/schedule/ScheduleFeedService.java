@@ -16,6 +16,12 @@ public class ScheduleFeedService implements IScheduleFeedService {
     @Autowired
     private IScheduleFeedDAO scheduleFeedDAO;
 
+    public ScheduleFeedService() {}
+
+    public ScheduleFeedService(IScheduleFeedDAO scheduleFeedDAO) {
+        this.scheduleFeedDAO = scheduleFeedDAO;
+    }
+
     /**
      * Fetch "ScheduleFeed" via DAO for country code given
      *
