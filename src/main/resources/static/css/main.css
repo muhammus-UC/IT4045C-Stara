@@ -19,6 +19,16 @@ nav {
     background-color: #CE6038 !important;
 }
 
+/* Bootstrap CSS selectors for a nav link in a dark navbar that is NOT active */
+.navbar-dark .navbar-nav .nav-link {
+    color: #1F1F1F;
+}
+
+/* Bootstrap CSS selectors for a nav link in a dark navbar that is active */
+.navbar-dark .navbar-nav .active>.nav-link, .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .nav-link.show, .navbar-dark .navbar-nav .show>.nav-link {
+    color: #F2F2F2;
+}
+
 a.remove-link-styling {
     text-decoration: none;
     color: inherit;
