@@ -24,7 +24,7 @@ public class ScheduleDataUnitTest {
         scheduleFeedItem.getShow().setStatus("Running");
         assertEquals("Episode 44", scheduleFeedItem.getEpisodeName());
         assertEquals("http://www.tvmaze.com/episodes/1954168/cbs-news-sunday-morning-2020-11-01-episode-44", scheduleFeedItem.getUrl());
-        assertEquals("09:00", scheduleFeedItem.getAirtime());
+        assertEquals("09:00 AM", scheduleFeedItem.getAirtime());
         assertEquals(15779, scheduleFeedItem.getShow().getId());
         assertEquals("http://www.tvmaze.com/shows/15779/cbs-news-sunday-morning", scheduleFeedItem.getShow().getUrl());
         assertEquals("CBS News Sunday Morning", scheduleFeedItem.getShow().getName());
@@ -46,7 +46,7 @@ public class ScheduleDataUnitTest {
         scheduleFeedItem.getShow().setStatus("Running");
         assertEquals("Dinner Staycation", scheduleFeedItem.getEpisodeName());
         assertEquals("http://www.tvmaze.com/episodes/1953551/girl-meets-farm-6x10-dinner-staycation", scheduleFeedItem.getUrl());
-        assertEquals("11:00", scheduleFeedItem.getAirtime());
+        assertEquals("11:00 AM", scheduleFeedItem.getAirtime());
         assertEquals(15779, scheduleFeedItem.getShow().getId());
         assertEquals("http://www.tvmaze.com/shows/36765/girl-meets-farm", scheduleFeedItem.getShow().getUrl());
         assertEquals("Girl Meets Farm", scheduleFeedItem.getShow().getName());
