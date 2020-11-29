@@ -1,19 +1,15 @@
 package com.stara.enterprise;
 
-import com.stara.enterprise.dao.review.IReviewDAO;
 import com.stara.enterprise.dto.review.Review;
 import com.stara.enterprise.dto.review.ReviewId;
 import com.stara.enterprise.service.review.IReviewService;
-import com.stara.enterprise.service.review.ReviewService;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.mockito.Mockito.atLeastOnce;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest
@@ -164,5 +160,28 @@ class ReviewDataUnitTest {
 
         assertEquals("Actor_40831", review.getReviewId().getFavoriteId());
         assertEquals(review, createdReview);
+    }
+
+    @Test
+    void deleteReview_validateReviewDelete() throws Exception {
+        givenReviewDataAreAvailable();
+        whenUserCreatesANewReviewAndSavesIt();
+        thenUserHasAReview();
+        whenUserDeletesNewReview();
+        thenUserHasNoReviews();
+    }
+
+    private void thenUserHasAReview() {
+        Map<String, Review> allReviewsForUser = reviewService.fetchReviewsByUid("d41d8cd98f00b204e9800998ecf8");
+        assertNotEquals(0, allReviewsForUser.size());
+    }
+
+    private void whenUserDeletesNewReview() throws Exception {
+        reviewService.delete(reviewId);
+    }
+
+    private void thenUserHasNoReviews() throws Exception {
+        Map<String, Review> allReviewsForUser = reviewService.fetchReviewsByUid("d41d8cd98f00b204e9800998ecf8");
+        assertEquals(0, allReviewsForUser.size());
     }
 }
