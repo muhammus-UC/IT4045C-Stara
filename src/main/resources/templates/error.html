@@ -24,12 +24,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/3.0.1/introjs.min.css" integrity="sha512-fsq7ym+bMq7ecs277R2a3QDPxF+JIwNNnkPfj9rIKDUyqrbXDnICZj/cCLcP3bKh3+jsCBnBR7BZJShOmELL0Q==" crossorigin="anonymous" />
     <script th:src="@{/js/staraTour.js}"></script>
     <link rel="stylesheet" th:href="@{/css/introjs-stara.css}"/>
+
+    <!-- Pong Game JS -->
+    <script th:src="@{/js/pong.js}"></script>
 </head>
 <body>
 <div th:replace="fragments/topnav :: navbar"></div>
 <main>
-    <h1 class="ml-2">Something went wrong.</h1>
+    <h1 class="ml-2">Something went wrong...</h1>
+    <h2>Possible fixes:</h2>
+    <ol>
+        <li>Try your action again.</li>
+        <li>Try clearing your browser cache & cookies.</li>
+        <li>Try waiting for a few minutes before trying again, the server might be overloaded.</li>
+    </ol>
 </main>
+
+<aside id="pong">
+    <h3>Pong</h3>
+    <p>Play the classic game while you wait! Use Up/W or Down/S to play :)</p>
+    <!-- Used for Pong game -->
+    <canvas></canvas>
+</aside>
+
 <!-- Load Firebase initialization & analytics scripts -->
 <div th:replace="fragments/firebase :: firebase"></div>
 </body>

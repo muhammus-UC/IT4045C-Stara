@@ -97,3 +97,10 @@ nav {
         height: 75%;
     }
 }
+
+/* Max width that pong will work at */
+@media (max-width: 640px) {
+    #pong {
+        display: none;
+    }
+}
