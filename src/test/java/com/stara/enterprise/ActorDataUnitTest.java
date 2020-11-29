@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class ActorDataUnitTest {
     private IActorFeedService actorFeedService;
-    private List<ActorFeedItem> actorFeedItemList;
+    private List<ActorFeedItem> actorFeedItemListTested;
 
     @MockBean
     private IActorFeedDAO actorFeedDAO;
@@ -90,7 +90,7 @@ class ActorDataUnitTest {
 
     // Confirms data which can be null from API is being handled properly.
     @Test
-    void confirmNull_outputsNull() {
+    void confirmNullActor_outputsNullActor() {
         Actor actor = new Actor();
 
         assertEquals(0, actor.getId());
@@ -150,16 +150,16 @@ class ActorDataUnitTest {
         actorFeedItem3.setScore(12.5);
         actorFeedItem3.setActor(actor3);
 
-        List <ActorFeedItem> actorFeedItemListInit = new ArrayList<ActorFeedItem>();
-        actorFeedItemListInit.add(actorFeedItem1);
-        actorFeedItemListInit.add(actorFeedItem2);
-        actorFeedItemListInit.add(actorFeedItem3);
+        List <ActorFeedItem> actorFeedItemListInitData = new ArrayList<ActorFeedItem>();
+        actorFeedItemListInitData.add(actorFeedItem1);
+        actorFeedItemListInitData.add(actorFeedItem2);
+        actorFeedItemListInitData.add(actorFeedItem3);
 
-        Mockito.when(actorFeedDAO.fetchActorFeed("Joel McHale")).thenReturn(actorFeedItemListInit);
+        Mockito.when(actorFeedDAO.fetchActorFeed("Joel McHale")).thenReturn(actorFeedItemListInitData);
         actorFeedService = new ActorFeedService(actorFeedDAO);
 
-        // Reinitialize variable to ensure data across doesn't cause false positives/negatives
-        actorFeedItemList = new ArrayList<ActorFeedItem>();
+        // Reinitialize variable to ensure data across tests doesn't cause false positives/negatives
+        actorFeedItemListTested = new ArrayList<ActorFeedItem>();
     }
 
     @Test
@@ -170,20 +170,21 @@ class ActorDataUnitTest {
     }
 
     private void whenSearchForJoelMcHale() throws IOException {
-        actorFeedItemList = actorFeedService.fetchActorFeed("Joel McHale");
+        actorFeedItemListTested = actorFeedService.fetchActorFeed("Joel McHale");
     }
 
     private void thenResultContainsJoelMcHale() {
         boolean joelMcHaleFound = false;
 
-        for (ActorFeedItem actorFeedItem : actorFeedItemList) {
+        for (ActorFeedItem actorFeedItem : actorFeedItemListTested) {
             if (
                 actorFeedItem.getActor().getId() == 11615 &&
                 actorFeedItem.getActor().getUrl().equals("http://www.tvmaze.com/people/11615/joel-mchale") &&
                 actorFeedItem.getActor().getName().equals("Joel McHale") &&
                 actorFeedItem.getActor().getCountry().getName().equals("Italy") &&
                 actorFeedItem.getActor().getGender().equals("Male") &&
-                actorFeedItem.getActor().getImage().getMedium().equals("http://static.tvmaze.com/uploads/images/medium_portrait/4/10878.jpg")
+                actorFeedItem.getActor().getImage().getMedium().equals("http://static.tvmaze.com/uploads/images/medium_portrait/4/10878.jpg") &&
+                actorFeedItem.getScore() == 50.0
             ) {
                 joelMcHaleFound = true;
                 break;

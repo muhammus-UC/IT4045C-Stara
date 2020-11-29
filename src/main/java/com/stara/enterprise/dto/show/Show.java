@@ -25,7 +25,7 @@ class Show {
                 ". URL: " + url +
                 ". Name: " + name +
                 ". Language: " + language +
-                ". Status: " + status +
+                ". " + status +
                 ". Image URL: " + image;
     }
 
