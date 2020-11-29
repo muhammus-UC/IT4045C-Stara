@@ -165,18 +165,25 @@ class ReviewDataUnitTest {
     @Test
     void deleteReview_validateReviewDelete() throws Exception {
         givenReviewDataAreAvailable();
-        whenUserCreatesANewReviewAndSavesIt();
-        thenUserHasAReview();
-        whenUserDeletesNewReview();
+        whenUserHasOneReview();
+        whenUserDeletesReview();
         thenUserHasNoReviews();
     }
 
-    private void thenUserHasAReview() {
+    private void whenUserHasOneReview() throws Exception {
+        reviewId = new ReviewId("d41d8cd98f00b204e9800998ecf8", "Actor_40831");
+
+        review.setReviewId(reviewId);
+        review.setRating(5);
+        review.setFavoriteName("Ricky Gervais");
+
+        reviewService.save(review);
+
         Map<String, Review> allReviewsForUser = reviewService.fetchReviewsByUid("d41d8cd98f00b204e9800998ecf8");
         assertNotEquals(0, allReviewsForUser.size());
     }
 
-    private void whenUserDeletesNewReview() throws Exception {
+    private void whenUserDeletesReview() throws Exception {
         reviewService.delete(reviewId);
     }
 
