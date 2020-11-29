@@ -11,4 +11,10 @@ class ActorCountry {
     public String toString() {
         return name;
     }
+
+    public ActorCountry() {}
+
+    public ActorCountry(String country) {
+        this.name = country;
+    }
 }

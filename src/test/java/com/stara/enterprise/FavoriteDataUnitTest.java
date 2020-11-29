@@ -6,6 +6,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Unit Tests for Favorite DTO only.
+ * Not testing Service as it uses Firebase and testing that would require a lot of work beyond the scope of this course.
+ */
 @SpringBootTest
 class FavoriteDataUnitTest {
 

@@ -12,14 +12,17 @@ import java.net.InetAddress;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests for MaxMind GeoIP2 Database used to determine location of user based on IP Address.
+ */
 @SpringBootTest
-public class MaxMindGeoIP2Test {
+class MaxMindGeoIP2Test {
     private final String dbLocation = "assets/GeoLite2-Country.mmdb";
     private String ip;
     private CountryResponse response;
     private DatabaseReader ipDbReader;
 
-    public void givenIPDatabaseAvailable() throws IOException {
+    private void givenIPDatabaseAvailable() throws IOException {
         // Reinitialize variable to ensure data across tests doesn't cause false passes
         ip = null;
         response = null;
@@ -30,13 +33,13 @@ public class MaxMindGeoIP2Test {
     }
 
     @Test
-    public void confirmUSIP_returnsUSCountryName() throws IOException, GeoIp2Exception {
+    void confirmUSIP_returnsUSCountryName() throws IOException, GeoIp2Exception {
         givenIPDatabaseAvailable();
         whenIPFromUS();
         thenCountryNameIsUS();
     }
 
-    public void whenIPFromUS() throws IOException, GeoIp2Exception {
+    private void whenIPFromUS() throws IOException, GeoIp2Exception {
         // IP Address of uc.edu
         ip = "129.137.4.225";
 
@@ -44,19 +47,19 @@ public class MaxMindGeoIP2Test {
         response = ipDbReader.country(inetAddress);
     }
 
-    public void thenCountryNameIsUS() {
+    private void thenCountryNameIsUS() {
         assertEquals("United States", response.getCountry().getName());
         assertEquals("US", response.getCountry().getIsoCode());
     }
 
     @Test
-    public void confirmUKIP_returnsUKCountryName() throws IOException, GeoIp2Exception {
+    void confirmUKIP_returnsUKCountryName() throws IOException, GeoIp2Exception {
         givenIPDatabaseAvailable();
         whenIPFromUK();
         thenCountryNameIsUK();
     }
 
-    public void whenIPFromUK() throws IOException, GeoIp2Exception {
+    private void whenIPFromUK() throws IOException, GeoIp2Exception {
         // IP Address of UK Dedicated Servers Ltd
         ip = "5.101.137.196";
 
@@ -64,7 +67,7 @@ public class MaxMindGeoIP2Test {
         response = ipDbReader.country(inetAddress);
     }
 
-    public void thenCountryNameIsUK() {
+    private void thenCountryNameIsUK() {
         assertEquals("United Kingdom", response.getCountry().getName());
         assertEquals("GB", response.getCountry().getIsoCode());
     }

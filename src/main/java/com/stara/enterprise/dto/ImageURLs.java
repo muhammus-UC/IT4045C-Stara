@@ -12,4 +12,10 @@ public @Data
 class ImageURLs {
     @SerializedName("medium")
     private String medium;
+
+    public ImageURLs() {}
+
+    public ImageURLs(String medium) {
+        this.medium = medium;
+    }
 }
