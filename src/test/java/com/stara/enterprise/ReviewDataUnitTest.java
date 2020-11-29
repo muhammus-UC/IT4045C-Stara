@@ -179,8 +179,8 @@ class ReviewDataUnitTest {
 
         reviewService.save(review);
 
-        Map<String, Review> allReviewsForUser = reviewService.fetchReviewsByUid("d41d8cd98f00b204e9800998ecf8");
-        assertEquals(1, allReviewsForUser.size());
+        Review fetchedReview = reviewService.fetch(reviewId);
+        assertNotNull(fetchedReview);
     }
 
     private void whenUserDeletesReview() throws Exception {
