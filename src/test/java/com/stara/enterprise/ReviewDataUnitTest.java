@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 
@@ -31,6 +32,33 @@ class ReviewDataUnitTest {
 
         assertEquals("d41d8cd98f00b204e9800998ecf8", showReview.getReviewId().getUid());
         assertEquals("Show_1641", showReview.getReviewId().getFavoriteId());
+        assertEquals("Show_1641", showReview.getReviewIdFavoriteId());
+        assertEquals(5, showReview.getRating());
+        assertEquals("Black Books", showReview.getFavoriteName());
+    }
+
+    @Test
+    void confirmShowReviewId_outputsShowReviewId() {
+        Review showReview = new Review(null, null, 5, "Black Books");
+
+        showReview.setReviewId(new ReviewId("d41d8cd98f00b204e9800998ecf8", "Show_1641"));
+        assertEquals("d41d8cd98f00b204e9800998ecf8", showReview.getReviewId().getUid());
+        assertEquals("Show_1641", showReview.getReviewId().getFavoriteId());
+        assertEquals("Show_1641", showReview.getReviewIdFavoriteId());
+        assertEquals(5, showReview.getRating());
+        assertEquals("Black Books", showReview.getFavoriteName());
+
+        showReview.setReviewId(null, null);
+        assertNull(showReview.getReviewId().getUid());
+        assertNull(showReview.getReviewId().getFavoriteId());
+
+        ReviewId reviewId = new ReviewId();
+        reviewId.setUid("d41d8cd98f00b204e9800998ecf8");
+        reviewId.setFavoriteId("Show_1641");
+        showReview.setReviewId(reviewId);
+        assertEquals("d41d8cd98f00b204e9800998ecf8", showReview.getReviewId().getUid());
+        assertEquals("Show_1641", showReview.getReviewId().getFavoriteId());
+        assertEquals("Show_1641", showReview.getReviewIdFavoriteId());
         assertEquals(5, showReview.getRating());
         assertEquals("Black Books", showReview.getFavoriteName());
     }
@@ -44,12 +72,42 @@ class ReviewDataUnitTest {
 
         assertEquals("d41d8cd98f00b204e9800998ecf8", actorReview.getReviewId().getUid());
         assertEquals("Actor_40831", actorReview.getReviewId().getFavoriteId());
+        assertEquals("Actor_40831", actorReview.getReviewIdFavoriteId());
+        assertEquals(1, actorReview.getRating());
+        assertEquals("Ricky Gervais", actorReview.getFavoriteName());
+    }
+
+
+    @Test
+    void confirmActorReviewId_outputsActorReviewId() {
+        Review actorReview = new Review(null, null, 1, "Ricky Gervais");
+        actorReview.setReviewId(new ReviewId("d41d8cd98f00b204e9800998ecf8", "Actor_40831"));
+
+        assertEquals("d41d8cd98f00b204e9800998ecf8", actorReview.getReviewId().getUid());
+        assertEquals("Actor_40831", actorReview.getReviewId().getFavoriteId());
+        assertEquals("Actor_40831", actorReview.getReviewIdFavoriteId());
+        assertEquals(1, actorReview.getRating());
+        assertEquals("Ricky Gervais", actorReview.getFavoriteName());
+
+        actorReview.setReviewId(null, null);
+
+        assertNull(actorReview.getReviewId().getUid());
+        assertNull(actorReview.getReviewId().getFavoriteId());
+
+        ReviewId reviewId = new ReviewId();
+        reviewId.setUid("d41d8cd98f00b204e9800998ecf8");
+        reviewId.setFavoriteId("Actor_40831");
+        actorReview.setReviewId(reviewId);
+
+        assertEquals("d41d8cd98f00b204e9800998ecf8", actorReview.getReviewId().getUid());
+        assertEquals("Actor_40831", actorReview.getReviewId().getFavoriteId());
+        assertEquals("Actor_40831", actorReview.getReviewIdFavoriteId());
         assertEquals(1, actorReview.getRating());
         assertEquals("Ricky Gervais", actorReview.getFavoriteName());
     }
 
     private void givenReviewDataAreAvailable() throws Exception {
-        // Reinitialize variable to ensure data across tests doesn't cause false passes
+        // Reinitialize variable to ensure data across tests doesn't cause false positive/negatives
         review = new Review();
         reviewId = new ReviewId();
     }
