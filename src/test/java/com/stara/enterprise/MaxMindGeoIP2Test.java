@@ -12,6 +12,9 @@ import java.net.InetAddress;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests for MaxMind GeoIP2 Database used to determine location of user based on IP Address.
+ */
 @SpringBootTest
 class MaxMindGeoIP2Test {
     private final String dbLocation = "assets/GeoLite2-Country.mmdb";
