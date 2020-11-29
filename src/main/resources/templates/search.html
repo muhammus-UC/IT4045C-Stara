@@ -31,11 +31,12 @@
 </head>
 <body>
 <div th:replace="fragments/topnav :: navbar"></div>
-<h1 class="ml-2 mb-2">Your search results:</h1>
 
 <div class="container-fluid">
     <div class="row">
         <main class="col-sm-8">
+            <h1 class="mb-2">Your search results:</h1>
+
             <h3>Show results:</h3>
             <div class="list-group" role="list">
                 <div class="list-group-item" th:each="showFeedItem : ${showFeed}" role="listitem">

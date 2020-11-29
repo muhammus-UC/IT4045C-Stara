@@ -31,11 +31,11 @@
 </head>
 <body>
 <div th:replace="fragments/topnav :: navbar"></div>
-<h1 class="ml-2 mb-2">Today's TV Premieres for <span th:text="${countryName}"></span></h1>
 
 <div class="container-fluid">
-    <div class="row">
+    <div class="row mt-2">
         <main class="col-8">
+            <h1 class="mb-2">Today's TV Premieres for <span th:text="${countryName}"></span></h1>
             <div class="list-group" role="list">
                 <div class="list-group-item" th:each="scheduleFeedItem : ${scheduleFeed}" role="listitem">
                     <div class="row">

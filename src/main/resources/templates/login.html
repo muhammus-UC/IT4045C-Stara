@@ -31,12 +31,14 @@
 </head>
 <body>
 <div th:replace="fragments/topnav :: navbar"></div>
-<h1 class="ml-2 mb-2">Sign In</h1>
 
-<!-- Handled by staraFirebaseUI.js -->
-<div id="firebaseui-auth-container"></div>
-<div id="loader">Loading...</div>
+<main class="mt-2">
+    <h1 class="ml-3 mb-2">Sign In</h1>
 
+    <!-- Handled by staraFirebaseUI.js -->
+    <div id="firebaseui-auth-container"></div>
+    <div id="loader">Loading...</div>
+</main>
 <!-- Load Firebase initialization & analytics scripts -->
 <div th:replace="fragments/firebase :: firebase"></div>
 
