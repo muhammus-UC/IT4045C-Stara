@@ -31,63 +31,95 @@
 </head>
 <body>
 <div th:replace="fragments/topnav :: navbar"></div>
-<h1 class="mb-2">Your search results:</h1>
+<h1 class="ml-2 mb-2">Your search results:</h1>
 
-<h3>Show results:</h3>
 <div class="container-fluid">
     <div class="row">
-        <main class="col-8">
+        <main class="col-sm-8">
+            <h3>Show results:</h3>
             <div class="list-group" role="list">
-                <div class="list-group-item list-group-item-action" th:each="showFeedItem : ${showFeed}" role="listitem">
-                    <a th:href="${showFeedItem.show.url}" class="media remove-link-styling">
-                        <img class="staraThumbnail" th:src="${showFeedItem.show.image.medium}" class="mr-3" th:alt="${showFeedItem.show.name}"/>
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1" th:text="${showFeedItem.show.name}"></h5>
-                            <p th:text="${showFeedItem.show.status}"></p>
-                            <p th:text="${showFeedItem.show.language}"></p>
+                <div class="list-group-item" th:each="showFeedItem : ${showFeed}" role="listitem">
+                    <div class="row">
+                        <div class="col-sm-5 col-lg-3">
+                            <img class="staraThumbnail" th:src="${showFeedItem.show.image.medium}" th:alt="${showFeedItem.show.name}"/>
                         </div>
-                    </a>
-                    <form method="post" action="/favorites/save/show">
-                        <input type="hidden" name="id" th:value="${showFeedItem.show.id}"/>
-                        <input type="hidden" name="url" th:value="${showFeedItem.show.url}"/>
-                        <input type="hidden" name="name" th:value="${showFeedItem.show.name}"/>
-                        <input type="hidden" name="language" th:value="${showFeedItem.show.language}"/>
-                        <input type="hidden" name="status" th:value="${showFeedItem.show.status}"/>
-                        <input type="hidden" name="image" th:value="${showFeedItem.show.image.medium}"/>
-                        <button type="submit">Add Show to Favorites</button>
-                    </form>
+
+                        <div class="col-sm-7 col-lg-9">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <a th:href="${showFeedItem.show.url}" th:text="${showFeedItem.show.name}"></a>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <form class="d-sm-inline-block" method="post" action="/favorites/save/show">
+                                        <input type="hidden" name="id" th:value="${showFeedItem.show.id}"/>
+                                        <input type="hidden" name="url" th:value="${showFeedItem.show.url}"/>
+                                        <input type="hidden" name="name" th:value="${showFeedItem.show.name}"/>
+                                        <input type="hidden" name="language" th:value="${showFeedItem.show.language}"/>
+                                        <input type="hidden" name="status" th:value="${showFeedItem.show.status}"/>
+                                        <input type="hidden" name="image" th:value="${showFeedItem.show.image.medium}"/>
+                                        <button class="staraFavoriteBtnAdd" type="submit">&#9733;</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="row align-items-end staraBottomRow">
+                                <div class="col-sm-8">
+                                    <span th:text="${showFeedItem.show.language}"></span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <span th:text="${showFeedItem.show.status}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <br/>
-            <hr/>
-            <br/>
+            <hr class="my-sm-2"/>
 
             <h3>Actor results:</h3>
             <div class="list-group" role="list">
-                <div class="list-group-item list-group-item-action" th:each="actorFeedItem : ${actorFeed}" role="listitem">
-                    <a th:href="${actorFeedItem.actor.url}" class="media remove-link-styling">
-                        <img class="staraThumbnail" th:src="${actorFeedItem.actor.image.medium}" class="mr-3" th:alt="${actorFeedItem.actor.name}"/>
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1" th:text="${actorFeedItem.actor.name}"></h5>
-                            <p th:text="${actorFeedItem.actor.gender}"></p>
-                            <p th:text="${actorFeedItem.actor.country}"></p>
+                <div class="list-group-item" th:each="actorFeedItem : ${actorFeed}" role="listitem">
+                    <div class="row">
+                        <div class="col-sm-5 col-lg-3">
+                            <img class="staraThumbnail" th:src="${actorFeedItem.actor.image.medium}" th:alt="${actorFeedItem.actor.name}"/>
                         </div>
-                    </a>
-                    <form method="post" action="/favorites/save/actor">
-                        <input type="hidden" name="id" th:value="${actorFeedItem.actor.id}"/>
-                        <input type="hidden" name="url" th:value="${actorFeedItem.actor.url}"/>
-                        <input type="hidden" name="name" th:value="${actorFeedItem.actor.name}"/>
-                        <input type="hidden" name="country" th:value="${actorFeedItem.actor.country}"/>
-                        <input type="hidden" name="gender" th:value="${actorFeedItem.actor.gender}"/>
-                        <input type="hidden" name="image" th:value="${actorFeedItem.actor.image.medium}"/>
-                        <button type="submit">Add Actor to Favorites</button>
-                    </form>
+
+                        <div class="col-sm-7 col-lg-9 mb-sm-2">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <a th:href="${actorFeedItem.actor.url}" th:text="${actorFeedItem.actor.name}"></a>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <form class="d-sm-inline-block" method="post" action="/favorites/save/actor">
+                                        <input type="hidden" name="id" th:value="${actorFeedItem.actor.id}"/>
+                                        <input type="hidden" name="url" th:value="${actorFeedItem.actor.url}"/>
+                                        <input type="hidden" name="name" th:value="${actorFeedItem.actor.name}"/>
+                                        <input type="hidden" name="country" th:value="${actorFeedItem.actor.country}"/>
+                                        <input type="hidden" name="gender" th:value="${actorFeedItem.actor.gender}"/>
+                                        <input type="hidden" name="image" th:value="${actorFeedItem.actor.image.medium}"/>
+                                        <button class="staraFavoriteBtnAdd" type="submit">&#9733;</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="row align-items-end staraBottomRow">
+                                <div class="col-sm-8">
+                                    <span th:text="${actorFeedItem.actor.gender}"></span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <span th:text="${actorFeedItem.actor.country}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
 
-        <aside class="col-4">
+        <aside class="col-sm-4">
             <div th:replace="fragments/ads :: ads"></div>
         </aside>
     </div>

@@ -31,26 +31,41 @@
 </head>
 <body>
 <div th:replace="fragments/topnav :: navbar"></div>
-<h1 class="mb-2">Today's TV Premieres for <span th:text="${countryName}"></span></h1>
+<h1 class="ml-2 mb-2">Today's TV Premieres for <span th:text="${countryName}"></span></h1>
 
 <div class="container-fluid">
     <div class="row">
         <main class="col-8">
             <div class="list-group" role="list">
-                <div class="list-group-item list-group-item-action" th:each="scheduleFeedItem : ${scheduleFeed}" role="listitem">
-                    <a th:href="${scheduleFeedItem.url}" class="media remove-link-styling">
-                        <img th:src="${scheduleFeedItem.show.image.medium}" class="mr-3" th:alt="${scheduleFeedItem.show.name}" width="128px"/>
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1" th:text="${scheduleFeedItem.show.name}"></h5>
-                            <p th:text="${scheduleFeedItem.episodeName}"></p>
-                            <p th:text="${scheduleFeedItem.airtime}"></p>
+                <div class="list-group-item" th:each="scheduleFeedItem : ${scheduleFeed}" role="listitem">
+                    <div class="row">
+                        <div class="col-sm-5 col-lg-3">
+                            <img class="staraThumbnail" th:src="${scheduleFeedItem.show.image.medium}" th:alt="${scheduleFeedItem.show.name}"/>
                         </div>
-                    </a>
+
+                        <div class="col-sm-7 col-lg-9">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <a th:href="${scheduleFeedItem.show.url}" th:text="${scheduleFeedItem.show.name}"></a>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <span th:text="${scheduleFeedItem.airtime}"></span>
+                                </div>
+                            </div>
+
+                            <div class="row align-items-end staraBottomRow">
+                                <div class="col-sm-11">
+                                    <span th:text="${scheduleFeedItem.episodeName}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
 
-        <aside class="col-4">
+        <aside class="col-sm-4">
             <div th:replace="fragments/ads :: ads"></div>
         </aside>
     </div>
