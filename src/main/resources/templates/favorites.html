@@ -44,8 +44,6 @@
                             <h5 class="mt-0 mb-1" th:text="${favorite.name}"></h5>
                             <p th:text="${favorite.subtitle}"></p>
                             <p th:text="${favorite.detail}"></p>
-                            <!--Below line to be removed before final presentation.-->
-                            <small th:text="${favorite}"></small>
                         </div>
                     </a>
                     <form method="post" action="/favorites/delete">
@@ -72,8 +70,6 @@
                                 <input type="hidden" name="favoriteId" th:value="${favorite.id}"/>
                                 <button type="submit">Delete Rating</button>
                             </form>
-
-                            <small th:text="${reviews.get(favorite.id)}"></small>
                         </div>
 
                         <form method="post" action="/reviews/update">

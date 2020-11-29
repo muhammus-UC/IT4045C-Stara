@@ -45,8 +45,6 @@
                             <h5 class="mt-0 mb-1" th:text="${showFeedItem.show.name}"></h5>
                             <p th:text="${showFeedItem.show.status}"></p>
                             <p th:text="${showFeedItem.show.language}"></p>
-                            <!--Below line to be removed before final presentation.-->
-                            <small th:text="${showFeedItem.show}"></small>
                         </div>
                     </a>
                     <form method="post" action="/favorites/save/show">
@@ -74,8 +72,6 @@
                             <h5 class="mt-0 mb-1" th:text="${actorFeedItem.actor.name}"></h5>
                             <p th:text="${actorFeedItem.actor.gender}"></p>
                             <p th:text="${actorFeedItem.actor.country}"></p>
-                            <!--Below line to be removed before final presentation.-->
-                            <small th:text="${actorFeedItem.actor}"></small>
                         </div>
                     </a>
                     <form method="post" action="/favorites/save/actor">
