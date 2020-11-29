@@ -246,6 +246,9 @@ public class StaraController {
             List<Favorite> favorites = favoriteService.fetchAll(firebaseService.getUser(uid).getEmail());
             Map<String, Review> allReviewsForUid = reviewService.fetchReviewsByUid(uid);
 
+            String displayName = firebaseService.getUser(uid).getDisplayName();
+
+            model.addAttribute("displayName", displayName);
             model.addAttribute("favorites", favorites);
             model.addAttribute("uid", uid);
             model.addAttribute("reviews", allReviewsForUid);

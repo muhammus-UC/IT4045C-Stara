@@ -1,10 +1,71 @@
-nav {
-    background-color: #3C8541;
+body {
+    background-color: #2B4154;
+    color: #F2F2F2;
 }
 
-a.remove-link-styling {
-    text-decoration: none;
-    color: inherit;
+nav {
+    background-color: #3C8541;
+    color: #F2F2F2;
+}
+
+.list-group-item {
+    background-color: #CEC1B1;
+    color: #1F1F1F;
+    margin-bottom: 10px;
+}
+
+/* Sign in button from Firebase UI */
+.mdl-button--raised.mdl-button--colored {
+    background-color: #CE6038 !important;
+}
+
+/* Bootstrap CSS selectors for a nav link in a dark navbar that is NOT active */
+.navbar-dark .navbar-nav .nav-link {
+    color: #1F1F1F;
+    opacity: 75%;
+}
+
+/* Bootstrap CSS selectors for a nav link in a dark navbar that is active */
+.navbar-dark .navbar-nav .active>.nav-link, .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .nav-link.show, .navbar-dark .navbar-nav .show>.nav-link {
+    color: #F2F2F2;
+    opacity: 100%;
+}
+
+.staraFavoriteBtnAdd {
+    border: 0;
+    background: transparent;
+    color: #BEBEBE !important;
+    font-size: 2em;
+    margin: 0;
+    padding: 0;
+    text-shadow: 0 0 2px white;
+}
+
+.staraFavoriteBtnAdd:hover {
+    color: #DE620B !important;
+}
+
+.staraFavoriteBtnRemove {
+    border: 0;
+    background: transparent;
+    color: #DE620B !important;
+    font-size: 2em;
+    margin: 0;
+    padding: 0;
+    text-shadow: 0 0 2px white;
+}
+
+.staraFavoriteBtnRemove:hover {
+    color: #BEBEBE !important;
+}
+
+.staraThumbnail {
+    height: 180px;
+    width: 128px;
+}
+
+.staraRating {
+    font-size: 2em;
 }
 
 #banner-ad {
@@ -12,8 +73,27 @@ a.remove-link-styling {
     height: 250px;
 }
 
+#btnSearch {
+    background-color: #CE6038;
+    border-color: #CE6038;
+    color: #E6E6E6;
+}
+
+#btnSearch:focus {
+    background-color: #B4512D;
+    border-color: #A74B2A;
+    box-shadow: 0 0 0 0.2rem rgba(213, 121, 88, .5);
+}
+
 #coffee-ad {
     border: 0;
     height: 600px;
     width: 300px;
+}
+
+/* Equivalent of "sm" breakpoint in Bootstrap */
+@media (min-width: 576px) {
+    .staraBottomRow {
+        height: 75%;
+    }
 }
