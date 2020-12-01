@@ -11,7 +11,7 @@ public interface IActorFeedRetrofitDAO {
     /**
      * Uses Retrofit to communicate with TVMaze API to get list of ActorFeedItems
      * TVMaze API Reference: https://www.tvmaze.com/api
-     * @GET base domain is defined in dao/RetrofitClientInstance
+     * GET annotation base domain is defined in dao/RetrofitClientInstance
      *
      * @param actorName - Actor name that user is looking for information on (Ex: "Brad Pitt")
      * @return "ActorFeed" - List of ActorFeedItems with the name of or similar to actorName

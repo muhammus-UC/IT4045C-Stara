@@ -25,7 +25,7 @@ public interface IReviewDAO {
      * Fetch a Map containing all the Reviews for uid given.
      *
      * @param uid - uid of user to fetch Reviews for.
-     * @return Map<String,Review> containing all the Reviews for the uid given.
+     * @return Map<String, Review> containing all the Reviews for the uid given.
      */
     Map<String, Review> fetchReviewsByUid(String uid);
 

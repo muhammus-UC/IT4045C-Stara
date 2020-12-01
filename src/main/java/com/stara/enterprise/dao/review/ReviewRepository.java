@@ -13,6 +13,7 @@ public interface ReviewRepository extends CrudRepository<Review, ReviewId> {
     /**
      * Find Reviews that belong to uid given.
      * Equivalent of SQL Statement: SELECT * FROM `stara`.`review` WHERE uid='d41d8cd98f00b204e9800998ecf8';
+     *
      * @param uid - uid of user to get Reviews for
      * @return List<Review> containing all the Reviews belonging to uid specified.
      */

@@ -4,8 +4,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClientInstance {
+    private static final String BASE_URL = "https://api.tvmaze.com";
     private static Retrofit retrofit;
-    private static String BASE_URL = "https://api.tvmaze.com";
 
     /**
      * Setup Retrofit for use with TVMaze API

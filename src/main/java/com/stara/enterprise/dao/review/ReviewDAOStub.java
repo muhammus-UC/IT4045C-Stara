@@ -5,7 +5,6 @@ import com.stara.enterprise.dto.review.ReviewId;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -41,7 +40,7 @@ public class ReviewDAOStub implements IReviewDAO {
      * Fetch a Map containing all the Reviews for uid given.
      *
      * @param uid - uid of user to fetch Reviews for.
-     * @return Map<String,Review> containing all the Reviews for the uid given.
+     * @return Map<String, Review> containing all the Reviews for the uid given.
      */
     @Override
     public Map<String, Review> fetchReviewsByUid(String uid) {

@@ -5,14 +5,13 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-import java.io.IOException;
 import java.util.List;
 
 public interface IShowFeedRetrofitDAO {
     /**
      * Uses Retrofit to communicate with TVMaze API to get list of ShowFeedItems
      * TVMaze API Reference: https://www.tvmaze.com/api
-     * @GET base domain is defined in dao/RetrofitClientInstance
+     * GET annotation base domain is defined in dao/RetrofitClientInstance
      *
      * @param showName - Show name that user is looking for information on (Ex: "Community")
      * @return "ShowFeed" - List of ShowFeedItems with the name of or similar to showName
