@@ -306,7 +306,7 @@ public class StaraController {
      *
      * @param uid - uid of user to fetch Favorites for.
      *            A default value is provided to speed up testing (This likely would not be done in a proper production environment).
-     * @return
+     * @return one of the following HTTP status codes & JSON response bodies:
      * Code 200 - OK - Body includes List of Favorites from Firebase for uid specified.
      * Code 204 - No Content - Request completed successfully but no favorites to show so body is empty.
      * Code 500 - Internal Server Error - An error happened, return empty body on purpose instead of providing error information so nefarious users can't use it to exploit endpoint.
@@ -465,7 +465,7 @@ public class StaraController {
      *
      * @param uid - uid of user to fetch Reviews for.
      *            A default value is provided to speed up testing (This likely would not be done in a proper production environment).
-     * @return
+     * @return one of the following HTTP status codes & JSON response bodies
      * Code 200 - OK - Body includes List of Reviews from SQL Database for uid specified.
      * Code 204 - No Content - Request completed successfully but no reviews to show so body is empty.
      * Code 500 - Internal Server Error - An error happened, return empty body on purpose instead of providing error information so nefarious users can't use it to exploit endpoint.
