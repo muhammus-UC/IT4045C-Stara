@@ -37,12 +37,10 @@ public class FavoriteService implements IFavoriteService {
      *
      * @param email of user who to delete Favorite for
      * @param id    of Favorite to delete
-     * @throws ExecutionException
-     * @throws InterruptedException
      */
     @Override
     @CacheEvict(value = "favorites", allEntries = true)
-    public void delete(String email, String id) throws ExecutionException, InterruptedException {
+    public void delete(String email, String id) {
         ApiFuture<WriteResult> writeResult = firebaseService.getFirestore()
                 .collection(fireStoreCollectionUsers)
                 .document(email)
@@ -57,8 +55,10 @@ public class FavoriteService implements IFavoriteService {
      *
      * @param email of user who to retrieve Favorite(s) for
      * @return List<Favorite> containing all favorites that belong to user
-     * @throws ExecutionException
-     * @throws InterruptedException
+     * @throws ExecutionException   when attempting to retrieve the result of a task that aborted by throwing an exception
+     *                              Reference: https://developer.android.com/reference/java/util/concurrent/ExecutionException
+     * @throws InterruptedException thrown when a thread is interrupted
+     *                              Reference: https://www.yegor256.com/2015/10/20/interrupted-exception.html
      */
     @Override
     @Cacheable(value = "favorites")
@@ -89,12 +89,10 @@ public class FavoriteService implements IFavoriteService {
      * @param favoriteData Map<String, String> object containing the Favorite data to write.
      * @param email        of user who to create Favorite for
      * @param id           of Favorite to create
-     * @throws ExecutionException
-     * @throws InterruptedException
      */
     @Override
     @CacheEvict(value = "favorites", allEntries = true)
-    public void save(Map<String, String> favoriteData, String email, String id) throws ExecutionException, InterruptedException {
+    public void save(Map<String, String> favoriteData, String email, String id) {
         ApiFuture<WriteResult> writeResult = firebaseService.getFirestore()
                 .collection(fireStoreCollectionUsers)
                 .document(email)

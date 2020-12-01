@@ -1,7 +1,6 @@
 package com.stara.enterprise.service.firebase;
 
 import com.google.cloud.firestore.Firestore;
-import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,7 @@ public class FirebaseServiceStub implements IFirebaseService {
     }
 
     @Override
-    public UserRecord getUser(String uid) throws FirebaseAuthException {
+    public UserRecord getUser(String uid) {
         return null;
     }
 }

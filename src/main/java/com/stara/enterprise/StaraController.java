@@ -380,12 +380,6 @@ public class StaraController {
         try {
             favoriteService.save(showData, firebaseService.getUser(uid).getEmail(), favoriteShowId);
             log.info("Saved Favorite Show " + favoriteShowId + " for user with uid " + uid);
-        } catch (InterruptedException e) {
-            log.error("Unable to fetch user record from Firebase, an InterruptedException occurred. Message: " + e.getMessage(), e);
-            return "error";
-        } catch (ExecutionException e) {
-            log.error("Unable to fetch user record from Firebase, an ExecutionException occurred. Message: " + e.getMessage(), e);
-            return "error";
         } catch (FirebaseAuthException e) {
             log.error("Unable to fetch user record from Firebase, a FirebaseAuthException occurred. Message: " + e.getMessage(), e);
             return "error";
@@ -430,12 +424,6 @@ public class StaraController {
         try {
             favoriteService.save(actorData, firebaseService.getUser(uid).getEmail(), favoriteActorId);
             log.info("Saved Favorite Actor " + favoriteActorId + " for user with uid " + uid);
-        } catch (InterruptedException e) {
-            log.error("Unable to fetch user record from Firebase, an InterruptedException occurred. Message: " + e.getMessage(), e);
-            return "error";
-        } catch (ExecutionException e) {
-            log.error("Unable to fetch user record from Firebase, an ExecutionException occurred. Message: " + e.getMessage(), e);
-            return "error";
         } catch (FirebaseAuthException e) {
             log.error("Unable to fetch user record from Firebase, a FirebaseAuthException occurred. Message: " + e.getMessage(), e);
             return "error";
@@ -462,12 +450,6 @@ public class StaraController {
         try {
             favoriteService.delete(firebaseService.getUser(uid).getEmail(), favoriteId);
             log.info("Deleted Favorite " + favoriteId + " for user with uid " + uid);
-        } catch (InterruptedException e) {
-            log.error("Unable to fetch user record from Firebase, an InterruptedException occurred. Message: " + e.getMessage(), e);
-            return "error";
-        } catch (ExecutionException e) {
-            log.error("Unable to fetch user record from Firebase, an ExecutionException occurred. Message: " + e.getMessage(), e);
-            return "error";
         } catch (FirebaseAuthException e) {
             log.error("Unable to fetch user record from Firebase, a FirebaseAuthException occurred. Message: " + e.getMessage(), e);
             return "error";
