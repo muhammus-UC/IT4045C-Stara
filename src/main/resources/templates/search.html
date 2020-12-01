@@ -5,23 +5,34 @@
 
     <!-- Required meta tags -->
     <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"/>
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet"/>
 
     <!-- Stara CSS -->
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- JavaScript & CSS for Feature Tour -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/3.0.1/intro.min.js" integrity="sha512-Y3bwrs/uUQhiNsD26Mpr5YvfG18EY0J+aNxYI7ZQPJlM9H+lElGpuh/JURVJR/NBE+p1JZ+sVE773Un4zQcagg==" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/3.0.1/introjs.min.css" integrity="sha512-fsq7ym+bMq7ecs277R2a3QDPxF+JIwNNnkPfj9rIKDUyqrbXDnICZj/cCLcP3bKh3+jsCBnBR7BZJShOmELL0Q==" crossorigin="anonymous" />
+    <script crossorigin="anonymous"
+            integrity="sha512-Y3bwrs/uUQhiNsD26Mpr5YvfG18EY0J+aNxYI7ZQPJlM9H+lElGpuh/JURVJR/NBE+p1JZ+sVE773Un4zQcagg=="
+            src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/3.0.1/intro.min.js"></script>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/3.0.1/introjs.min.css"
+          integrity="sha512-fsq7ym+bMq7ecs277R2a3QDPxF+JIwNNnkPfj9rIKDUyqrbXDnICZj/cCLcP3bKh3+jsCBnBR7BZJShOmELL0Q=="
+          rel="stylesheet"/>
     <script th:src="@{/js/staraTour.js}"></script>
     <link rel="stylesheet" th:href="@{/css/introjs-stara.css}"/>
 
@@ -39,10 +50,11 @@
 
             <h3>Show results:</h3>
             <div class="list-group" role="list">
-                <div class="list-group-item" th:each="showFeedItem : ${showFeed}" role="listitem">
+                <div class="list-group-item" role="listitem" th:each="showFeedItem : ${showFeed}">
                     <div class="row">
                         <div class="col-sm-5 col-lg-3">
-                            <img class="staraThumbnail" th:src="${showFeedItem.show.image.medium}" th:alt="${showFeedItem.show.name}"/>
+                            <img class="staraThumbnail" th:alt="${showFeedItem.show.name}"
+                                 th:src="${showFeedItem.show.image.medium}"/>
                         </div>
 
                         <div class="col-sm-7 col-lg-9">
@@ -52,13 +64,13 @@
                                 </div>
 
                                 <div class="col-sm-4">
-                                    <form class="d-sm-inline-block" method="post" action="/favorites/save/show">
-                                        <input type="hidden" name="id" th:value="${showFeedItem.show.id}"/>
-                                        <input type="hidden" name="url" th:value="${showFeedItem.show.url}"/>
-                                        <input type="hidden" name="name" th:value="${showFeedItem.show.name}"/>
-                                        <input type="hidden" name="language" th:value="${showFeedItem.show.language}"/>
-                                        <input type="hidden" name="status" th:value="${showFeedItem.show.status}"/>
-                                        <input type="hidden" name="image" th:value="${showFeedItem.show.image.medium}"/>
+                                    <form action="/favorites/save/show" class="d-sm-inline-block" method="post">
+                                        <input name="id" th:value="${showFeedItem.show.id}" type="hidden"/>
+                                        <input name="url" th:value="${showFeedItem.show.url}" type="hidden"/>
+                                        <input name="name" th:value="${showFeedItem.show.name}" type="hidden"/>
+                                        <input name="language" th:value="${showFeedItem.show.language}" type="hidden"/>
+                                        <input name="status" th:value="${showFeedItem.show.status}" type="hidden"/>
+                                        <input name="image" th:value="${showFeedItem.show.image.medium}" type="hidden"/>
                                         <button class="staraFavoriteBtnAdd" type="submit">&#9733;</button>
                                     </form>
                                 </div>
@@ -81,10 +93,11 @@
 
             <h3>Actor results:</h3>
             <div class="list-group" role="list">
-                <div class="list-group-item" th:each="actorFeedItem : ${actorFeed}" role="listitem">
+                <div class="list-group-item" role="listitem" th:each="actorFeedItem : ${actorFeed}">
                     <div class="row">
                         <div class="col-sm-5 col-lg-3">
-                            <img class="staraThumbnail" th:src="${actorFeedItem.actor.image.medium}" th:alt="${actorFeedItem.actor.name}"/>
+                            <img class="staraThumbnail" th:alt="${actorFeedItem.actor.name}"
+                                 th:src="${actorFeedItem.actor.image.medium}"/>
                         </div>
 
                         <div class="col-sm-7 col-lg-9 mb-sm-2">
@@ -94,13 +107,14 @@
                                 </div>
 
                                 <div class="col-sm-4">
-                                    <form class="d-sm-inline-block" method="post" action="/favorites/save/actor">
-                                        <input type="hidden" name="id" th:value="${actorFeedItem.actor.id}"/>
-                                        <input type="hidden" name="url" th:value="${actorFeedItem.actor.url}"/>
-                                        <input type="hidden" name="name" th:value="${actorFeedItem.actor.name}"/>
-                                        <input type="hidden" name="country" th:value="${actorFeedItem.actor.country}"/>
-                                        <input type="hidden" name="gender" th:value="${actorFeedItem.actor.gender}"/>
-                                        <input type="hidden" name="image" th:value="${actorFeedItem.actor.image.medium}"/>
+                                    <form action="/favorites/save/actor" class="d-sm-inline-block" method="post">
+                                        <input name="id" th:value="${actorFeedItem.actor.id}" type="hidden"/>
+                                        <input name="url" th:value="${actorFeedItem.actor.url}" type="hidden"/>
+                                        <input name="name" th:value="${actorFeedItem.actor.name}" type="hidden"/>
+                                        <input name="country" th:value="${actorFeedItem.actor.country}" type="hidden"/>
+                                        <input name="gender" th:value="${actorFeedItem.actor.gender}" type="hidden"/>
+                                        <input name="image" th:value="${actorFeedItem.actor.image.medium}"
+                                               type="hidden"/>
                                         <button class="staraFavoriteBtnAdd" type="submit">&#9733;</button>
                                     </form>
                                 </div>

@@ -1,12 +1,12 @@
 // Reference: https://firebase.google.com/docs/auth/web/firebaseui
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     // Initialize the FirebaseUI Widget using Firebase.
     var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
     var uiConfig = {
         callbacks: {
-            signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+            signInSuccessWithAuthResult: function (authResult, redirectUrl) {
                 // User successfully signed in.
                 // Redirect to page with user's favorites by setting UID cookie first
                 window.location.replace("/set-uid/?uid=" + authResult.user.uid);
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 // or whether we leave that to developer to handle.
                 return false;
             },
-            uiShown: function() {
+            uiShown: function () {
                 // The widget is rendered.
                 // Hide the loader.
                 document.getElementById('loader').style.display = 'none';

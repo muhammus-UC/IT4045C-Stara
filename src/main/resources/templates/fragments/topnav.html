@@ -1,37 +1,45 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="navbar">
     <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" data-intro="⭐ Welcome to Stara. Skip this tour by clicking the skip button, otherwise click next to continue!" data-step="1">Stara</a>
+        <a class="navbar-brand"
+           data-intro="⭐ Welcome to Stara. Skip this tour by clicking the skip button, otherwise click next to continue!"
+           data-step="1">Stara</a>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <!-- Using th:classappend to set active link - https://stackoverflow.com/a/32033141 -->
-                <li class="nav-item" th:classappend="${#request.requestURI == '/' ? 'active':''}" data-intro="View your country's tv premieres for today here." data-step="2">
+                <li class="nav-item" data-intro="View your country's tv premieres for today here."
+                    data-step="2" th:classappend="${#request.requestURI == '/' ? 'active':''}">
                     <a class="nav-link" href="/">Schedule <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item"  th:classappend="${#request.requestURI == '/favorites' ? 'active':''}"  data-intro="View your favorites here. If you are not logged in, you will be prompted to." data-step="3">
+                <li class="nav-item" data-intro="View your favorites here. If you are not logged in, you will be prompted to."
+                    data-step="3"
+                    th:classappend="${#request.requestURI == '/favorites' ? 'active':''}">
                     <a class="nav-link" href="/favorites">Favorites</a>
                 </li>
             </ul>
         </div>
 
-        <button class="btn btn-info mr-sm-2 my-2 my-sm-0" id="btnTour" data-intro="Click this button to view this tour again. Enjoy using Stara! 😊" data-step="5">
+        <button class="btn btn-info mr-sm-2 my-2 my-sm-0" data-intro="Click this button to view this tour again. Enjoy using Stara! 😊"
+                data-step="5" id="btnTour">
             Tour
         </button>
 
         <!-- Login button displayed if user is NOT logged in -->
         <!--/*@thymesVar id="uid" type="String"*/-->
-        <form class="form-inline" th:action="@{/favorites}" th:if="${uid == null}" method="GET">
-            <button class="btn btn-secondary mr-sm-2 my-2 my-sm-0" type="submit" >Login</button>
+        <form class="form-inline" method="GET" th:action="@{/favorites}" th:if="${uid == null}">
+            <button class="btn btn-secondary mr-sm-2 my-2 my-sm-0" type="submit">Login</button>
         </form>
 
         <!-- Logout button displayed if user is logged in -->
         <!--/*@thymesVar id="uid" type="String"*/-->
-        <form class="form-inline" th:action="@{/unset-uid}" th:unless="${uid == null}" method="GET">
-            <button class="btn btn-secondary mr-sm-2 my-2 my-sm-0" type="submit" >Logout</button>
+        <form class="form-inline" method="GET" th:action="@{/unset-uid}" th:unless="${uid == null}">
+            <button class="btn btn-secondary mr-sm-2 my-2 my-sm-0" type="submit">Logout</button>
         </form>
 
-        <form class="form-inline" th:action="@{/search}" method="GET" data-intro="Search for your favorite actors or tv shows by entering their name here." data-step="4">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search for Show/Actor..." aria-label="Search"  name="searchTerm" id="searchTerm">
+        <form class="form-inline" data-intro="Search for your favorite actors or tv shows by entering their name here." data-step="4"
+              method="GET" th:action="@{/search}">
+            <input aria-label="Search" class="form-control mr-sm-2" id="searchTerm" name="searchTerm"
+                   placeholder="Search for Show/Actor..." type="search">
             <button class="btn btn-primary my-2 my-sm-0" id="btnSearch" type="submit">Search</button>
         </form>
     </nav>

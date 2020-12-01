@@ -1,6 +1,6 @@
 // Reference: https://firebase.google.com/docs/auth/web/firebaseui
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     // Your web app's Firebase configuration
     var firebaseConfig = {
         apiKey: "AIzaSyDrsgSPBCnkDey0H7nSeNHfkmhJGSuYGos",
