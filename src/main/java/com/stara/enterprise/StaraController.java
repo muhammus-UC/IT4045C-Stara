@@ -10,13 +10,12 @@ import com.stara.enterprise.dto.actor.ActorFeedItem;
 import com.stara.enterprise.dto.review.Review;
 import com.stara.enterprise.dto.review.ReviewId;
 import com.stara.enterprise.dto.show.ShowFeedItem;
+import com.stara.enterprise.service.actor.IActorFeedService;
 import com.stara.enterprise.service.favorite.IFavoriteService;
-import com.stara.enterprise.service.firebase.FirebaseService;
 import com.stara.enterprise.service.firebase.IFirebaseService;
 import com.stara.enterprise.service.review.IReviewService;
 import com.stara.enterprise.service.schedule.IScheduleFeedService;
 import com.stara.enterprise.service.show.IShowFeedService;
-import com.stara.enterprise.service.actor.IActorFeedService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -39,10 +41,11 @@ import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Controller
 public class StaraController {
@@ -72,10 +75,9 @@ public class StaraController {
      * Equivalent of running https://www.tvmaze.com/schedule.
      *
      * @param countryCode - OPTIONAL, country to display schedule for. If not specified, user's IP address is used to determine location.
-     * @param model - used to pass schedule and other data to UI layer.
-     * @param uid - OPTIONAL, uid of currently logged in user, gotten via cookie. Used by Thymeleaf to determine if login or logout button should be shown in topnav.html fragment.
-     * @param request - HttpServletRequest, automatic parameter given by SpringBoot, used to access user's IP Address.
-     *
+     * @param model       - used to pass schedule and other data to UI layer.
+     * @param uid         - OPTIONAL, uid of currently logged in user, gotten via cookie. Used by Thymeleaf to determine if login or logout button should be shown in topnav.html fragment.
+     * @param request     - HttpServletRequest, automatic parameter given by SpringBoot, used to access user's IP Address.
      * @return HTML page that displays schedule for user's location or countryCode specified.
      */
     @GetMapping("/")
@@ -104,10 +106,10 @@ public class StaraController {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlIpLookup.openStream()));
                     ipAddress = bufferedReader.readLine().trim();
                     bufferedReader.close();
-                } catch(MalformedURLException e) {
+                } catch (MalformedURLException e) {
                     log.error("Unable to use third party URL to get IP Address, a MalformedURLException occurred. Message: " + e.getMessage(), e);
                     return "error";
-                } catch(IOException e) {
+                } catch (IOException e) {
                     log.error("Unable to read third party site to get IP Address, an IOException occurred. Message: " + e.getMessage(), e);
                     return "error";
                 }
@@ -172,9 +174,8 @@ public class StaraController {
      * TVMaze API does not natively support searching for both shows and actors in one call so have to make two separate calls.
      *
      * @param searchTerm - Show or Actor to search for.
-     * @param model - used to pass list of Shows and Actors to UI layer.
-     * @param uid - OPTIONAL, uid of currently logged in user, gotten via cookie. Used by Thymeleaf to determine if login or logout button should be shown in topnav.html fragment.
-     *
+     * @param model      - used to pass list of Shows and Actors to UI layer.
+     * @param uid        - OPTIONAL, uid of currently logged in user, gotten via cookie. Used by Thymeleaf to determine if login or logout button should be shown in topnav.html fragment.
      * @return HTML page that displays search results.
      */
     @GetMapping("/search")
@@ -207,8 +208,7 @@ public class StaraController {
      * Reference: https://dzone.com/articles/how-to-use-cookies-in-spring-boot.
      *
      * @param response - HttpServletResponse, automatic parameter given by SpringBoot, used to set cookie.
-     * @param uid - uid of user who just logged in, to be stored in a cookie.
-     *
+     * @param uid      - uid of user who just logged in, to be stored in a cookie.
      * @return HTML page that displays favorites for uid specified by redirecting to /favorites endpoint.
      */
     @GetMapping("/set-uid")
@@ -230,7 +230,6 @@ public class StaraController {
      * Reference: https://attacomsian.com/blog/cookies-spring-boot#deleting-cookie.
      *
      * @param response - HttpServletResponse, automatic parameter given by SpringBoot, used to unset cookie.
-     *
      * @return HTML page that displays schedule by redirecting to / (root) endpoint.
      */
     @GetMapping("/unset-uid")
@@ -251,11 +250,10 @@ public class StaraController {
      * GetMapping for /favorites endpoint.
      * Displays Favorites from Firebase Firestore and Reviews from SQL Database for logged in user.
      *
-     * @param uid - uid of currently logged in user, gotten via cookie.
-     *            Used by Thymeleaf to determine if login or logout button should be shown in topnav.html fragment.
-     *            Used to determine which user's favorites to display via Firebase.
+     * @param uid   - uid of currently logged in user, gotten via cookie.
+     *              Used by Thymeleaf to determine if login or logout button should be shown in topnav.html fragment.
+     *              Used to determine which user's favorites to display via Firebase.
      * @param model - used to pass favorite and other data to UI layer.
-     *
      * @return HTML page that displays favorites for uid specified.
      */
     @GetMapping("/favorites")
@@ -309,9 +307,9 @@ public class StaraController {
      * @param uid - uid of user to fetch Favorites for.
      *            A default value is provided to speed up testing (This likely would not be done in a proper production environment).
      * @return
-     *  Code 200 - OK - Body includes List of Favorites from Firebase for uid specified.
-     *  Code 204 - No Content - Request completed successfully but no favorites to show so body is empty.
-     *  Code 500 - Internal Server Error - An error happened, return empty body on purpose instead of providing error information so nefarious users can't use it to exploit endpoint.
+     * Code 200 - OK - Body includes List of Favorites from Firebase for uid specified.
+     * Code 204 - No Content - Request completed successfully but no favorites to show so body is empty.
+     * Code 500 - Internal Server Error - An error happened, return empty body on purpose instead of providing error information so nefarious users can't use it to exploit endpoint.
      */
     @GetMapping(value = "/favorites/json", produces = "application/json")
     public ResponseEntity fetchAllFavoritesJSON(@RequestParam(value = "uid", defaultValue = "lI9eajMz4qOZvEaL2SQ7ielz71H3") String uid) {
@@ -351,9 +349,8 @@ public class StaraController {
      * Reference: https://stackoverflow.com/a/2494817
      *
      * @param request - HttpServletRequest, automatic parameter given by SpringBoot, used to access favorite data that was posted.
-     * @param uid - uid of currently logged in user, gotten via cookie.
-     *            Used to determine which user to save favorite for via Firebase.
-     *
+     * @param uid     - uid of currently logged in user, gotten via cookie.
+     *                Used to determine which user to save favorite for via Firebase.
      * @return HTML page that displays recently changed favorites for logged in user by redirecting to /favorites endpoint.
      */
     @PostMapping("/favorites/save/show")
@@ -403,9 +400,8 @@ public class StaraController {
      * Reference: https://stackoverflow.com/a/2494817.
      *
      * @param request - HttpServletRequest, automatic parameter given by SpringBoot, used to access favorite data that was posted.
-     * @param uid - uid of currently logged in user, gotten via cookie.
-     *            Used to determine which user to save favorite for via Firebase.
-     *
+     * @param uid     - uid of currently logged in user, gotten via cookie.
+     *                Used to determine which user to save favorite for via Firebase.
      * @return HTML page that displays recently changed favorites for logged in user by redirecting to /favorites endpoint.
      */
     @PostMapping("/favorites/save/actor")
@@ -454,9 +450,8 @@ public class StaraController {
      * Need to use POST mapping instead of DELETE mapping since a form calls this, and forms do not support DELETE mappings.
      *
      * @param favoriteId - Id of Favorite to delete.
-     * @param uid - uid of currently logged in user, gotten via cookie.
-     *            Used to determine which user to remove favorite for via Firebase.
-     *
+     * @param uid        - uid of currently logged in user, gotten via cookie.
+     *                   Used to determine which user to remove favorite for via Firebase.
      * @return HTML page that displays recently changed favorites for logged in user by redirecting to /favorites endpoint.
      */
     @PostMapping("/favorites/delete")
@@ -489,9 +484,9 @@ public class StaraController {
      * @param uid - uid of user to fetch Reviews for.
      *            A default value is provided to speed up testing (This likely would not be done in a proper production environment).
      * @return
-     *  Code 200 - OK - Body includes List of Reviews from SQL Database for uid specified.
-     *  Code 204 - No Content - Request completed successfully but no reviews to show so body is empty.
-     *  Code 500 - Internal Server Error - An error happened, return empty body on purpose instead of providing error information so nefarious users can't use it to exploit endpoint.
+     * Code 200 - OK - Body includes List of Reviews from SQL Database for uid specified.
+     * Code 204 - No Content - Request completed successfully but no reviews to show so body is empty.
+     * Code 500 - Internal Server Error - An error happened, return empty body on purpose instead of providing error information so nefarious users can't use it to exploit endpoint.
      */
     @GetMapping(value = "/reviews", produces = "application/json")
     public ResponseEntity fetchAllReviewsForUID(@RequestParam(value = "uid", defaultValue = "lI9eajMz4qOZvEaL2SQ7ielz71H3") String uid) {
@@ -517,12 +512,11 @@ public class StaraController {
      * PostMapping for /reviews/update endpoint.
      * Creates/Updates a Review for the specified Favorite in SQL database.
      *
-     * @param uid - uid of currently logged in user, gotten via cookie.
-     *            Used to determine which user to create/update Review to Favorite for via SQL.
-     * @param favoriteId - Id of Favorite to create/update Review for.
-     * @param newRating - Integer between 1-5, representing how much user likes Favorite.
+     * @param uid          - uid of currently logged in user, gotten via cookie.
+     *                     Used to determine which user to create/update Review to Favorite for via SQL.
+     * @param favoriteId   - Id of Favorite to create/update Review for.
+     * @param newRating    - Integer between 1-5, representing how much user likes Favorite.
      * @param favoriteName - Name of Favorite to create/update Review for.
-     *
      * @return HTML page that displays Favorites and recently changed Reviews by redirecting to /favorites endpoint.
      */
     @PostMapping("/reviews/update")
@@ -559,11 +553,10 @@ public class StaraController {
      * PostMapping for /reviews/delete endpoint.
      * Deletes the specified Review from SQL database for logged in user.
      * Need to use POST mapping instead of DELETE mapping since a form calls this, and forms do not support DELETE mappings.
-
-     * @param uid - uid of currently logged in user, gotten via cookie.
-     *            Used to determine which user to delete Review to Favorite for via SQL.
-     * @param favoriteId - Id of Favorite to delete Review for.
      *
+     * @param uid        - uid of currently logged in user, gotten via cookie.
+     *                   Used to determine which user to delete Review to Favorite for via SQL.
+     * @param favoriteId - Id of Favorite to delete Review for.
      * @return HTML page that displays Favorites and recently changed Reviews by redirecting to /favorites endpoint.
      */
     @PostMapping("/reviews/delete")
