@@ -13,7 +13,8 @@ public class ReviewService implements IReviewService {
     @Autowired
     IReviewDAO reviewDAO;
 
-    public ReviewService() {}
+    public ReviewService() {
+    }
 
     public ReviewService(IReviewDAO reviewDAO) {
         this.reviewDAO = reviewDAO;
@@ -44,7 +45,7 @@ public class ReviewService implements IReviewService {
      * Fetch a Map containing all the Reviews for uid given via DAO.
      *
      * @param uid - uid of user to fetch Reviews for.
-     * @return Map<String,Review> containing all the Reviews for the uid given.
+     * @return Map<String, Review> containing all the Reviews for the uid given.
      */
     @Override
     public Map<String, Review> fetchReviewsByUid(String uid) {
@@ -53,6 +54,7 @@ public class ReviewService implements IReviewService {
 
     /**
      * Saves Review via DAO.
+     *
      * @param review - Review object to save via DAO.
      * @return review that was just saved.
      * @throws Exception thrown in case review is unable to saved for some reason or another.

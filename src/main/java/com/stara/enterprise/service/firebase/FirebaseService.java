@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Priority;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -31,11 +30,11 @@ import java.io.IOException;
  */
 @Service
 @Profile("!test")
-public class FirebaseService implements IFirebaseService{
-    Logger log = LoggerFactory.getLogger(this.getClass());
-
+public class FirebaseService implements IFirebaseService {
     // Path to Firebase service account private key json - THIS IS SENSITIVE DATA AND MUST NOT BE SHARED FREELY!
     private final String serviceAccountPath = "src/main/java/com/stara/enterprise/service/firebase/stara-firebase-adminsdk.json";
+
+    Logger log = LoggerFactory.getLogger(this.getClass());
 
     /**
      * Initializes FirebaseService
@@ -67,6 +66,7 @@ public class FirebaseService implements IFirebaseService{
 
     /**
      * Get reference to Firebase Firestore that stores Favorite data.
+     *
      * @return Firestore object referencing Firestore where Favorite data is stored.
      */
     @Override
@@ -76,6 +76,7 @@ public class FirebaseService implements IFirebaseService{
 
     /**
      * Used to get user information about user with uid given.
+     *
      * @param uid - uid of user to get user information for.
      * @return UserRecord object containing information about user, such as the user's display name or email.
      * @throws FirebaseAuthException thrown when error in accessing Firebase Auth for any reason.
