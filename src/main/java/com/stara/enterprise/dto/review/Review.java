@@ -23,7 +23,8 @@ class Review {
     // String of name of Favorite Review belongs to. This could technically be removed but is used to make manually reading of the SQL data easier.
     String favoriteName;
 
-    public Review() {}
+    public Review() {
+    }
 
     public Review(String uid, String favoriteId, Integer rating, String favoriteName) {
         this.setReviewId(uid, favoriteId);
@@ -41,8 +42,9 @@ class Review {
 
     /**
      * Primarily used to quickly convert a List<Review> to a Map<String, Review>
-     * @see com.stara.enterprise.dao.review.IReviewDAO fetchReviewsByUid()
+     *
      * @return the id of the Favorite the Review belongs to
+     * @see com.stara.enterprise.dao.review.IReviewDAO fetchReviewsByUid()
      */
     public String getReviewIdFavoriteId() {
         return this.reviewId.getFavoriteId();

@@ -9,13 +9,14 @@ class ActorCountry {
     @SerializedName("name")
     private String name;
 
-    public String toString() {
-        return name;
+    public ActorCountry() {
     }
-
-    public ActorCountry() {}
 
     public ActorCountry(String country) {
         this.name = country;
+    }
+
+    public String toString() {
+        return name;
     }
 }

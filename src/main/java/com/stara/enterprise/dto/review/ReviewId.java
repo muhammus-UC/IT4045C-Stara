@@ -17,7 +17,8 @@ class ReviewId implements Serializable {
     // String of id of Favorite which Review belongs to
     private String favoriteId;
 
-    public ReviewId() {}
+    public ReviewId() {
+    }
 
     public ReviewId(String uid, String favoriteId) {
         this.uid = uid;
