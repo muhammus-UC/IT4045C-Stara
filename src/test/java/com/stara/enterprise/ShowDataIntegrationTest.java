@@ -58,8 +58,7 @@ class ShowDataIntegrationTest {
     private void whenShowFeedDataAreReadAndParsed() {
         try {
             showFeed = showFeedService.fetchShowFeed("Community");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -81,13 +80,13 @@ class ShowDataIntegrationTest {
 
         for (ShowFeedItem showFeedItem : showFeed) {
             if (
-                showFeedItem.getShow().getId() == 1641 &&
-                showFeedItem.getShow().getUrl().equals("http://www.tvmaze.com/shows/1641/black-books") &&
-                showFeedItem.getShow().getName().equals("Black Books") &&
-                showFeedItem.getShow().getLanguage().equals("English") &&
-                showFeedItem.getShow().getStatus().equals("Status: Ended") &&
-                showFeedItem.getShow().getImage().getMedium().equals("http://static.tvmaze.com/uploads/images/medium_portrait/81/204617.jpg") &&
-                !showFeedItem.getScore().isNaN()
+                    showFeedItem.getShow().getId() == 1641 &&
+                            showFeedItem.getShow().getUrl().equals("http://www.tvmaze.com/shows/1641/black-books") &&
+                            showFeedItem.getShow().getName().equals("Black Books") &&
+                            showFeedItem.getShow().getLanguage().equals("English") &&
+                            showFeedItem.getShow().getStatus().equals("Status: Ended") &&
+                            showFeedItem.getShow().getImage().getMedium().equals("http://static.tvmaze.com/uploads/images/medium_portrait/81/204617.jpg") &&
+                            !showFeedItem.getScore().isNaN()
             ) {
                 blackBooksFound = true;
                 break;

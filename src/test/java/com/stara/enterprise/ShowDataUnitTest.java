@@ -158,13 +158,13 @@ class ShowDataUnitTest {
 
         for (ShowFeedItem showFeedItem : showFeedItemListTested) {
             if (
-                showFeedItem.getShow().getId() == 318 &&
-                showFeedItem.getShow().getUrl().equals("http://www.tvmaze.com/shows/318/community") &&
-                showFeedItem.getShow().getName().equals("Community") &&
-                showFeedItem.getShow().getLanguage().equals("English") &&
-                showFeedItem.getShow().getStatus().equals("Status: Ended") &&
-                showFeedItem.getShow().getImage().getMedium().equals("http://static.tvmaze.com/uploads/images/medium_portrait/2/5134.jpg") &&
-                showFeedItem.getScore() == 50.0
+                    showFeedItem.getShow().getId() == 318 &&
+                            showFeedItem.getShow().getUrl().equals("http://www.tvmaze.com/shows/318/community") &&
+                            showFeedItem.getShow().getName().equals("Community") &&
+                            showFeedItem.getShow().getLanguage().equals("English") &&
+                            showFeedItem.getShow().getStatus().equals("Status: Ended") &&
+                            showFeedItem.getShow().getImage().getMedium().equals("http://static.tvmaze.com/uploads/images/medium_portrait/2/5134.jpg") &&
+                            showFeedItem.getScore() == 50.0
             ) {
                 communityFound = true;
                 break;
