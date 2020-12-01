@@ -50,7 +50,7 @@ public class FavoriteService implements IFavoriteService {
     }
 
     /**
-     * Get Favorites from Firestore for user by email specified.
+     * Get all Favorites from Firestore for user by email specified.
      * Firebase Reference on getting data: https://firebase.google.com/docs/firestore/query-data/get-data
      *
      * @param email of user who to retrieve Favorite(s) for

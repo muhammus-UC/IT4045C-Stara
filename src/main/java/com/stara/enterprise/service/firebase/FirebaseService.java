@@ -37,7 +37,7 @@ public class FirebaseService implements IFirebaseService {
     private final String serviceAccountPath = "src/main/java/com/stara/enterprise/service/firebase/stara-firebase-adminsdk.json";
 
     /**
-     * Initializes FirebaseService
+     * Used to initialize Service
      * PostConstruct annotation tells SpringBoot to initialize this class automatically when SpringBoot runs
      */
     @PostConstruct
@@ -79,7 +79,7 @@ public class FirebaseService implements IFirebaseService {
      *
      * @param uid - uid of user to get user information for.
      * @return UserRecord object containing information about user, such as the user's display name or email.
-     * @throws FirebaseAuthException thrown when error in accessing Firebase Auth for any reason.
+     * @throws FirebaseAuthException thrown when error with Firebase Auth for any reason. Check error code & message for more details.
      */
     @Override
     public UserRecord getUser(String uid) throws FirebaseAuthException {
