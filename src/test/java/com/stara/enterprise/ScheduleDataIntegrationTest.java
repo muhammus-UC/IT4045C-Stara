@@ -1,7 +1,6 @@
 package com.stara.enterprise;
 
 import com.stara.enterprise.dto.ScheduleFeedItem;
-import com.stara.enterprise.dto.show.Show;
 import com.stara.enterprise.service.schedule.IScheduleFeedService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,7 @@ class ScheduleDataIntegrationTest {
     void scheduleDTO_containsShow() {
         givenViewModelIsInitialized();
         whenScheduleFeedDataAreReadAndParsed();
+        andWhenSleep();
         thenScheduleFeedShouldContainShow();
     }
 

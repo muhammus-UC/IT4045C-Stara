@@ -178,13 +178,13 @@ class ActorDataUnitTest {
 
         for (ActorFeedItem actorFeedItem : actorFeedItemListTested) {
             if (
-                actorFeedItem.getActor().getId() == 11615 &&
-                actorFeedItem.getActor().getUrl().equals("http://www.tvmaze.com/people/11615/joel-mchale") &&
-                actorFeedItem.getActor().getName().equals("Joel McHale") &&
-                actorFeedItem.getActor().getCountry().getName().equals("Italy") &&
-                actorFeedItem.getActor().getGender().equals("Male") &&
-                actorFeedItem.getActor().getImage().getMedium().equals("http://static.tvmaze.com/uploads/images/medium_portrait/4/10878.jpg") &&
-                actorFeedItem.getScore() == 50.0
+                    actorFeedItem.getActor().getId() == 11615 &&
+                            actorFeedItem.getActor().getUrl().equals("http://www.tvmaze.com/people/11615/joel-mchale") &&
+                            actorFeedItem.getActor().getName().equals("Joel McHale") &&
+                            actorFeedItem.getActor().getCountry().getName().equals("Italy") &&
+                            actorFeedItem.getActor().getGender().equals("Male") &&
+                            actorFeedItem.getActor().getImage().getMedium().equals("http://static.tvmaze.com/uploads/images/medium_portrait/4/10878.jpg") &&
+                            actorFeedItem.getScore() == 50.0
             ) {
                 joelMcHaleFound = true;
                 break;

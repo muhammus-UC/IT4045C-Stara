@@ -14,4 +14,4 @@ document.addEventListener('DOMContentLoaded', function() {
     googletag.cmd.push(function() {
         googletag.display('banner-ad');
     });
-})
+});

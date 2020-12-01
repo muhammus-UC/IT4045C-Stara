@@ -6,17 +6,22 @@ import lombok.Data;
 
 public @Data
 class Show {
+    // Int used to uniquely identify Show from other Shows on TVMaze Database. Note: This doesn't uniquely identify Show from Actors.
     @SerializedName("id")
     private int id;
+    // String of URL to page for Show on TVMaze.
     @SerializedName("url")
     private String url;
+    // String of name of Show.
     @SerializedName("name")
     private String name;
+    // String of language Show was originally aired in.
     @SerializedName("language")
     private String language;
+    // String indicating Show's current status, whether it's running etc.
     @SerializedName("status")
     private String status;
-    // ImageURLs object used to parse nested JSON
+    // ImageURLs object used to parse nested JSON containing URLs to images of Show.
     @SerializedName("image")
     private ImageURLs image;
 
@@ -30,7 +35,7 @@ class Show {
     }
 
     /**
-     * Property language may be null, manually defining get method
+     * Property language may be null when retrieved from TVMaze API, manually defining get method
      *
      * @return language if not null, otherwise "Language Unknown"
      */
@@ -42,7 +47,7 @@ class Show {
     }
 
     /**
-     * Property status may be null, manually defining get method
+     * Property status may be null when retrieved from TVMaze API, manually defining get method
      *
      * @return status if not null, otherwise "Status Unknown"
      */
@@ -58,7 +63,7 @@ class Show {
     }
 
     /**
-     * Property image may be null, manually define get method
+     * Property image may be null when retrieved from TVMaze API, manually define get method
      *
      * @return image if not null, otherwise image with a medium property of "images/null.svg" (a placeholder image to indicate null)
      */

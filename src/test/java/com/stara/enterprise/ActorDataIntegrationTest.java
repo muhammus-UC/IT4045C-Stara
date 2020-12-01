@@ -58,8 +58,7 @@ class ActorDataIntegrationTest {
     private void whenActorFeedDataAreReadAndParsed() {
         try {
             actorFeed = actorFeedService.fetchActorFeed("Joel McHale");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -81,13 +80,13 @@ class ActorDataIntegrationTest {
 
         for (ActorFeedItem actorFeedItem : actorFeed) {
             if (
-                actorFeedItem.getActor().getId() == 46432 &&
-                actorFeedItem.getActor().getUrl().equals("http://www.tvmaze.com/people/46432/tom-hanks") &&
-                actorFeedItem.getActor().getName().equals("Tom Hanks") &&
-                actorFeedItem.getActor().getCountry().getName().equals("United States") &&
-                actorFeedItem.getActor().getGender().equals("Male") &&
-                actorFeedItem.getActor().getImage().getMedium().equals("http://static.tvmaze.com/uploads/images/medium_portrait/28/72307.jpg") &&
-                !actorFeedItem.getScore().isNaN()
+                    actorFeedItem.getActor().getId() == 46432 &&
+                            actorFeedItem.getActor().getUrl().equals("http://www.tvmaze.com/people/46432/tom-hanks") &&
+                            actorFeedItem.getActor().getName().equals("Tom Hanks") &&
+                            actorFeedItem.getActor().getCountry().getName().equals("United States") &&
+                            actorFeedItem.getActor().getGender().equals("Male") &&
+                            actorFeedItem.getActor().getImage().getMedium().equals("http://static.tvmaze.com/uploads/images/medium_portrait/28/72307.jpg") &&
+                            !actorFeedItem.getScore().isNaN()
             ) {
                 tomHanksFound = true;
                 break;

@@ -1,6 +1,5 @@
 package com.stara.enterprise.service.show;
 
-import com.stara.enterprise.dao.actor.IActorFeedDAO;
 import com.stara.enterprise.dao.show.IShowFeedDAO;
 import com.stara.enterprise.dto.show.ShowFeedItem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,8 @@ public class ShowFeedService implements IShowFeedService {
     @Autowired
     private IShowFeedDAO showFeedDAO;
 
-    public ShowFeedService() {}
+    public ShowFeedService() {
+    }
 
     public ShowFeedService(IShowFeedDAO showFeedDAO) {
         this.showFeedDAO = showFeedDAO;

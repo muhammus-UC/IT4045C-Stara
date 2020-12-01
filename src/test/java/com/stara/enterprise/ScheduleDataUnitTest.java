@@ -138,15 +138,15 @@ class ScheduleDataUnitTest {
 
         for (ScheduleFeedItem scheduleFeedItem : scheduleFeedItemListTested) {
             if (
-                scheduleFeedItem.getEpisodeName().equals("Episode 44") &&
-                scheduleFeedItem.getUrl().equals("http://www.tvmaze.com/episodes/1954168/cbs-news-sunday-morning-2020-11-01-episode-44") &&
-                scheduleFeedItem.getAirtime().equals("09:00 AM") &&
-                scheduleFeedItem.getShow().getId() == 15779 &&
-                scheduleFeedItem.getShow().getUrl().equals("http://www.tvmaze.com/shows/15779/cbs-news-sunday-morning") &&
-                scheduleFeedItem.getShow().getName().equals("CBS News Sunday Morning") &&
-                scheduleFeedItem.getShow().getLanguage().equals("English") &&
-                scheduleFeedItem.getShow().getStatus().equals("Status: Running") &&
-                scheduleFeedItem.getShow().getImage().getMedium().equals("http://static.tvmaze.com/uploads/images/medium_portrait/237/592585.jpg")
+                    scheduleFeedItem.getEpisodeName().equals("Episode 44") &&
+                            scheduleFeedItem.getUrl().equals("http://www.tvmaze.com/episodes/1954168/cbs-news-sunday-morning-2020-11-01-episode-44") &&
+                            scheduleFeedItem.getAirtime().equals("09:00 AM") &&
+                            scheduleFeedItem.getShow().getId() == 15779 &&
+                            scheduleFeedItem.getShow().getUrl().equals("http://www.tvmaze.com/shows/15779/cbs-news-sunday-morning") &&
+                            scheduleFeedItem.getShow().getName().equals("CBS News Sunday Morning") &&
+                            scheduleFeedItem.getShow().getLanguage().equals("English") &&
+                            scheduleFeedItem.getShow().getStatus().equals("Status: Running") &&
+                            scheduleFeedItem.getShow().getImage().getMedium().equals("http://static.tvmaze.com/uploads/images/medium_portrait/237/592585.jpg")
             ) {
                 cbsNewsFound = true;
                 break;

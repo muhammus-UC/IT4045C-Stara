@@ -9,13 +9,16 @@ import java.time.format.DateTimeFormatter;
 
 public @Data
 class ScheduleFeedItem {
+    // String of name of episode scheduled.
     @SerializedName("name")
     private String episodeName;
+    // String of URL to TVMaze page for scheduled episode.
     @SerializedName("url")
     private String url;
+    // String of airtime for scheduled episode.
     @SerializedName("airtime")
     private String airtime;
-    // Show object used to parse nested JSON
+    // Show object used to parse nested JSON corresponding scheduled episode's Show.
     @SerializedName("show")
     private Show show;
 

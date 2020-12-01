@@ -1,9 +1,7 @@
 package com.stara.enterprise.dao.schedule;
 
 import com.stara.enterprise.dao.RetrofitClientInstance;
-import com.stara.enterprise.dao.show.IShowFeedRetrofitDAO;
 import com.stara.enterprise.dto.ScheduleFeedItem;
-import com.stara.enterprise.dto.show.ShowFeedItem;
 import org.springframework.stereotype.Repository;
 import retrofit2.Call;
 import retrofit2.Response;

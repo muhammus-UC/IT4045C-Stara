@@ -2,7 +2,7 @@
  * Configure Feature Tour for Stara
  * Uses Intro.js library (https://github.com/usablica/intro.js)
  */
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     // Show Feature Tour on initial load if tourCookie is not set
     var tourCookie = getCookie("tour");
     if (tourCookie !== "true") {
@@ -11,10 +11,10 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Show Feature Tour if user clicks #btnTour.
-    document.getElementById("btnTour").addEventListener("click", function() {
+    document.getElementById("btnTour").addEventListener("click", function () {
         introJs().start();
     });
-})
+});
 
 /**
  * JS Functions to make handling cookies easier
@@ -24,12 +24,13 @@ document.addEventListener("DOMContentLoaded", function() {
 function setCookie(cname, cvalue) {
     document.cookie = cname + "=" + cvalue + ";path=/";
 }
+
 // Get cookie with the given name
 function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
+    for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
         while (c.charAt(0) == ' ') {
             c = c.substring(1);

@@ -14,7 +14,8 @@ public class ActorFeedService implements IActorFeedService {
     @Autowired
     private IActorFeedDAO actorFeedDAO;
 
-    public ActorFeedService() {}
+    public ActorFeedService() {
+    }
 
     public ActorFeedService(IActorFeedDAO actorFeedDAO) {
         this.actorFeedDAO = actorFeedDAO;
