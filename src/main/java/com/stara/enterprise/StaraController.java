@@ -302,6 +302,50 @@ public class StaraController {
     }
 
     /**
+     * GetMapping for /favorites/json endpoint.
+     * Displays Favorites from Firebase Firestore for uid provided in JSON format.
+     * Made to be used by another group from class theoretically.
+     *
+     * @param uid - uid of user to fetch Favorites for.
+     *            A default value is provided to speed up testing (This likely would not be done in a proper production environment).
+     * @return
+     *  Code 200 - OK - Body includes List of Favorites from Firebase for uid specified.
+     *  Code 204 - No Content - Request completed successfully but no favorites to show so body is empty.
+     *  Code 500 - Internal Server Error - An error happened, return empty body on purpose instead of providing error information so nefarious users can't use it to exploit endpoint.
+     */
+    @GetMapping(value = "/favorites/json", produces = "application/json")
+    public ResponseEntity fetchAllFavoritesJSON(@RequestParam(value = "uid", defaultValue = "lI9eajMz4qOZvEaL2SQ7ielz71H3") String uid) {
+        log.debug("JSON - Entering /favorites/json endpoint.");
+        log.info("JSON - UID to fetch favorites for in JSON is: " + uid);
+
+        List<Favorite> favorites;
+        try {
+            favorites = favoriteService.fetchAll(firebaseService.getUser(uid).getEmail());
+            log.info("JSON - Successfully retrieved favorites from Firebase for uid " + uid);
+        } catch (InterruptedException e) {
+            log.error("JSON - Unable to fetch user record from Firebase, an InterruptedException occurred. Message: " + e.getMessage(), e);
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (ExecutionException e) {
+            log.error("JSON - Unable to fetch user record from Firebase, an ExecutionException occurred. Message: " + e.getMessage(), e);
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (FirebaseAuthException e) {
+            log.error("JSON - Unable to fetch user record from Firebase, a FirebaseAuthException occurred. Message: " + e.getMessage(), e);
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        // No Favorites found for uid specified, send empty body with code 204
+        if (favorites.isEmpty()) {
+            log.warn("JSON - No favorites found for user with uid: " + uid);
+            return new ResponseEntity(headers, HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity(favorites, headers, HttpStatus.OK);
+        }
+    }
+
+    /**
      * PostMapping for /favorites/save/show endpoint
      * Saves the specified Show as a Favorite to Firebase Firestore.
      * Reference: https://stackoverflow.com/a/2494817
@@ -435,6 +479,38 @@ public class StaraController {
         }
 
         return "redirect:/favorites";
+    }
+
+    /**
+     * GetMapping for /reviews endpoint.
+     * Displays Reviews from SQL Database for uid provided in JSON format.
+     * Made to be used by another group from class theoretically.
+     *
+     * @param uid - uid of user to fetch Reviews for.
+     *            A default value is provided to speed up testing (This likely would not be done in a proper production environment).
+     * @return
+     *  Code 200 - OK - Body includes List of Reviews from SQL Database for uid specified.
+     *  Code 204 - No Content - Request completed successfully but no reviews to show so body is empty.
+     *  Code 500 - Internal Server Error - An error happened, return empty body on purpose instead of providing error information so nefarious users can't use it to exploit endpoint.
+     */
+    @GetMapping(value = "/reviews", produces = "application/json")
+    public ResponseEntity fetchAllReviewsForUID(@RequestParam(value = "uid", defaultValue = "lI9eajMz4qOZvEaL2SQ7ielz71H3") String uid) {
+        log.debug("JSON - Entering /reviews endpoint.");
+        log.info("JSON - UID to fetch reviews for in JSON is: " + uid);
+
+        Map<String, Review> allReviewsForUid = reviewService.fetchReviewsByUid(uid);
+        log.info("Successfully retrieved reviews for user with uid " + uid);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        // No Reviews found for uid specified, send empty body with code 204
+        if (allReviewsForUid.isEmpty()) {
+            log.warn("JSON - No reviews found for user with uid " + uid);
+            return new ResponseEntity(headers, HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity(allReviewsForUid, headers, HttpStatus.OK);
+        }
     }
 
     /**
