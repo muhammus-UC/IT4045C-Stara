@@ -5,6 +5,7 @@ import lombok.Data;
 
 public @Data
 class ActorCountry {
+    // String of name of country Actor was born in.
     @SerializedName("name")
     private String name;
 

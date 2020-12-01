@@ -6,18 +6,22 @@ import lombok.Data;
 
 public @Data
 class Actor {
+    // Int used to uniquely identify Actor from other Actors on TVMaze Database. Note: This doesn't uniquely identify Actor from Shows.
     @SerializedName("id")
     private int id;
+    // String of URL to page for Actor on TVMaze.
     @SerializedName("url")
     private String url;
+    // String of name of Actor.
     @SerializedName("name")
     private String name;
-    // ActorCountry object used to parse nested JSON
+    // ActorCountry object used to parse nested JSON containing information about country Actor was born in.
     @SerializedName("country")
     private ActorCountry country;
+    // String of gender of Actor.
     @SerializedName("gender")
     private String gender;
-    // ImageURLs object used to parse nested JSON
+    // ImageURLs object used to parse nested JSON containing URLs to images of Actor.
     @SerializedName("image")
     private ImageURLs image;
 
@@ -31,7 +35,7 @@ class Actor {
     }
 
     /**
-     * Property country may be null, manually defining get method
+     * Property country may be null when retrieved from TVMaze API, manually defining get method
      *
      * @return country name if not null, otherwise "Country Unknown"
      */
@@ -44,7 +48,7 @@ class Actor {
     }
 
     /**
-     * Property gender may be null, manually defining get method
+     * Property gender may be null when retrieved from TVMaze API, manually defining get method
      *
      * @return gender if not null, otherwise "Gender Unknown"
      */
@@ -56,7 +60,7 @@ class Actor {
     }
 
     /**
-     * Property image may be null, manually define get method
+     * Property image may be null when retrieved from TVMaze API, manually define get method
      *
      * @return image if not null, otherwise image with a medium property of "images/null.svg" (a placeholder image to indicate null)
      */
