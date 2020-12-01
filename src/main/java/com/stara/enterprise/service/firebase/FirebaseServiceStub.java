@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 public class FirebaseServiceStub implements IFirebaseService {
     @Override
     public void initialize() {
-        return;
     }
 
     @Override

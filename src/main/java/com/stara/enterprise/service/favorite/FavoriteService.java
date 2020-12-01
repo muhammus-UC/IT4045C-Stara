@@ -71,7 +71,7 @@ public class FavoriteService implements IFavoriteService {
                 .collection(fireStoreCollectionFavorites)
                 .get();
 
-        List<QueryDocumentSnapshot> documents = null;
+        List<QueryDocumentSnapshot> documents;
         documents = querySnapshot.get().getDocuments();
 
         for (QueryDocumentSnapshot document : documents) {

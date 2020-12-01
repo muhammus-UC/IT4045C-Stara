@@ -180,7 +180,7 @@ public class StaraController {
      */
     @GetMapping("/search")
     public String searchShowsAndActors(
-            @RequestParam(value = "searchTerm", required = true) String searchTerm,
+            @RequestParam(value = "searchTerm") String searchTerm,
             Model model,
             @CookieValue(value = "uid", required = false) String uid
     ) {
