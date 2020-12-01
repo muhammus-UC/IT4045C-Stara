@@ -102,7 +102,7 @@ class ReviewDataUnitTest {
         assertEquals("Ricky Gervais", actorReview.getFavoriteName());
     }
 
-    private void givenReviewDataAreAvailable() throws Exception {
+    private void givenReviewDataAreAvailable() {
         // Reinitialize variable to ensure data across tests doesn't cause false positive/negatives
         review = new Review();
         reviewId = new ReviewId();
@@ -133,7 +133,7 @@ class ReviewDataUnitTest {
         review = reviewService.fetch(reviewIdShow);
     }
 
-    private void thenReturnCommunityReviewForIdShow318() throws Exception {
+    private void thenReturnCommunityReviewForIdShow318() {
         String reviewFavoriteIdString = review.getReviewId().getFavoriteId();
         assertEquals("Show_318", reviewFavoriteIdString);
     }
@@ -155,7 +155,7 @@ class ReviewDataUnitTest {
         reviewService.save(review);
     }
 
-    private void thenCreateNewReviewRecordAndReturnIt() throws Exception {
+    private void thenCreateNewReviewRecordAndReturnIt() {
         Review createdReview = reviewService.fetch(reviewId);
 
         assertEquals("Actor_40831", review.getReviewId().getFavoriteId());
@@ -183,11 +183,11 @@ class ReviewDataUnitTest {
         assertEquals(1, allReviewsForUser.size());
     }
 
-    private void whenUserDeletesReview() throws Exception {
+    private void whenUserDeletesReview() {
         reviewService.delete(reviewId);
     }
 
-    private void thenUserHasNoReviews() throws Exception {
+    private void thenUserHasNoReviews() {
         Map<String, Review> allReviewsForUser = reviewService.fetchReviewsByUid("d41d8cd98f00b204e9800998ecf8");
         assertEquals(0, allReviewsForUser.size());
     }
