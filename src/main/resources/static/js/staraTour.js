@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("btnTour").addEventListener("click", function() {
         introJs().start();
     });
-})
+});
 
 /**
  * JS Functions to make handling cookies easier

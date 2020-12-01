@@ -17,4 +17,4 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Initialize Firebase Analytics
     firebase.analytics();
-})
+});
