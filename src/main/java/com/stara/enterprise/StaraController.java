@@ -49,7 +49,7 @@ import java.util.concurrent.ExecutionException;
 
 @Controller
 public class StaraController {
-    Logger log = LoggerFactory.getLogger(this.getClass());
+    final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     IFavoriteService favoriteService;

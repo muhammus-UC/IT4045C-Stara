@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Profile("test")
 public class ReviewDAOStub implements IReviewDAO {
     // Map used to save Reviews to since this is a stub implementation, meaning there is no real persistence.
-    Map<ReviewId, Review> allReviews = new HashMap<>();
+    final Map<ReviewId, Review> allReviews = new HashMap<>();
 
     /**
      * Delete Review with given ReviewId from allReviews Map.

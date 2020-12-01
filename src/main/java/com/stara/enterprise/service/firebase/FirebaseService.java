@@ -34,7 +34,7 @@ public class FirebaseService implements IFirebaseService {
     // Path to Firebase service account private key json - THIS IS SENSITIVE DATA AND MUST NOT BE SHARED FREELY!
     private final String serviceAccountPath = "src/main/java/com/stara/enterprise/service/firebase/stara-firebase-adminsdk.json";
 
-    Logger log = LoggerFactory.getLogger(this.getClass());
+    final Logger log = LoggerFactory.getLogger(this.getClass());
 
     /**
      * Initializes FirebaseService
