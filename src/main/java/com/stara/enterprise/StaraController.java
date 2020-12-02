@@ -190,6 +190,7 @@ public class StaraController {
         try {
             List<ShowFeedItem> shows = showFeedService.fetchShowFeed(searchTerm);
             List<ActorFeedItem> actors = actorFeedService.fetchActorFeed(searchTerm);
+            model.addAttribute("searchTerm", searchTerm);
             model.addAttribute("showFeed", shows);
             model.addAttribute("actorFeed", actors);
             model.addAttribute("uid", uid);
