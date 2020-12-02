@@ -511,8 +511,11 @@ public class StaraController {
         log.debug("Enter /reviews/update endpoint.");
         log.trace("User's uid is: " + uid);
 
-        // Adding check for newRating to ensure value is between 1-5 in case user manually posts a higher number
-        if (newRating > 5) {
+        // Adding check for newRating to ensure value is between 1-5 in case user manually posts a higher number or user forgets to enter a number
+        if (newRating == null) {
+            log.warn("User failed to provide a rating number. Setting it to 3.");
+            newRating = 3;
+        } else if (newRating > 5) {
             log.warn("User entered a rating higher than 5. Setting it to 5.");
             newRating = 5;
         } else if (newRating < 1) {
