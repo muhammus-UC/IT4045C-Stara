@@ -39,7 +39,7 @@
         <form class="form-inline" data-intro="Search for your favorite actors or tv shows by entering their name here." data-step="4"
               method="GET" th:action="@{/search}">
             <input aria-label="Search" class="form-control mr-sm-2" id="searchTerm" name="searchTerm"
-                   placeholder="Search for Show/Actor..." type="search">
+                   placeholder="Search for Show/Actor..." type="search" required>
             <button class="btn btn-primary my-2 my-sm-0" id="btnSearch" type="submit">Search</button>
         </form>
     </nav>
