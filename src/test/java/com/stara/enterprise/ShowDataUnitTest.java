@@ -1,7 +1,7 @@
 package com.stara.enterprise;
 
 import com.stara.enterprise.dao.show.IShowFeedDAO;
-import com.stara.enterprise.dto.ImageURLs;
+import com.stara.enterprise.dto.ImageURL;
 import com.stara.enterprise.dto.show.Show;
 import com.stara.enterprise.dto.show.ShowFeedItem;
 import com.stara.enterprise.service.show.IShowFeedService;
@@ -33,16 +33,16 @@ class ShowDataUnitTest {
         show.setName("Nailed It!");
         show.setLanguage("English");
         show.setStatus("To Be Determined");
-        show.setImage(new ImageURLs("http://static.tvmaze.com/uploads/images/medium_portrait/256/642199.jpg"));
+        show.setImage(new ImageURL("http://static.tvmaze.com/uploads/images/medium_portrait/256/642199.jpg"));
 
         assertEquals(35093, show.getId());
         assertEquals("http://www.tvmaze.com/shows/35093/nailed-it", show.getUrl());
         assertEquals("Nailed It!", show.getName());
         assertEquals("English", show.getLanguage());
         assertEquals("Status: To Be Determined", show.getStatus());
-        assertEquals(new ImageURLs("http://static.tvmaze.com/uploads/images/medium_portrait/256/642199.jpg"), show.getImage());
+        assertEquals(new ImageURL("http://static.tvmaze.com/uploads/images/medium_portrait/256/642199.jpg"), show.getImage());
 
-        String stringNailedIt = "Show Info - ID: 35093. URL: http://www.tvmaze.com/shows/35093/nailed-it. Name: Nailed It!. Language: English. Status: To Be Determined. Image URL: ImageURLs(medium=http://static.tvmaze.com/uploads/images/medium_portrait/256/642199.jpg)";
+        String stringNailedIt = "Show Info - ID: 35093. URL: http://www.tvmaze.com/shows/35093/nailed-it. Name: Nailed It!. Language: English. Status: To Be Determined. Image URL: ImageURL(medium=http://static.tvmaze.com/uploads/images/medium_portrait/256/642199.jpg)";
 
         assertEquals(stringNailedIt, show.toString());
 
@@ -61,16 +61,16 @@ class ShowDataUnitTest {
         show.setName("The Good Place");
         show.setLanguage("English");
         show.setStatus("Ended");
-        show.setImage(new ImageURLs("http://static.tvmaze.com/uploads/images/medium_portrait/207/519371.jpg"));
+        show.setImage(new ImageURL("http://static.tvmaze.com/uploads/images/medium_portrait/207/519371.jpg"));
 
         assertEquals(2790, show.getId());
         assertEquals("http://www.tvmaze.com/shows/2790/the-good-place", show.getUrl());
         assertEquals("The Good Place", show.getName());
         assertEquals("English", show.getLanguage());
         assertEquals("Status: Ended", show.getStatus());
-        assertEquals(new ImageURLs("http://static.tvmaze.com/uploads/images/medium_portrait/207/519371.jpg"), show.getImage());
+        assertEquals(new ImageURL("http://static.tvmaze.com/uploads/images/medium_portrait/207/519371.jpg"), show.getImage());
 
-        String stringTheGoodPlace = "Show Info - ID: 2790. URL: http://www.tvmaze.com/shows/2790/the-good-place. Name: The Good Place. Language: English. Status: Ended. Image URL: ImageURLs(medium=http://static.tvmaze.com/uploads/images/medium_portrait/207/519371.jpg)";
+        String stringTheGoodPlace = "Show Info - ID: 2790. URL: http://www.tvmaze.com/shows/2790/the-good-place. Name: The Good Place. Language: English. Status: Ended. Image URL: ImageURL(medium=http://static.tvmaze.com/uploads/images/medium_portrait/207/519371.jpg)";
 
         assertEquals(stringTheGoodPlace, show.toString());
 
@@ -91,9 +91,9 @@ class ShowDataUnitTest {
         assertNull(show.getName());
         assertEquals("Language Unknown", show.getLanguage());
         assertEquals("Status: Unknown", show.getStatus());
-        assertEquals(new ImageURLs("images/null.svg"), show.getImage());
+        assertEquals(new ImageURL("images/null.svg"), show.getImage());
 
-        assertEquals("Show Info - ID: 0. URL: null. Name: null. Language: Language Unknown. Status: Unknown. Image URL: ImageURLs(medium=images/null.svg)", show.toString());
+        assertEquals("Show Info - ID: 0. URL: null. Name: null. Language: Language Unknown. Status: Unknown. Image URL: ImageURL(medium=images/null.svg)", show.toString());
     }
 
     private void givenShowDataAreAvailable() throws IOException {
@@ -103,7 +103,7 @@ class ShowDataUnitTest {
         show1.setName("Community");
         show1.setLanguage("English");
         show1.setStatus("Ended");
-        show1.setImage(new ImageURLs("http://static.tvmaze.com/uploads/images/medium_portrait/2/5134.jpg"));
+        show1.setImage(new ImageURL("http://static.tvmaze.com/uploads/images/medium_portrait/2/5134.jpg"));
         ShowFeedItem showFeedItem1 = new ShowFeedItem();
         showFeedItem1.setScore(50.0);
         showFeedItem1.setShow(show1);
@@ -114,7 +114,7 @@ class ShowDataUnitTest {
         show2.setName("Community Life");
         show2.setLanguage("English");
         show2.setStatus("To Be Determined");
-        show2.setImage(new ImageURLs("http://static.tvmaze.com/uploads/images/medium_portrait/111/278554.jpg"));
+        show2.setImage(new ImageURL("http://static.tvmaze.com/uploads/images/medium_portrait/111/278554.jpg"));
         ShowFeedItem showFeedItem2 = new ShowFeedItem();
         showFeedItem2.setScore(25.0);
         showFeedItem2.setShow(show2);
@@ -125,7 +125,7 @@ class ShowDataUnitTest {
         show3.setName("Diplomatic Immunity");
         show3.setLanguage("English");
         show3.setStatus("Ended");
-        show3.setImage(new ImageURLs("http://static.tvmaze.com/uploads/images/medium_portrait/23/59789.jpg"));
+        show3.setImage(new ImageURL("http://static.tvmaze.com/uploads/images/medium_portrait/23/59789.jpg"));
         ShowFeedItem showFeedItem3 = new ShowFeedItem();
         showFeedItem3.setScore(12.5);
         showFeedItem3.setShow(show3);

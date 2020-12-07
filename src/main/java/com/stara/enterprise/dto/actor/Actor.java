@@ -1,7 +1,7 @@
 package com.stara.enterprise.dto.actor;
 
 import com.google.gson.annotations.SerializedName;
-import com.stara.enterprise.dto.ImageURLs;
+import com.stara.enterprise.dto.ImageURL;
 import lombok.Data;
 
 public @Data
@@ -21,9 +21,9 @@ class Actor {
     // String of gender of Actor.
     @SerializedName("gender")
     private String gender;
-    // ImageURLs object used to parse nested JSON containing URLs to images of Actor.
+    // ImageURL object used to parse nested JSON containing URLs to images of Actor.
     @SerializedName("image")
-    private ImageURLs image;
+    private ImageURL image;
 
     public String toString() {
         return "Actor Info - ID: " + id +
@@ -64,9 +64,9 @@ class Actor {
      *
      * @return image if not null, otherwise image with a medium property of "images/null.svg" (a placeholder image to indicate null)
      */
-    public ImageURLs getImage() {
+    public ImageURL getImage() {
         if (image == null) {
-            image = new ImageURLs();
+            image = new ImageURL();
             // Placeholder indicating no image found
             image.setMedium("images/null.svg");
         }

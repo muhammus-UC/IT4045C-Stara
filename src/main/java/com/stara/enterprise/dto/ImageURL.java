@@ -9,14 +9,14 @@ import lombok.Data;
  * Other sizes are available from TVMaze API but don't need them for our use case.
  */
 public @Data
-class ImageURLs {
+class ImageURL {
     @SerializedName("medium")
     private String medium;
 
-    public ImageURLs() {
+    public ImageURL() {
     }
 
-    public ImageURLs(String medium) {
+    public ImageURL(String medium) {
         this.medium = medium;
     }
 }

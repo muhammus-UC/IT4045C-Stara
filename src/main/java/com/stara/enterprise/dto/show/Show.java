@@ -1,7 +1,7 @@
 package com.stara.enterprise.dto.show;
 
 import com.google.gson.annotations.SerializedName;
-import com.stara.enterprise.dto.ImageURLs;
+import com.stara.enterprise.dto.ImageURL;
 import lombok.Data;
 
 public @Data
@@ -21,9 +21,9 @@ class Show {
     // String indicating Show's current status, whether it's running etc.
     @SerializedName("status")
     private String status;
-    // ImageURLs object used to parse nested JSON containing URLs to images of Show.
+    // ImageURL object used to parse nested JSON containing URLs to images of Show.
     @SerializedName("image")
-    private ImageURLs image;
+    private ImageURL image;
 
     public String toString() {
         return "Show Info - ID: " + id +
@@ -67,9 +67,9 @@ class Show {
      *
      * @return image if not null, otherwise image with a medium property of "images/null.svg" (a placeholder image to indicate null)
      */
-    public ImageURLs getImage() {
+    public ImageURL getImage() {
         if (image == null) {
-            image = new ImageURLs();
+            image = new ImageURL();
             image.setMedium("images/null.svg");
         }
         return image;

@@ -1,7 +1,7 @@
 package com.stara.enterprise;
 
 import com.stara.enterprise.dao.actor.IActorFeedDAO;
-import com.stara.enterprise.dto.ImageURLs;
+import com.stara.enterprise.dto.ImageURL;
 import com.stara.enterprise.dto.actor.Actor;
 import com.stara.enterprise.dto.actor.ActorCountry;
 import com.stara.enterprise.dto.actor.ActorFeedItem;
@@ -34,19 +34,19 @@ class ActorDataUnitTest {
         actor.setName("Bradley Cooper");
         actor.setCountry(new ActorCountry("United States"));
         actor.setGender("Male");
-        actor.setImage(new ImageURLs("http://static.tvmaze.com/uploads/images/medium_portrait/7/19608.jpg"));
+        actor.setImage(new ImageURL("http://static.tvmaze.com/uploads/images/medium_portrait/7/19608.jpg"));
 
         assertEquals(22012, actor.getId());
         assertEquals("http://www.tvmaze.com/people/22012/bradley-cooper", actor.getUrl());
         assertEquals("Bradley Cooper", actor.getName());
         assertEquals("United States", actor.getCountry().getName());
         assertEquals("Male", actor.getGender());
-        assertEquals(new ImageURLs("http://static.tvmaze.com/uploads/images/medium_portrait/7/19608.jpg"), actor.getImage());
+        assertEquals(new ImageURL("http://static.tvmaze.com/uploads/images/medium_portrait/7/19608.jpg"), actor.getImage());
 
         String stringBradleyCooper = "Actor Info - ID: 22012. " +
                 "URL: http://www.tvmaze.com/people/22012/bradley-cooper. " +
                 "Name: Bradley Cooper. Country: United States. Gender: Male. " +
-                "Image URL: ImageURLs(medium=http://static.tvmaze.com/uploads/images/medium_portrait/7/19608.jpg)";
+                "Image URL: ImageURL(medium=http://static.tvmaze.com/uploads/images/medium_portrait/7/19608.jpg)";
 
         assertEquals(stringBradleyCooper, actor.toString());
 
@@ -65,19 +65,19 @@ class ActorDataUnitTest {
         actor.setName("Brad Pitt");
         actor.setCountry(new ActorCountry("United States"));
         actor.setGender("Male");
-        actor.setImage(new ImageURLs("http://static.tvmaze.com/uploads/images/medium_portrait/11/29350.jpg"));
+        actor.setImage(new ImageURL("http://static.tvmaze.com/uploads/images/medium_portrait/11/29350.jpg"));
 
         assertEquals(45790, actor.getId());
         assertEquals("http://www.tvmaze.com/people/45790/brad-pitt", actor.getUrl());
         assertEquals("Brad Pitt", actor.getName());
         assertEquals("United States", actor.getCountry().getName());
         assertEquals("Male", actor.getGender());
-        assertEquals(new ImageURLs("http://static.tvmaze.com/uploads/images/medium_portrait/11/29350.jpg"), actor.getImage());
+        assertEquals(new ImageURL("http://static.tvmaze.com/uploads/images/medium_portrait/11/29350.jpg"), actor.getImage());
 
         String stringBradPitt = "Actor Info - ID: 45790. " +
                 "URL: http://www.tvmaze.com/people/45790/brad-pitt. " +
                 "Name: Brad Pitt. Country: United States. Gender: Male. " +
-                "Image URL: ImageURLs(medium=http://static.tvmaze.com/uploads/images/medium_portrait/11/29350.jpg)";
+                "Image URL: ImageURL(medium=http://static.tvmaze.com/uploads/images/medium_portrait/11/29350.jpg)";
 
         assertEquals(stringBradPitt, actor.toString());
 
@@ -98,9 +98,9 @@ class ActorDataUnitTest {
         assertNull(actor.getName());
         assertEquals(new ActorCountry("Country Unknown"), actor.getCountry());
         assertEquals("Gender Unknown", actor.getGender());
-        assertEquals(new ImageURLs("images/null.svg"), actor.getImage());
+        assertEquals(new ImageURL("images/null.svg"), actor.getImage());
 
-        assertEquals("Actor Info - ID: 0. URL: null. Name: null. Country: Country Unknown. Gender: Gender Unknown. Image URL: ImageURLs(medium=images/null.svg)", actor.toString());
+        assertEquals("Actor Info - ID: 0. URL: null. Name: null. Country: Country Unknown. Gender: Gender Unknown. Image URL: ImageURL(medium=images/null.svg)", actor.toString());
     }
 
     // Confirms Actor nested country data from API is being handled properly.
@@ -123,7 +123,7 @@ class ActorDataUnitTest {
         actor1.setName("Joel McHale");
         actor1.setCountry(new ActorCountry("Italy"));
         actor1.setGender("Male");
-        actor1.setImage(new ImageURLs("http://static.tvmaze.com/uploads/images/medium_portrait/4/10878.jpg"));
+        actor1.setImage(new ImageURL("http://static.tvmaze.com/uploads/images/medium_portrait/4/10878.jpg"));
         ActorFeedItem actorFeedItem1 = new ActorFeedItem();
         actorFeedItem1.setScore(50.0);
         actorFeedItem1.setActor(actor1);
@@ -134,7 +134,7 @@ class ActorDataUnitTest {
         actor2.setName("Joseph Barrios");
         actor2.setCountry(new ActorCountry("United States"));
         actor2.setGender("Male");
-        actor2.setImage(new ImageURLs("http://static.tvmaze.com/uploads/images/medium_portrait/162/407084.jpg"));
+        actor2.setImage(new ImageURL("http://static.tvmaze.com/uploads/images/medium_portrait/162/407084.jpg"));
         ActorFeedItem actorFeedItem2 = new ActorFeedItem();
         actorFeedItem2.setScore(25.0);
         actorFeedItem2.setActor(actor2);
@@ -145,7 +145,7 @@ class ActorDataUnitTest {
         actor3.setName("Joel Michale Kramer");
         actor3.setCountry(null);
         actor3.setGender("Male");
-        actor3.setImage(new ImageURLs("http://static.tvmaze.com/uploads/images/medium_portrait/195/488680.jpg"));
+        actor3.setImage(new ImageURL("http://static.tvmaze.com/uploads/images/medium_portrait/195/488680.jpg"));
         ActorFeedItem actorFeedItem3 = new ActorFeedItem();
         actorFeedItem3.setScore(12.5);
         actorFeedItem3.setActor(actor3);
