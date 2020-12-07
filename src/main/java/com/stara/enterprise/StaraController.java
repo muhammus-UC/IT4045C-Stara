@@ -41,7 +41,6 @@ import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -369,17 +368,17 @@ public class StaraController {
         // Need to manually differentiate ID between Actor & Show since TVMaze API doesn't do it for us.
         String favoriteShowId = "Show_" + request.getParameter("id");
 
-        // Storing data of Favorite Show in a Map<String, String> as that is what Firebase parses to save data.
-        Map<String, String> showData = new HashMap<>();
-        showData.put("detail", request.getParameter("language"));
-        showData.put("id", favoriteShowId);
-        showData.put("image", request.getParameter("image"));
-        showData.put("name", request.getParameter("name"));
-        showData.put("subtitle", request.getParameter("status"));
-        showData.put("url", request.getParameter("url"));
+        // Converting Show object properties to Favorite object to later save to Firebase
+        Favorite favoriteShow = new Favorite();
+        favoriteShow.setDetail(request.getParameter("language"));
+        favoriteShow.setId(favoriteShowId);
+        favoriteShow.setImage(request.getParameter("image"));
+        favoriteShow.setName(request.getParameter("name"));
+        favoriteShow.setSubtitle(request.getParameter("status"));
+        favoriteShow.setUrl(request.getParameter("url"));
 
         try {
-            favoriteService.save(showData, firebaseService.getUser(uid).getEmail(), favoriteShowId);
+            favoriteService.save(favoriteShow, firebaseService.getUser(uid).getEmail(), favoriteShowId);
             log.info("Saved Favorite Show " + favoriteShowId + " for user with uid " + uid);
         } catch (FirebaseAuthException e) {
             log.error("Unable to fetch user record from Firebase, a FirebaseAuthException occurred. Message: " + e.getMessage(), e);
@@ -413,17 +412,17 @@ public class StaraController {
         // Need to differentiate ID between Actor & Show since TVMaze API doesnt do it for us.
         String favoriteActorId = "Actor_" + request.getParameter("id");
 
-        // Storing data of Favorite Actor in a Map<String, String> as that is what Firebase parses to save data.
-        Map<String, String> actorData = new HashMap<>();
-        actorData.put("detail", request.getParameter("country"));
-        actorData.put("id", favoriteActorId);
-        actorData.put("image", request.getParameter("image"));
-        actorData.put("name", request.getParameter("name"));
-        actorData.put("subtitle", request.getParameter("gender"));
-        actorData.put("url", request.getParameter("url"));
+        // Converting Actor object properties to Favorite object to later save to Firebase
+        Favorite favoriteActor = new Favorite();
+        favoriteActor.setDetail(request.getParameter("country"));
+        favoriteActor.setId(favoriteActorId);
+        favoriteActor.setImage(request.getParameter("image"));
+        favoriteActor.setName(request.getParameter("name"));
+        favoriteActor.setSubtitle(request.getParameter("gender"));
+        favoriteActor.setUrl(request.getParameter("url"));
 
         try {
-            favoriteService.save(actorData, firebaseService.getUser(uid).getEmail(), favoriteActorId);
+            favoriteService.save(favoriteActor, firebaseService.getUser(uid).getEmail(), favoriteActorId);
             log.info("Saved Favorite Actor " + favoriteActorId + " for user with uid " + uid);
         } catch (FirebaseAuthException e) {
             log.error("Unable to fetch user record from Firebase, a FirebaseAuthException occurred. Message: " + e.getMessage(), e);

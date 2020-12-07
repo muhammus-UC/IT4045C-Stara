@@ -3,7 +3,6 @@ package com.stara.enterprise.service.favorite;
 import com.stara.enterprise.dto.Favorite;
 
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public interface IFavoriteService {
@@ -30,9 +29,9 @@ public interface IFavoriteService {
     /**
      * Create Favorite for email and id specified.
      *
-     * @param favoriteData Map<String, String> object containing the Favorite data to write.
-     * @param email        of user who to create Favorite for
-     * @param id           of Favorite to create
+     * @param favorite Favorite object containing the Favorite data to write to Firebase
+     * @param email    of user who to create Favorite for
+     * @param id       of Favorite to create
      */
-    void save(Map<String, String> favoriteData, String email, String id);
+    void save(Favorite favorite, String email, String id);
 }

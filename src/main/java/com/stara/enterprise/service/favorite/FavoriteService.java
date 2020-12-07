@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -61,7 +60,7 @@ public class FavoriteService implements IFavoriteService {
      *                              Reference: https://www.yegor256.com/2015/10/20/interrupted-exception.html
      */
     @Override
-    @Cacheable(value = "favorites")
+    //@Cacheable(value = "favorites")
     public List<Favorite> fetchAll(String email) throws ExecutionException, InterruptedException {
         List<Favorite> allFavorites = new ArrayList<>();
 
@@ -86,18 +85,18 @@ public class FavoriteService implements IFavoriteService {
      * Create Favorite in Firestore for email and id specified.
      * Firebase Reference on adding data: https://firebase.google.com/docs/firestore/manage-data/add-data
      *
-     * @param favoriteData Map<String, String> object containing the Favorite data to write.
-     * @param email        of user who to create Favorite for
-     * @param id           of Favorite to create
+     * @param favorite Favorite object containing the Favorite data to write to Firebase
+     * @param email    of user who to create Favorite for
+     * @param id       of Favorite to create
      */
     @Override
     @CacheEvict(value = "favorites", allEntries = true)
-    public void save(Map<String, String> favoriteData, String email, String id) {
+    public void save(Favorite favorite, String email, String id) {
         ApiFuture<WriteResult> writeResult = firebaseService.getFirestore()
                 .collection(fireStoreCollectionUsers)
                 .document(email)
                 .collection(fireStoreCollectionFavorites)
                 .document(id)
-                .set(favoriteData);
+                .set(favorite);
     }
 }
